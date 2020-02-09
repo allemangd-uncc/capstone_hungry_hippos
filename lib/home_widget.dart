@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'placeholder_widget.dart';
+import 'drop_down_widget.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -8,6 +9,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home>{
   int _currentIndex = 0;
+  var curSport = '';
+
   final List<Widget> _children = [
     PlaceholderWidget(Colors.white),
     PlaceholderWidget(Colors.orange),
@@ -20,7 +23,12 @@ class _HomeState extends State<Home>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('UNCC Athletics App'),
+
+        //title: Text(appBarTitle),
+        actions: <Widget>[
+          DropDownWidget(),
+        ],
+        backgroundColor: Colors.green,
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
