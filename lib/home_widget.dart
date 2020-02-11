@@ -19,16 +19,14 @@ class _HomeState extends State<Home>{
     PlaceholderWidget(Colors.black38),
   ];
 
+  DropDownWidget ddw = DropDownWidget();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
-        //title: Text(appBarTitle),
-        actions: <Widget>[
-          DropDownWidget(),
-        ],
-        backgroundColor: Colors.green,
+        title: ddw,
+        //backgroundColor: ,
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -64,6 +62,13 @@ class _HomeState extends State<Home>{
   void onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
+      print(ddw);
     });
   }
+}
+
+class Item {
+  const Item(this.name, this.color);
+  final String name;
+  final Color color;
 }
