@@ -9,7 +9,182 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home>{
   int _currentIndex = 0;
   final List<Widget> _children = [
-    PlaceholderWidget(Colors.white),
+    ListView(
+      scrollDirection: Axis.vertical,
+      children: <Widget>[
+        Container(
+          height: 175,
+          margin: EdgeInsets.symmetric(vertical: 10),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: <Widget>[
+              Container(
+                width: 325,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                color: Colors.orange,
+              ),
+              Container(
+                width: 325,
+                color: Colors.orange,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              Container(
+                width: 325,
+                color: Colors.orange,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              Container(
+                width: 325,
+                color: Colors.orange,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              Container(
+                width: 325,
+                color: Colors.orange,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: 175,
+          margin: EdgeInsets.symmetric(vertical: 10),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: <Widget>[
+              Container(
+                width: 325,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                color: Colors.green,
+              ),
+              Container(
+                width: 325,
+                color: Colors.green,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              Container(
+                width: 325,
+                color: Colors.green,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              Container(
+                width: 325,
+                color: Colors.green,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              Container(
+                width: 325,
+                color: Colors.green,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: 175,
+          margin: EdgeInsets.symmetric(vertical: 10),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: <Widget>[
+              Container(
+                width: 325,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                color: Colors.purple,
+              ),
+              Container(
+                width: 325,
+                color: Colors.purple,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              Container(
+                width: 325,
+                color: Colors.purple,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              Container(
+                width: 325,
+                color: Colors.purple,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              Container(
+                width: 325,
+                color: Colors.purple,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: 175,
+          margin: EdgeInsets.symmetric(vertical: 10),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: <Widget>[
+              Container(
+                width: 325,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                color: Colors.blue,
+              ),
+              Container(
+                width: 325,
+                color: Colors.blue,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              Container(
+                width: 325,
+                color: Colors.blue,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              Container(
+                width: 325,
+                color: Colors.blue,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              Container(
+                width: 325,
+                color: Colors.blue,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: 175,
+          margin: EdgeInsets.symmetric(vertical: 10),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: <Widget>[
+              Container(
+                width: 325,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                color: Colors.red,
+              ),
+              Container(
+                width: 325,
+                color: Colors.red,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              Container(
+                width: 325,
+                color: Colors.red,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              Container(
+                width: 325,
+                color: Colors.red,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+              Container(
+                width: 325,
+                color: Colors.red,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+              ),
+            ],
+          ),
+        ),
+
+      ],
+    ),
     PlaceholderWidget(Colors.orange),
     PlaceholderWidget(Colors.blue),
     PlaceholderWidget(Colors.red),
@@ -22,7 +197,9 @@ class _HomeState extends State<Home>{
       appBar: AppBar(
         title: Text('UNCC Athletics App'),
       ),
-      body: _children[_currentIndex],
+      body: Container(
+              child: _children[_currentIndex]
+            ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         onTap: onTabTapped,
