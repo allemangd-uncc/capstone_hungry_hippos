@@ -24,12 +24,15 @@ class _HomeState extends State<Home>{
                 child: Card(
                   child: Column(
                     children: <Widget>[
+                      ListTile(
+                        leading: FlutterLogo(),
+                        title: Text('Testing Fancy Shit'),
+                      ),
                       Expanded(
                         child: Container(
                           color: Colors.orange,
                         ),
                       ),
-                      Text('Testing'),
                     ],
                   ),
                 ),
@@ -40,12 +43,15 @@ class _HomeState extends State<Home>{
                 child: Card(
                   child: Column(
                     children: <Widget>[
+                      ListTile(
+                        leading: FlutterLogo(),
+                        title: Text('Testing Fancy Shit'),
+                      ),
                       Expanded(
                         child: Container(
                           color: Colors.orange,
                         ),
                       ),
-                      Text('Testing'),
                     ],
                   ),
                 ),
@@ -56,12 +62,15 @@ class _HomeState extends State<Home>{
                 child: Card(
                   child: Column(
                     children: <Widget>[
+                      ListTile(
+                        leading: FlutterLogo(),
+                        title: Text('Testing Fancy Shit'),
+                      ),
                       Expanded(
                         child: Container(
                           color: Colors.orange,
                         ),
                       ),
-                      Text('Testing'),
                     ],
                   ),
                 ),
@@ -72,12 +81,15 @@ class _HomeState extends State<Home>{
                 child: Card(
                   child: Column(
                     children: <Widget>[
+                      ListTile(
+                        leading: FlutterLogo(),
+                        title: Text('Testing Fancy Shit'),
+                      ),
                       Expanded(
                         child: Container(
                           color: Colors.orange,
                         ),
                       ),
-                      Text('Testing'),
                     ],
                   ),
                 ),
@@ -88,12 +100,15 @@ class _HomeState extends State<Home>{
                 child: Card(
                   child: Column(
                     children: <Widget>[
+                      ListTile(
+                        leading: FlutterLogo(),
+                        title: Text('Testing Fancy Shit'),
+                      ),
                       Expanded(
                         child: Container(
                           color: Colors.orange,
                         ),
                       ),
-                      Text('Testing'),
                     ],
                   ),
                 ),
@@ -113,12 +128,15 @@ class _HomeState extends State<Home>{
                 child: Card(
                   child: Column(
                     children: <Widget>[
+                      ListTile(
+                        leading: FlutterLogo(),
+                        title: Text('Testing Fancy Shit'),
+                      ),
                       Expanded(
                         child: Container(
                           color: Colors.green,
                         ),
                       ),
-                      Text('Testing'),
                     ],
                   ),
                 ),
@@ -129,12 +147,15 @@ class _HomeState extends State<Home>{
                 child: Card(
                   child: Column(
                     children: <Widget>[
+                      ListTile(
+                        leading: FlutterLogo(),
+                        title: Text('Testing Fancy Shit'),
+                      ),
                       Expanded(
                         child: Container(
                           color: Colors.green,
                         ),
                       ),
-                      Text('Testing'),
                     ],
                   ),
                 ),
@@ -145,12 +166,15 @@ class _HomeState extends State<Home>{
                 child: Card(
                   child: Column(
                     children: <Widget>[
+                      ListTile(
+                        leading: FlutterLogo(),
+                        title: Text('Testing Fancy Shit'),
+                      ),
                       Expanded(
                         child: Container(
                           color: Colors.green,
                         ),
                       ),
-                      Text('Testing'),
                     ],
                   ),
                 ),
@@ -161,12 +185,15 @@ class _HomeState extends State<Home>{
                 child: Card(
                   child: Column(
                     children: <Widget>[
+                      ListTile(
+                        leading: FlutterLogo(),
+                        title: Text('Testing Fancy Shit'),
+                      ),
                       Expanded(
                         child: Container(
                           color: Colors.green,
                         ),
                       ),
-                      Text('Testing'),
                     ],
                   ),
                 ),
@@ -176,13 +203,16 @@ class _HomeState extends State<Home>{
                 margin: EdgeInsets.symmetric(horizontal: 10),
                 child: Card(
                   child: Column(
-                    children: <Widget>[
+                    children:<Widget>[
+                      ListTile(
+                        leading: FlutterLogo(),
+                        title: Text('Testing Fancy Shit'),
+                      ),
                       Expanded(
                         child: Container(
                           color: Colors.green,
                         ),
                       ),
-                      Text('Testing'),
                     ],
                   ),
                 ),
