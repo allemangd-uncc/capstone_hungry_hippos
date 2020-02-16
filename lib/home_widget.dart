@@ -21,95 +21,82 @@ class _HomeState extends State<Home>{
               Container(
                 width: 325,
                 margin: EdgeInsets.symmetric(horizontal: 10),
-                color: Colors.orange,
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.orange,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
               ),
               Container(
                 width: 325,
-                color: Colors.orange,
                 margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.orange,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
               ),
               Container(
                 width: 325,
-                color: Colors.orange,
                 margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.orange,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
               ),
               Container(
                 width: 325,
-                color: Colors.orange,
                 margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.orange,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
               ),
               Container(
                 width: 325,
-                color: Colors.orange,
                 margin: EdgeInsets.symmetric(horizontal: 10),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          height: 175,
-          margin: EdgeInsets.symmetric(vertical: 10),
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: <Widget>[
-              Container(
-                width: 325,
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                color: Colors.green,
-              ),
-              Container(
-                width: 325,
-                color: Colors.green,
-                margin: EdgeInsets.symmetric(horizontal: 10),
-              ),
-              Container(
-                width: 325,
-                color: Colors.green,
-                margin: EdgeInsets.symmetric(horizontal: 10),
-              ),
-              Container(
-                width: 325,
-                color: Colors.green,
-                margin: EdgeInsets.symmetric(horizontal: 10),
-              ),
-              Container(
-                width: 325,
-                color: Colors.green,
-                margin: EdgeInsets.symmetric(horizontal: 10),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          height: 175,
-          margin: EdgeInsets.symmetric(vertical: 10),
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: <Widget>[
-              Container(
-                width: 325,
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                color: Colors.purple,
-              ),
-              Container(
-                width: 325,
-                color: Colors.purple,
-                margin: EdgeInsets.symmetric(horizontal: 10),
-              ),
-              Container(
-                width: 325,
-                color: Colors.purple,
-                margin: EdgeInsets.symmetric(horizontal: 10),
-              ),
-              Container(
-                width: 325,
-                color: Colors.purple,
-                margin: EdgeInsets.symmetric(horizontal: 10),
-              ),
-              Container(
-                width: 325,
-                color: Colors.purple,
-                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.orange,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
@@ -123,27 +110,82 @@ class _HomeState extends State<Home>{
               Container(
                 width: 325,
                 margin: EdgeInsets.symmetric(horizontal: 10),
-                color: Colors.blue,
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.green,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
               ),
               Container(
                 width: 325,
-                color: Colors.blue,
                 margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.green,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
               ),
               Container(
                 width: 325,
-                color: Colors.blue,
                 margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.green,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
               ),
               Container(
                 width: 325,
-                color: Colors.blue,
                 margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.green,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
               ),
               Container(
                 width: 325,
-                color: Colors.blue,
                 margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.green,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
@@ -157,27 +199,259 @@ class _HomeState extends State<Home>{
               Container(
                 width: 325,
                 margin: EdgeInsets.symmetric(horizontal: 10),
-                color: Colors.red,
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.purple,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
               ),
               Container(
                 width: 325,
-                color: Colors.red,
                 margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.purple,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
               ),
               Container(
                 width: 325,
-                color: Colors.red,
                 margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.purple,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
               ),
               Container(
                 width: 325,
-                color: Colors.red,
                 margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.purple,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
               ),
               Container(
                 width: 325,
-                color: Colors.red,
                 margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.purple,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: 175,
+          margin: EdgeInsets.symmetric(vertical: 10),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: <Widget>[
+              Container(
+                width: 325,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.blue,                ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                width: 325,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.blue,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                width: 325,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.blue,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                width: 325,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.blue,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                width: 325,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.blue,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: 175,
+          margin: EdgeInsets.symmetric(vertical: 10),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: <Widget>[
+              Container(
+                width: 325,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.red,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                width: 325,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.red,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                width: 325,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.red,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                width: 325,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.red,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                width: 325,
+                margin: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          color: Colors.red,
+                        ),
+                      ),
+                      Text('Testing'),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
