@@ -3,10 +3,10 @@ import 'placeholder_widget.dart';
 
 class Home extends StatefulWidget {
   @override
-  State<Home> createState() => TestState();
+  State<Home> createState() => HomeState();
 }
 
-class TestState extends State<Home> {
+class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
