@@ -17,7 +17,6 @@ class App extends StatelessWidget{
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'UNCC Athletics',
       theme: Provider.of<ThemeState>(context).theme == ThemeType.DARK
           ? ThemeData.dark()
           : ThemeData.light(),
