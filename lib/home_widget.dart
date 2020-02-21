@@ -20,7 +20,6 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int _currentBodyIndex = 0;
     Item selectedSport;
 
     return StatefulBuilder(
@@ -52,33 +51,7 @@ class Home extends StatelessWidget {
                 ),
                 backgroundColor: _curSport[1],
               ),
-              body: _children[_currentBodyIndex],
-              bottomNavigationBar: BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                onTap: (int index) {
-                  setState(() {
-                    _currentBodyIndex = index;
-                  });
-                },
-                currentIndex: _currentBodyIndex,
-                items: [
-                  BottomNavigationBarItem(
-                    icon: new Icon(Icons.home),
-                    title: new Text("Home"),
-                  ),
-                  BottomNavigationBarItem(
-                      icon: new Icon(Icons.calendar_today),
-                      title: new Text("Schedule")),
-                  BottomNavigationBarItem(
-                      icon: new Icon(Icons.table_chart),
-                      title: new Text("Scores")),
-                  BottomNavigationBarItem(
-                      icon: new Icon(Icons.assessment),
-                      title: new Text("Standings")),
-                  BottomNavigationBarItem(
-                      icon: new Icon(Icons.more_horiz), title: new Text("More"))
-                ],
-              ),
+              body: _children[2],
             ));
   }
 }
