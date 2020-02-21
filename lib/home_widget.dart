@@ -62,15 +62,16 @@ class Home extends StatelessWidget {
                         .of<ThemeState>(context)
                         .theme == ThemeType.DARK,
                     onChanged: (value) {
-                      Provider
-                          .of<ThemeState>(context)
+                      Provider.of<ThemeState>(context)
                           .theme =
-                      value ? ThemeType.DARK : ThemeType.LIGHT;
+                            value ? ThemeType.DARK : ThemeType.LIGHT;
                       setState(() {});
                     },
                   ),
                 ]),
+
             body: _children[_currentBodyIndex],
+
             bottomNavigationBar: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               onTap: (int index) {
