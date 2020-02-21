@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+import 'package:capstone_hungry_hippos/theme_state.dart';
 import 'placeholder_widget.dart';
 
 class Home extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  State<StatefulWidget> createState() {
+    return _HomeState();
+  }
 }
 
 class _HomeState extends State<Home>{
@@ -22,7 +27,20 @@ class _HomeState extends State<Home>{
       appBar: AppBar(
         title: Text('UNCC Athletics App'),
       ),
-      body: _children[_currentIndex],
+
+      body: Center(
+        child: Switch(
+          value: Provider.of<ThemeState>(context).theme == ThemeType.DARK,
+          onChanged: (value) {
+            Provider.of<ThemeState>(context).theme =
+            value ? ThemeType.DARK : ThemeType.LIGHT;
+            setState(() {});
+          },
+        ),
+      ),
+
+      //body: _children[_currentIndex],
+
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         onTap: onTabTapped,
@@ -49,6 +67,15 @@ class _HomeState extends State<Home>{
               title: new Text("More")
           )
         ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            ListTile(
+              title: Text("UNCC Athletics"),
+            ),
+          ],
+        ),
       ),
     );
   }
