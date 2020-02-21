@@ -26,20 +26,17 @@ class _HomeState extends State<Home>{
     return Scaffold(
       appBar: AppBar(
         title: Text('UNCC Athletics App'),
-      ),
-
-      body: Center(
-        child: Switch(
-          value: Provider.of<ThemeState>(context).theme == ThemeType.DARK,
-          onChanged: (value) {
-            Provider.of<ThemeState>(context).theme =
-            value ? ThemeType.DARK : ThemeType.LIGHT;
-            setState(() {});
-          },
-        ),
-      ),
-
-      //body: _children[_currentIndex],
+        actions: <Widget> [
+          Switch(
+            value: Provider.of<ThemeState>(context).theme == ThemeType.DARK,
+            onChanged: (value) {
+              Provider.of<ThemeState>(context).theme =
+              value ? ThemeType.DARK : ThemeType.LIGHT;
+              setState(() {});
+            },
+          ),
+        ]),
+      body: _children[_currentIndex],
 
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
@@ -73,6 +70,7 @@ class _HomeState extends State<Home>{
           children: <Widget>[
             ListTile(
               title: Text("UNCC Athletics"),
+
             ),
           ],
         ),
