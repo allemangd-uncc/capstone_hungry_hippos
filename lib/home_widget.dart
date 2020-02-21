@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'news_feed.dart';
+import 'news/feed.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -9,16 +9,18 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    var feed = Feed();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('UNCC Athletics App'),
       ),
       body: ListView(
         children: <Widget>[
-          HorizontalNewsFeed(title: Text("Basketball")),
-          HorizontalNewsFeed(title: Text("Soccer")),
-          HorizontalNewsFeed(title: Text("Football")),
-          HorizontalNewsFeed(title: Text("Volleyball")),
+          HorizontalNewsFeed(newsFeed: feed, title: Text("Basketball")),
+          HorizontalNewsFeed(newsFeed: feed, title: Text("Soccer")),
+          HorizontalNewsFeed(newsFeed: feed, title: Text("Football")),
+          HorizontalNewsFeed(newsFeed: feed, title: Text("Volleyball")),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
