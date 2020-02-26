@@ -5,3 +5,6 @@ gradle-wrapper.jar
 /gradlew.bat
 /local.properties
 GeneratedPluginRegistrant.java
+/android/app/src/debug/gen
+/android/app/src/main/gen
+/android/app/src/profile/gen
