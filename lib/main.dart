@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'home_widget2.dart';
+import 'home_widget.dart';
 
 void main() => runApp(App());
 
@@ -8,6 +8,7 @@ class App extends StatelessWidget{
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      title: 'UNCC Athletics',
       home: Home(),
     );
   }
