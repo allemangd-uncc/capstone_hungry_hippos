@@ -10,13 +10,7 @@ class Home extends StatelessWidget {
     const Item('Baseball', Colors.yellow),
   ];
 
-  final List<Widget> _children = [
-    PlaceholderWidget(Colors.white),
-    PlaceholderWidget(Colors.orange),
-    PlaceholderWidget(Colors.blue),
-    PlaceholderWidget(Colors.red),
-    PlaceholderWidget(Colors.black38),
-  ];
+  var feed = Feed();
 
   @override
   Widget build(BuildContext context) {
