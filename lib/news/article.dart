@@ -11,18 +11,17 @@ class Article {
   final String thumbUrl;
 
   Article(
-      this.id, {
-        this.type,
-        this.sport,
-        this.title,
-        this.mediumHeadline,
-        this.url,
-        this.summary,
-        this.thumbUrl,
-      });
+    this.id, {
+    this.type,
+    this.sport,
+    this.title,
+    this.mediumHeadline,
+    this.url,
+    this.summary,
+    this.thumbUrl,
+  });
 
-  factory Article.fromJson(Map<String, dynamic> json,
-      {String root = 'https://www.ncaa.com'}) {
+  factory Article.fromJson(Map<String, dynamic> json) {
     return Article(
       json['id'],
       type: json['type'],
@@ -40,33 +39,51 @@ class ArticleCard extends StatelessWidget {
   const ArticleCard({
     Key key,
     @required this.article,
-    @required this.height,
-    @required this.width,
+    this.numCards = 1.25,
   }) : super(key: key);
 
   final Article article;
-  final double height;
-  final double width;
+  final double numCards;
+
+  double widthIn(BuildContext context) {
+    return MediaQuery.of(context).size.width / numCards;
+  }
 
   @override
   Widget build(BuildContext context) {
+    var decoration = BoxDecoration(
+      image: DecorationImage(
+        image: NetworkImage(
+          article.thumbUrl,
+        ),
+        fit: BoxFit.cover,
+      ),
+    );
+
+    var body = Column(
+      verticalDirection: VerticalDirection.up,
+      children: <Widget>[
+        Container(
+          color: Colors.white,
+          child: ListTile(
+            title: Text(
+              article.mediumHeadline,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+            ),
+          ),
+        ),
+      ],
+    );
+
     return SizedBox(
-      height: height,
-      width: width,
+      width: widthIn(context),
       child: Card(
-        clipBehavior: Clip.antiAlias,
-        child: Wrap(
-          verticalDirection: VerticalDirection.up,
-          children: <Widget>[
-            ListTile(
-              title: Text(article.title),
-              trailing: Icon(Icons.more_horiz),
-            ),
-            Image.network(
-              article.thumbUrl,
-              fit: BoxFit.fitWidth,
-            ),
-          ],
+        semanticContainer: true,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Container(
+          decoration: decoration,
+          child: body,
         ),
       ),
     );
