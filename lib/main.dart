@@ -9,7 +9,6 @@ class App extends StatelessWidget{
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'UNCC Athletics',
-
       home: Home(),
     );
   }
