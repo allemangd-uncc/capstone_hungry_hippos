@@ -86,7 +86,7 @@ class Sport extends StatelessWidget {
             value: item,
             child: SizedBox(
               child: Text(item.name),
-              width: 110,
+              width: 150,
             ),
           );
         }).toList(),
