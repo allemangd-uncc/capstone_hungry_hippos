@@ -12,7 +12,6 @@ class Sport extends StatelessWidget {
 
   Item _curSport = colorList[0];
 
-
   final feed = Feed(); // was var not final
 
   @override
@@ -86,7 +85,7 @@ class Sport extends StatelessWidget {
             value: item,
             child: SizedBox(
               child: Text(item.name),
-              width: 110,
+              width: 150,
             ),
           );
         }).toList(),
