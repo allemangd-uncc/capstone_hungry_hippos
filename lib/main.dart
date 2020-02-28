@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'home_widget.dart';
+import 'screens/home_widget.dart';
+import 'screens/sport.dart';
 
 void main() => runApp(App());
 
-class App extends StatelessWidget{
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'UNCC Athletics',
-      home: Home(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Home(),
+        '/Sport': (context) => Sport(),
+      },
     );
   }
 }
-
-
