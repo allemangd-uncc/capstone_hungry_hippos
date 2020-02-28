@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import '../news/feed.dart';
 
 class Sport extends StatelessWidget {
-  final List<Object> _curSport = ['FootBall', Colors.green];
 
-  final List<Item> colorList = <Item>[
+  static final List<Item> colorList = <Item>[
     const Item('FootBall', Colors.green),
     const Item("BasketBall", Colors.red),
     const Item("Soccer", Colors.pinkAccent),
     const Item('Baseball', Colors.orange),
   ];
+
+  Item _curSport = colorList[0];
+
 
   final feed = Feed(); // was var not final
 
@@ -22,14 +24,14 @@ class Sport extends StatelessWidget {
         appBar: AppBar(
           centerTitle: false,
           title: buildDropdownButton(selectedSport, setState),
-          backgroundColor: _curSport[1],
+          backgroundColor: _curSport.color,
         ),
         body: ListView(
           children: <Widget>[
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport[0])),
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport[0])),
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport[0])),
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport[0])),
+            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
+            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
+            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
+            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
           ],
         ),
         drawer: Drawer(
@@ -70,15 +72,13 @@ class Sport extends StatelessWidget {
         style: TextStyle(color: Colors.black, fontSize: 28),
         iconEnabledColor: Colors.white,
         hint: Text(
-          _curSport[0],
+          _curSport.name,
           style: TextStyle(
               color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
         ),
         onChanged: (Item value) {
           setState(() {
-            selectedSport = value;
-            _curSport[0] = selectedSport.name;
-            _curSport[1] = selectedSport.color;
+            _curSport = value;
           });
         },
         items: colorList.map<DropdownMenuItem<Item>>((Item item) {
@@ -86,7 +86,7 @@ class Sport extends StatelessWidget {
             value: item,
             child: SizedBox(
               child: Text(item.name),
-              width: 150,
+              width: 110,
             ),
           );
         }).toList(),
