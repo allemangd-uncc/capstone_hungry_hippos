@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import '../placeholder_widget.dart';
+import '../news/feed.dart';
+
 
 class Home extends StatelessWidget {
-  final List<Widget> _children = [
-    PlaceholderWidget(Colors.white),
-    PlaceholderWidget(Colors.orange),
-    PlaceholderWidget(Colors.blue),
-    PlaceholderWidget(Colors.red),
-    PlaceholderWidget(Colors.black38),
-  ];
+
+  final feed = Feed(); //was var not final
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +13,15 @@ class Home extends StatelessWidget {
               appBar: AppBar(
                 centerTitle: false,
                 title: Text("49ers"),
-              ),
-              body: _children[4],
-              floatingActionButton: FloatingActionButton(
                 backgroundColor: Colors.green,
-                child: Icon(Icons.arrow_forward_ios),
-                onPressed: () => Navigator.pushNamed(context, '/Sport'),
+              ),
+              body: ListView(
+                children: <Widget>[
+                  HorizontalNewsFeed(newsFeed: feed, title: Text("Basketball")),
+                  HorizontalNewsFeed(newsFeed: feed, title: Text("Soccer")),
+                  HorizontalNewsFeed(newsFeed: feed, title: Text("Football")),
+                  HorizontalNewsFeed(newsFeed: feed, title: Text("Volleyball")),
+                ],
               ),
               drawer: Drawer(
                 child: ListView(
@@ -32,7 +31,7 @@ class Home extends StatelessWidget {
                         'Drawer Header',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 24,
+                          fontSize: 28,
                         ),
                       ),
                       decoration: BoxDecoration(
