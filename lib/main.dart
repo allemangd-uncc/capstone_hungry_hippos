@@ -1,3 +1,4 @@
+import 'package:capstone_hungry_hippos/route_generator.dart';
 import 'package:flutter/material.dart';
 import 'screens/home_widget.dart';
 import 'screens/sport.dart';
@@ -10,10 +11,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
-      routes: {
-        '/': (context) => Home(),
-        '/Sport': (context) => Sport(),
-      },
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
