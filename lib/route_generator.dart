@@ -1,3 +1,6 @@
+import 'package:capstone_hungry_hippos/screens/chat.dart';
+import 'package:capstone_hungry_hippos/screens/schedule.dart';
+import 'package:capstone_hungry_hippos/screens/standing.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_hungry_hippos/main.dart';
 import 'package:capstone_hungry_hippos/screens/home_widget.dart';
@@ -13,6 +16,12 @@ class RouteGenerator {
       case '/Sport':
         //We can put logic and stuff here for checking if logged in
         return MaterialPageRoute(builder: (_) => Sport());
+      case '/Schedule':
+        return MaterialPageRoute(builder: (_) => Chat());
+      case '/Standing':
+        return MaterialPageRoute(builder: (_) => Schedule());
+      case '/Chat':
+        return MaterialPageRoute(builder: (_) => Standing());
       default:
         return _errorRoute();
     }

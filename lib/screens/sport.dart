@@ -55,6 +55,18 @@ class Sport extends StatelessWidget {
                   onPressed: () => Navigator.pushNamed(context, '/'),
                 ),
               ),
+              ListTile(
+                title: IconButton(
+                  icon: Icon(Icons.table_chart),
+                  onPressed: () => Navigator.pushNamed(context, '/Standing'),
+                ),
+              ),
+              ListTile(
+                title: IconButton(
+                  icon: Icon(Icons.calendar_today),
+                  onPressed: () => Navigator.pushNamed(context, '/Schedule'),
+                ),
+              ),
             ],
           ),
         ),

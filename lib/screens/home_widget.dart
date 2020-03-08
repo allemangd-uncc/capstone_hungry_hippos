@@ -39,8 +39,10 @@ class Home extends StatelessWidget {
                       ),
                     ),
                     ListTile(
-                      leading: Icon(Icons.message),
-                      title: Text('Messages'),
+                      title: IconButton(
+                        icon: Icon(Icons.message),
+                        onPressed: () => Navigator.pushNamed(context, '/Chat'),
+                      ),
                     ),
                   ],
                 ),
