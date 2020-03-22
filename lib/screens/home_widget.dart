@@ -1,52 +1,64 @@
 import 'package:flutter/material.dart';
 import '../news/feed.dart';
 
-
 class Home extends StatelessWidget {
-
-  final feed = Feed(); //was var not final
-
   @override
   Widget build(BuildContext context) {
-    return StatefulBuilder(
-        builder: (context, StateSetter setState) => Scaffold(
-              appBar: AppBar(
-                centerTitle: false,
-                title: Text("49ers"),
-                backgroundColor: Colors.green,
-              ),
-              body: ListView(
-                children: <Widget>[
-                  HorizontalNewsFeed(newsFeed: feed, title: Text("Basketball")),
-                  HorizontalNewsFeed(newsFeed: feed, title: Text("Soccer")),
-                  HorizontalNewsFeed(newsFeed: feed, title: Text("Football")),
-                  HorizontalNewsFeed(newsFeed: feed, title: Text("Volleyball")),
-                ],
-              ),
-              drawer: Drawer(
-                child: ListView(
-                  children: <Widget>[
-                    DrawerHeader(
-                      child: Text(
-                        'Drawer Header',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28,
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.green,
-                      ),
-                    ),
-                    ListTile(
-                      title: IconButton(
-                        icon: Icon(Icons.message),
-                        onPressed: () => Navigator.pushNamed(context, '/Chat'),
-                      ),
-                    ),
-                  ],
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          _AppBar(),
+          SliverList(delegate: SliverChildListDelegate(_buildList())),
+        ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              child: Text(
+                'Drawer Header',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 28,
                 ),
               ),
-            ));
+              decoration: BoxDecoration(
+                color: Colors.green,
+              ),
+            ),
+            ListTile(
+              title: IconButton(
+                icon: Icon(Icons.message),
+                onPressed: () => Navigator.pushNamed(context, '/Chat'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
+}
+
+class _AppBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SliverAppBar(
+      centerTitle: false,
+      title: Text("49ers"),
+      backgroundColor: Colors.green,
+    );
+  }
+}
+
+List _buildList() {
+  final feed = Feed();
+  List<HorizontalNewsFeed> listItems = List();
+  listItems.add(HorizontalNewsFeed(newsFeed: feed, title: Text("Football")));
+  listItems.add(HorizontalNewsFeed(newsFeed: feed, title: Text("Soccer")));
+  listItems.add(HorizontalNewsFeed(newsFeed: feed, title: Text("Basketball")));
+  listItems.add(HorizontalNewsFeed(newsFeed: feed, title: Text("Volleyball")));
+  listItems.add(HorizontalNewsFeed(newsFeed: feed, title: Text("Baseball")));
+  listItems.add(HorizontalNewsFeed(newsFeed: feed, title: Text("Softball")));
+  listItems.add(HorizontalNewsFeed(newsFeed: feed, title: Text("Tennis")));
+  return listItems;
 }
