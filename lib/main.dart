@@ -1,7 +1,5 @@
 import 'package:capstone_hungry_hippos/route_generator.dart';
 import 'package:flutter/material.dart';
-import 'screens/home_widget.dart';
-import 'screens/sport.dart';
 
 void main() => runApp(App());
 
