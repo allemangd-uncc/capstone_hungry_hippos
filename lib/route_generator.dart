@@ -4,6 +4,7 @@ import 'package:capstone_hungry_hippos/screens/standing.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_hungry_hippos/screens/home_widget.dart';
 import 'package:capstone_hungry_hippos/screens/sport.dart';
+import 'package:capstone_hungry_hippos/screens/game_details.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings){
@@ -21,6 +22,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => Standing());
       case '/Chat':
         return MaterialPageRoute(builder: (_) => Chat());
+      case '/Details':
+        return MaterialPageRoute(builder: (_) => Details());
       default:
         return _errorRoute();
     }

@@ -32,6 +32,12 @@ class Home extends StatelessWidget {
                 onPressed: () => Navigator.pushNamed(context, '/Chat'),
               ),
             ),
+            ListTile( //added by Kaleb to test details page. Will update path / delete when we have game tiles implemented.
+              title: IconButton(
+                icon: Icon(Icons.book),
+                onPressed: () => Navigator.pushNamed(context, '/Details'),
+              ),
+            ),
           ],
         ),
       ),
