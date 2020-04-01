@@ -43,7 +43,7 @@ class HorizontalNewsFeed extends StatelessWidget {
             title: title,
             trailing: IconButton(
               icon: Icon(Icons.navigate_next),
-              onPressed: () => Navigator.pushNamed(context, '/Sport'),
+              onPressed: () => Navigator.of(context).pushNamed('/Sport'),
             ),
           ),
           Expanded(
