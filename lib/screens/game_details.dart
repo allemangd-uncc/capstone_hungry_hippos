@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
@@ -25,64 +26,173 @@ class Details extends StatelessWidget {
           title: Text('Game Details'),
           backgroundColor: Colors.green,
         ),
-        body: Column(
-          children: <Widget>[
-            Container(
-              color: Colors.blueAccent,
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 50.0),
-                child: Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(right: 50.0),
-                      child: Column(
-                        children: <Widget>[
-                          FlutterLogo(),
-                          Text('Team'),
-                        ],
+        body: Container(
+          color: Colors.black12,
+          child: Column(
+            children: <Widget>[
+              Container(
+                color: Colors.black12,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: Colors.black,
+                        width: 2.0,
                       ),
                     ),
-                    Text('10'),
-                    Text('Final'),
-                    Text('30'),
-                    Padding(
-                      padding: EdgeInsets.only(left: 50.0),
-                      child: Column(
-                        children: <Widget>[
-                          FlutterLogo(),
-                          Text('Team'),
-                        ],
-                      ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
+                    child: Row(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(right: 5),
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 45,
+                                width: 45,
+                                child: Image.network('https://upload.wikimedia.org/wikipedia/en/thumb/3/33/Charlotte_49ers_logo.svg/1200px-Charlotte_49ers_logo.svg.png'),
+                              ),
+                              Text('UNCC',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                              ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
+                          child: Text('50',
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 35),
+                          child: Text('vs',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 25),
+                          child: Text('30',
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding:  EdgeInsets.only(left: 5),
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: Image.network('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Appalachian_State_Mountaineers_logo.svg/1200px-Appalachian_State_Mountaineers_logo.svg.png'),
+                              ),
+                              Text('APP St',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-            Container(
-              color: Colors.blue,
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text('Testing'),
+              Container(
+                color: Colors.black12,
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: Colors.black,
+                        width: 2.0,
+                      ),
+                      bottom: BorderSide(
+                        color: Colors.black,
+                        width: 2.0,
+                      ),
+                    ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text('Testing'),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 5.0),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          child: Card(
+                            child: SizedBox(
+                              width: 90,
+                              height: 30,
+                              child: Center(
+                                child: Text('Standings',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          child: Card(
+                            child: SizedBox(
+                              width: 90,
+                              height: 30,
+                              child: Center(
+                                child: Text('Schedule',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          child: Card(
+                            child: SizedBox(
+                              width: 100,
+                              height: 30,
+                              child: Center(
+                                child: Text('Play-By-Play',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          color: Colors.black12,
+                          child: Card(
+                            child: SizedBox(
+                              width: 90,
+                              height: 30,
+                              child: Center(
+                                child: Text('Chat',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text('Testing'),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Text('Testing'),
-                  ),
-                ],
+                ),
               ),
-            ),
-
-          ],
+              Container(
+                child: GameUpdates(),
+              ),
+            ],
+          ),
         ),
         drawer: Drawer(
           child: ListView(
@@ -125,8 +235,6 @@ class Details extends StatelessWidget {
   }
 
 
-
-
 }
 
 class Item {
@@ -136,5 +244,27 @@ class Item {
   final Color color;
 }
 
+class GameUpdates extends StatelessWidget{
 
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            itemCount: 10,
+            itemBuilder: (context, int index){
+              return Card(
+                child: ListTile(
+                  title: Text('Update Heading'),
+                  subtitle: Text('Update Details'),
+                ),
+              );
+            }
+        ),
+      ),
+    );
+
+  }
+}
 
