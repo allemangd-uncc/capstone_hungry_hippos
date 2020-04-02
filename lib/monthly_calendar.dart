@@ -45,20 +45,20 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
   }
 
   void _DaySelected(DateTime day, List events) {
-    print('CALLBACK: _onDaySelected');
     setState(() {
       _selectedEvents = events;
     });
   }
 
-  void _onVisibleDaysChanged(DateTime first, DateTime last, CalendarFormat format) {
+  /*void _onVisibleDaysChanged(DateTime first, DateTime last, CalendarFormat format) {
     print('CALLBACK: _onVisibleDaysChanged');
   }
 
   void _onCalendarCreated(DateTime first, DateTime last, CalendarFormat format) {
     print('CALLBACK: _onCalendarCreated');
-  }
+  }*/
 
+  //----- Builds calendar and event Lister -----
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -66,12 +66,13 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
         children: <Widget>[
           _buildCalendar(),
           const SizedBox(height: 8.0),
-          Expanded(child: _buildEventList()),
+          Expanded(child: _eventLister()),
         ],
       ),
     );
   }
 
+  //----- Builds calendar -----
   @override
   Widget _buildCalendar() {
     return TableCalendar(
@@ -87,7 +88,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
 
       calendarStyle: CalendarStyle(
         outsideWeekendStyle: TextStyle(
-          color: Colors.black,
+          color: Colors.grey,
         ),
 
         weekendStyle: TextStyle(
@@ -98,7 +99,10 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
       daysOfWeekStyle: DaysOfWeekStyle(
           weekendStyle: TextStyle(
             color: Colors.black,
-          )
+          ),
+          weekdayStyle: TextStyle(
+            color: Colors.black,
+          ),
       ),
 
       headerStyle: HeaderStyle(
@@ -129,6 +133,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
         },
 
         todayDayBuilder: (context, date, _) {
+
           return Container(
               margin: const EdgeInsets.all(4.0),
               alignment: Alignment.center,
@@ -142,7 +147,8 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
 
               child: Text(
                 '${date.day}',
-                style: TextStyle(color: Color.fromRGBO(179, 163, 105, 1), //UNCC Gold
+                style: TextStyle(
+                    color: Colors.black,
                 ),
               ),
           );
@@ -160,9 +166,9 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
               ),
             );
           }
+
           return miniBox;
         },
-
       ),
 
       onDaySelected: (date, events) {
@@ -170,8 +176,8 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
         _animationController.forward(from: 0.0);
       },
 
-      onVisibleDaysChanged: _onVisibleDaysChanged,
-      onCalendarCreated: _onCalendarCreated,
+      //onVisibleDaysChanged: _onVisibleDaysChanged,
+      //onCalendarCreated: _onCalendarCreated,
 
     );
   }
@@ -183,9 +189,20 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
 
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
-        color: _calController.isSelected(date)
+
+        /*border: _calController.isSelected(date) //if selected date
+            ? Border.all(color: Colors.black, width: 1.5,)
+            : _calController.isToday(date) //if today's date
+            ? Border.all(color: Colors.black, width: 1.5,)
+            : Border.all(color: Colors.black, width: 0,),*/
+
+        //color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
+        //color: Colors.grey,
+
+        color: _calController.isSelected(date) //if selected date
             ? Colors.blue[400]
-            : _calController.isToday(date) ? Colors.blue[400] : Color.fromRGBO(0, 112, 60, 1),
+            : Color.fromRGBO(0, 112, 60, 1), //UNCC Green
+            //: Colors.grey,
       ),
 
       width: 16.0,
@@ -199,16 +216,44 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
             fontSize: 12.0,
           ),
         ),
+      ),
+    );
+  }
 
+  //----- Format to Game Result -----
+  Widget _buildGameResult() {
+    return Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.rectangle,
+        color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green - if win
+        //color: Colors.grey, // - if lose/tie
+      ),
+
+      width: 15.0,
+      height: 15.0,
+      alignment: Alignment.center,
+
+      child: Text(
+        'W', //Game Result (W-L-T)
+         style: TextStyle().copyWith(
+           color: Colors.white,          // - if win
+           fontSize: 13.0,
+           fontWeight: FontWeight.bold,
+
+        /*'L', //Game Result (W-L-T)
+        style: TextStyle().copyWith(
+          color: Colors.black,          // - if lose/tie
+          fontSize: 13.0,
+          fontWeight: FontWeight.bold,*/
+        ),
       ),
     );
   }
 
   //----- Creates event display -----
-  Widget _buildEventList() {
+  Widget _eventLister() {
     return ListView(
-      children: _selectedEvents
-          .map((event) => Container(
+      children: _selectedEvents.map((event) => Container(
 
         decoration: BoxDecoration(
           border: Border.all(
@@ -219,14 +264,45 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
           borderRadius: BorderRadius.circular(12.0),
         ),
 
+        height: 70.0,
         margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
 
         child: ListTile(
-          title: Text(event.toString()),
-          onTap: () => print('$event tapped!'),
+          leading: Icon(Icons.accessible), //opponent logo
+          title: Row(
+            children: <Widget>[
+              //Text('vs. '),              //home or away (vs. / @)
+              Text('at '),                 //home or away (vs. / at)
+              Text(event.toString()),
+            ],
+          ),
+
+          //title: Text(event.toString()),
+          subtitle: Text('Sport'),
+
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text('Score '),
+              _buildGameResult(), //Game Result (W-L)
+              //Text('TBD'),
+
+            ],
+          ),
+          onTap: () => print('$event tapped!'), //When event display is clicked
         ),
       ))
           .toList(),
     );
   }
+}
+
+class TextScore { //Displays score of game
+  String team;
+  String opponent;
+
+  TextScore({String this.team, String this.opponent});
+
+  @override
+  String toString() => team + " - " + opponent;
 }
