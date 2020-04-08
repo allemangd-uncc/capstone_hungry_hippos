@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:table_calendar/table_calendar.dart';
+
+import 'screens/sport_schedule.dart';
+import 'dart:convert';
 
 class Calendar extends StatefulWidget {
   @override
@@ -12,21 +16,62 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
   AnimationController _animationController;
   CalendarController _calController;
 
+  //** ----- Fix so it can be any sport ----- **
+  //static final sportUrl = 'https://charlotte49ers.com/services/adaptive_components.ashx?type=scoreboard&start=0&count=80';
+  //Future<List<sport_schedule>> getEvents(int sportID) async {
+
+  Future<List<sport_schedule>> getEvents() async {
+    //var url = '$sportUrl&sport_id=,$sportID&name=&extra=%7B%7D';
+    var url = 'https://charlotte49ers.com/services/adaptive_components.ashx?type=scoreboard&start=0&count=80&sport_id=3&name=&extra=%7B%7D';
+
+    http.Response response = await http.get(url);
+    Iterable games = json.decode(response.body);
+    return games.map((e) => sport_schedule.fromJson(e)).toList();
+  }
+
+  Future<Map<DateTime, List>> getGames() async {
+    Map<DateTime, List> mapGrab = {};
+
+    List<sport_schedule> eventInfo = await getEvents();
+
+    for (int i = 0; i < eventInfo.length; i++) {
+      var sportEvent = DateTime(
+          eventInfo[i].date.year,
+          eventInfo[i].date.month,
+          eventInfo[i].date.day
+      );
+      var original = mapGrab[sportEvent];
+
+      if (original == null) {
+        //print("null");
+        mapGrab[sportEvent] = [eventInfo[i].location];
+        mapGrab[sportEvent] = [eventInfo[i].sportTitle];
+        mapGrab[sportEvent] = [eventInfo[i].opponentTitle];
+        mapGrab[sportEvent] = [eventInfo[i].status];
+        mapGrab[sportEvent] = [eventInfo[i].team_score];
+        mapGrab[sportEvent] = [eventInfo[i].opponent_score];
+      } else {
+        //print(eventInfo[i].date);
+        mapGrab[sportEvent] = List.from(original)..addAll([eventInfo[i].location]);
+        mapGrab[sportEvent] = List.from(original)..addAll([eventInfo[i].sportTitle]);
+        mapGrab[sportEvent] = List.from(original)..addAll([eventInfo[i].opponentTitle]);
+        mapGrab[sportEvent] = List.from(original)..addAll([eventInfo[i].status]);
+        mapGrab[sportEvent] = List.from(original)..addAll([eventInfo[i].team_score]);
+        mapGrab[sportEvent] = List.from(original)..addAll([eventInfo[i].opponent_score]);
+      }
+
+      print([eventInfo[i].location]);
+    }
+
+    return mapGrab;
+  }
+
   @override
   void initState() {
-    super.initState();
     final _selectedDay = DateTime.now();
 
-    _events = {
-      _selectedDay.add(Duration(days: 0)): ['Test'],
-      _selectedDay.add(Duration(days: 5)): ['Example 1'],
-      _selectedDay.add(Duration(days: 7)): ['Example 2'],
-      _selectedDay.add(Duration(days: 14)): ['Example 3'],
-      _selectedDay.add(Duration(days: 2)): ['Example 4'],
-      _selectedDay.add(Duration(days: 27)): ['Example 5'],
-    };
-
-    _selectedEvents = _events[_selectedDay] ?? [];
+    //_selectedEvents = _events[_selectedDay] ?? [];
+    _selectedEvents = [];
     _calController = CalendarController();
 
     _animationController = AnimationController(
@@ -35,6 +80,15 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
     );
 
     _animationController.forward();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getGames().then((val) => setState(() {
+        _events = val;
+      }));
+      //print( ' ${_events.toString()} ');
+    });
+
+    super.initState();
   }
 
   @override
@@ -225,6 +279,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
+
         color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green - if win
         //color: Colors.grey, // - if lose/tie
       ),
@@ -253,6 +308,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
   //----- Creates event display -----
   Widget _eventLister() {
     return ListView(
+      //children: <Widget>[
       children: _selectedEvents.map((event) => Container(
 
         decoration: BoxDecoration(
@@ -273,12 +329,14 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
             children: <Widget>[
               //Text('vs. '),              //home or away (vs. / @)
               Text('at '),                 //home or away (vs. / at)
-              Text(event.toString()),
+              Text('Opponent')
+              //Text(event.toString()),
             ],
           ),
 
           //title: Text(event.toString()),
-          subtitle: Text('Sport'),
+          //subtitle: Text('Sport '),
+          subtitle: Text('Sport - Location'),
 
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
