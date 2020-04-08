@@ -1,6 +1,10 @@
+import 'package:capstone_hungry_hippos/twitter_assets/twitterFeed.dart';
 import 'package:flutter/material.dart';
+import '../twitter_assets/tweet.dart';
 
 class TwitterFeed extends StatelessWidget{
+  final feed = TwitterFeedCreation();
+
   @override
   Widget build(BuildContext context) {
     return StatefulBuilder(
@@ -12,18 +16,7 @@ class TwitterFeed extends StatelessWidget{
             ),
             body: Container(
               color: Colors.black12,
-              child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, ind){
-                    return Card(
-                      child: ListTile(
-                        leading: FlutterLogo(),
-                        title: Text('Twitter User'),
-                        subtitle: Text('Tweet: I really hope I can figure out the whole URl thing what if this is longer and stuff. will it wrap around? I hope so we about to find out'),
-                      ),
-                    );
-                  }
-              ),
+              child: VerticalTwitterFeed(twitterFeed: feed),
             ),
             drawer: Drawer(
               child: ListView(
