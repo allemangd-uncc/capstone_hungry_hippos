@@ -44,9 +44,21 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #  - images/a_dot_burr.jpeg
-  #  - images/a_dot_ham.jpeg
+  assets:
+    - assets/school_logos/FIU.png
+    - assets/school_logos/FloridaOwls.png
+    - assets/school_logos/LouisianaBulldogs.png
+    - assets/school_logos/Marshal.png
+    - assets/school_logos/MT.png
+    - assets/school_logos/NorthTexas.png
+    - assets/school_logos/ODU.png
+    - assets/school_logos/RiceOwls.png
+    - assets/school_logos/SouthernMiss.png
+    - assets/school_logos/UAB.png
+    - assets/school_logos/uncc.png
+    - assets/school_logos/UTEP.png
+    - assets/school_logos/UTSA.png
+    - assets/school_logos/wku.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
