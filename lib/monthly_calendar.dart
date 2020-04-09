@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:table_calendar/table_calendar.dart';
 
 import 'screens/sport_schedule.dart';
+import 'screens/sport.dart' as globals;
 import 'dart:convert';
 
 class Calendar extends StatefulWidget {
@@ -16,13 +17,13 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
   AnimationController _animationController;
   CalendarController _calController;
 
-  //** ----- Fix so it can be any sport ----- **
-  //static final sportUrl = 'https://charlotte49ers.com/services/adaptive_components.ashx?type=scoreboard&start=0&count=80';
-  //Future<List<sport_schedule>> getEvents(int sportID) async {
+  int sportID = globals.Sport.sport_ID;
+  static final sportUrl = 'https://charlotte49ers.com/services/adaptive_components.ashx?type=scoreboard&start=0&count=80';
 
   Future<List<sport_schedule>> getEvents() async {
-    //var url = '$sportUrl&sport_id=,$sportID&name=&extra=%7B%7D';
-    var url = 'https://charlotte49ers.com/services/adaptive_components.ashx?type=scoreboard&start=0&count=80&sport_id=3&name=&extra=%7B%7D';
+    var url = '$sportUrl&sport_id=$sportID&name=&extra=%7B%7D';
+
+    print(url); //temp
 
     http.Response response = await http.get(url);
     Iterable games = json.decode(response.body);
@@ -44,25 +45,13 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
 
       if (original == null) {
         //print("null");
-        mapGrab[sportEvent] = [eventInfo[i].location];
-        mapGrab[sportEvent] = [eventInfo[i].sportTitle];
         mapGrab[sportEvent] = [eventInfo[i].opponentTitle];
-        mapGrab[sportEvent] = [eventInfo[i].status];
-        mapGrab[sportEvent] = [eventInfo[i].team_score];
-        mapGrab[sportEvent] = [eventInfo[i].opponent_score];
       } else {
         //print(eventInfo[i].date);
-        mapGrab[sportEvent] = List.from(original)..addAll([eventInfo[i].location]);
-        mapGrab[sportEvent] = List.from(original)..addAll([eventInfo[i].sportTitle]);
         mapGrab[sportEvent] = List.from(original)..addAll([eventInfo[i].opponentTitle]);
-        mapGrab[sportEvent] = List.from(original)..addAll([eventInfo[i].status]);
-        mapGrab[sportEvent] = List.from(original)..addAll([eventInfo[i].team_score]);
-        mapGrab[sportEvent] = List.from(original)..addAll([eventInfo[i].opponent_score]);
       }
-
-      print([eventInfo[i].location]);
+      //print([eventInfo[i].opponentTitle]); //temp
     }
-
     return mapGrab;
   }
 
@@ -85,7 +74,6 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
       getGames().then((val) => setState(() {
         _events = val;
       }));
-      //print( ' ${_events.toString()} ');
     });
 
     super.initState();
@@ -308,7 +296,6 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
   //----- Creates event display -----
   Widget _eventLister() {
     return ListView(
-      //children: <Widget>[
       children: _selectedEvents.map((event) => Container(
 
         decoration: BoxDecoration(
@@ -324,18 +311,16 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
         margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
 
         child: ListTile(
-          leading: Icon(Icons.accessible), //opponent logo
+          leading: Icon(Icons.accessible),    //opponent logo
           title: Row(
             children: <Widget>[
-              //Text('vs. '),              //home or away (vs. / @)
-              Text('at '),                 //home or away (vs. / at)
-              Text('Opponent')
-              //Text(event.toString()),
+              //Text('vs. '),                 //home or away (vs. / @)
+              Text('at '),                    //home or away (vs. / at)
+              Text(event.toString()),         //opponent name
             ],
           ),
 
-          //title: Text(event.toString()),
-          //subtitle: Text('Sport '),
+          //subtitle: Text(event.toString()), //Type of sport - Location
           subtitle: Text('Sport - Location'),
 
           trailing: Row(
@@ -353,14 +338,4 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
           .toList(),
     );
   }
-}
-
-class TextScore { //Displays score of game
-  String team;
-  String opponent;
-
-  TextScore({String this.team, String this.opponent});
-
-  @override
-  String toString() => team + " - " + opponent;
 }

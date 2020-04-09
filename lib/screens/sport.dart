@@ -12,8 +12,13 @@ class Sport extends StatelessWidget {
 
   Item _curSport = colorList[0];
 
-
   final feed = Feed(); // was var not final
+
+  bool genderSportSwitch = false;
+  final String imageMale = 'images/male.png';
+  final String imageFemale = 'images/female.png';
+
+  static int sport_ID;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +30,28 @@ class Sport extends StatelessWidget {
           centerTitle: false,
           title: buildDropdownButton(selectedSport, setState),
           backgroundColor: _curSport.color,
+
+            //--Gender Switch--  **Important; Need to make condition to determine gender
+            actions: <Widget>[
+              if (genderSportSwitch == true)
+                Switch(
+                  value: false,
+                  onChanged: (value) {
+                    setState(() {});
+                  },
+                  inactiveThumbColor: Colors.lightBlue,
+                  inactiveThumbImage: Image
+                      .asset(imageMale)
+                      .image,
+
+                  activeColor: Colors.pinkAccent,
+                  activeThumbImage: Image
+                      .asset(imageFemale)
+                      .image,
+                ),
+
+            ]
+
         ),
         body: ListView(
           children: <Widget>[
@@ -91,6 +118,37 @@ class Sport extends StatelessWidget {
         onChanged: (Item value) {
           setState(() {
             _curSport = value;
+
+            //Will set the sport id / Display gender switch
+            switch (_curSport.name) {   //prints are temporary
+              case 'FootBall':
+                print(_curSport.name);
+                print(genderSportSwitch);
+                genderSportSwitch = false;
+                sport_ID = 3;
+                break;
+              case 'BasketBall':
+                print(_curSport.name);
+                print(genderSportSwitch);
+                genderSportSwitch = true;
+                sport_ID = 5;    //Male
+                //sport_ID = 13;  //Female
+                break;
+              case 'Soccer':
+                print(_curSport.name);
+                print(genderSportSwitch);
+                genderSportSwitch = true;
+                sport_ID = 9;    //Male
+                //sport_ID = 17;  //Female
+                break;
+              case 'Baseball':
+                print(_curSport.name);
+                print(genderSportSwitch);
+                genderSportSwitch = false;
+                sport_ID = 1;
+                break;
+            }
+            print(sport_ID);
           });
         },
         items: colorList.map<DropdownMenuItem<Item>>((Item item) {
