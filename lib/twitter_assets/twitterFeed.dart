@@ -21,7 +21,7 @@ class TwitterFeedCreation {
   Future<List<Tweet>> getPage({int size = 10}) async {
     var url = '$twitterBase/tweets.json?q=from%3ACharlotteFTBL&result_type=mixed&count=$size';
     http.Response response = await http.get(url,
-      headers: <String, String> {}
+      headers: <String, String> {'authorization': apiKey,}
     );
     Iterable tweets = json.decode(response.body);
     return tweets.map((e) => Tweet.fromJson(e)).toList();
