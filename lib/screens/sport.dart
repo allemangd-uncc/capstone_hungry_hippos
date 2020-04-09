@@ -14,9 +14,10 @@ class Sport extends StatelessWidget {
 
   final feed = Feed(); // was var not final
 
-  bool genderSportSwitch = false;
+  bool genderSportSwitch = false; //determines if sport needs the gender switch
   final String imageMale = 'images/male.png';
   final String imageFemale = 'images/female.png';
+  bool genderSport = false; //determines which gender switch is set M - false / F - True
 
   static int sport_ID;
 
@@ -37,17 +38,22 @@ class Sport extends StatelessWidget {
                 Switch(
                   value: false,
                   onChanged: (value) {
-                    setState(() {});
+                    setState(() {
+                      if (value == false) {
+                        genderSport = false;
+                      }
+                      else {
+                        genderSport = true;
+                      }
+
+                      //print(genderSport);
+                    });
                   },
                   inactiveThumbColor: Colors.lightBlue,
-                  inactiveThumbImage: Image
-                      .asset(imageMale)
-                      .image,
+                  inactiveThumbImage: Image.asset(imageMale).image,
 
                   activeColor: Colors.pinkAccent,
-                  activeThumbImage: Image
-                      .asset(imageFemale)
-                      .image,
+                  activeThumbImage: Image.asset(imageFemale).image,
                 ),
 
             ]
@@ -120,31 +126,46 @@ class Sport extends StatelessWidget {
             _curSport = value;
 
             //Will set the sport id / Display gender switch
-            switch (_curSport.name) {   //prints are temporary
+            switch (_curSport.name) {   //prints are temp
               case 'FootBall':
-                print(_curSport.name);
-                print(genderSportSwitch);
+                //print(_curSport.name);
                 genderSportSwitch = false;
+                //print(genderSportSwitch);
+
                 sport_ID = 3;
                 break;
+
               case 'BasketBall':
-                print(_curSport.name);
-                print(genderSportSwitch);
+                //print(_curSport.name);
                 genderSportSwitch = true;
-                sport_ID = 5;    //Male
-                //sport_ID = 13;  //Female
+                //print(genderSportSwitch);
+
+                if (genderSport == false) {
+                  sport_ID = 5; //Male
+                }
+                else {
+                  sport_ID = 13; //Female
+                }
                 break;
+
               case 'Soccer':
-                print(_curSport.name);
-                print(genderSportSwitch);
+                //print(_curSport.name);
                 genderSportSwitch = true;
-                sport_ID = 9;    //Male
-                //sport_ID = 17;  //Female
+                //print(genderSportSwitch);
+
+                if (genderSport == false) {
+                  sport_ID = 9;    //Male
+                }
+                else {
+                  sport_ID = 17;  //Female
+                }
                 break;
+
               case 'Baseball':
-                print(_curSport.name);
-                print(genderSportSwitch);
+                //print(_curSport.name);
                 genderSportSwitch = false;
+                //print(genderSportSwitch);
+
                 sport_ID = 1;
                 break;
             }
