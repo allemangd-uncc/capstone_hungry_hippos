@@ -14,9 +14,14 @@ class TwitterFeedCreation {
   static final apiKey = 'AFBfOqx8uXIUBZMxAFoQyO3zA';
   static final apiSecret = '48Gp7nczz9SqExorwYuWpA6Nmviuox6Beq83kjH1XtYtunorym';
 
+  getToken() async {
+    http.Response response = await http.get('https://api.twitter.com/oauth2/token',);
+}
+
   Future<List<Tweet>> getPage({int size = 10}) async {
     var url = '$twitterBase/tweets.json?q=from%3ACharlotteFTBL&result_type=mixed&count=$size';
-    http.Response response = await http.get(url
+    http.Response response = await http.get(url,
+      headers: <String, String> {}
     );
     Iterable tweets = json.decode(response.body);
     return tweets.map((e) => Tweet.fromJson(e)).toList();
