@@ -46,9 +46,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/school_logos/FIU.png
-    - assets/school_logos/FloridaOwls.png
-    - assets/school_logos/LouisianaBulldogs.png
-    - assets/school_logos/Marshal.png
+    - assets/school_logos/FAU.png
+    - assets/school_logos/LT.png
+    - assets/school_logos/Marshall.png
     - assets/school_logos/MT.png
     - assets/school_logos/NorthTexas.png
     - assets/school_logos/ODU.png

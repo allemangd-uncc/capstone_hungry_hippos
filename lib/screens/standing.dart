@@ -1,21 +1,22 @@
+import 'package:capstone_hungry_hippos/models/School.dart';
 import 'package:flutter/material.dart';
 
 class Standing extends StatelessWidget {
-  static const _teamName = [
-    "North Texas Mean Green",
-    "Louisiana Tech Bulldogs",
-    "Western Kentucky Hilltoppers",
-    "Charlotte 49ers",
-    "Marshall Thundering Herd",
-    "Florida Int'L Panthers",
-    "UAB Blazers",
-    "Old Dominion Monarchs",
-    "Florida Atlantic Owls",
-    "UTEP Miners",
-    "UTSA Roadrunners",
-    "Rice Owls",
-    "Southern Miss Golden Eagles",
-    "Middle Tennessee Blue Raiders",
+  final _schools = [
+    School("North Texas Mean Green",AssetImage('assets/school_logos/NorthTexas.png'), 14, 4),
+    School("Louisiana Tech Bulldogs",AssetImage('assets/school_logos/LT.png'), 13, 5),
+    School("Western Kentucky Hilltoppers",AssetImage('assets/school_logos/wku.png'), 13, 5),
+    School("Charlotte 49ers",AssetImage('assets/school_logos/uncc.png'), 10, 8),
+    School("Marshall Thundering Herd",AssetImage('assets/school_logos/Marshall.png'), 10, 8),
+    School("Florida Int'L Panthers",AssetImage('assets/school_logos/FIU.png'), 9, 9),
+    School("UAB Blazers",AssetImage('assets/school_logos/UAB.png'), 9, 9),
+    School("Old Dominion Monarchs",AssetImage('assets/school_logos/ODU.png'), 9, 9),
+    School("Florida Atlantic Owl",AssetImage('assets/school_logos/FAU.png'), 8, 10),
+    School("UTEP Miners",AssetImage('assets/school_logos/UTEP.png'), 8, 10),
+    School("UTSA Roadrunners",AssetImage('assets/school_logos/UTSA.png'), 7, 11),
+    School("Rice Owls",AssetImage('assets/school_logos/RiceOwls.png'), 7, 11),
+    School("Southern Miss Golden Eagles",AssetImage('assets/school_logos/SouthernMiss.png'), 5, 13),
+    School("Middle Tennessee Blue Raiders",AssetImage('assets/school_logos/MT.png'), 4, 14),
   ];
 
   @override
@@ -30,25 +31,68 @@ class Standing extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              child:  Text("W        L", style: TextStyle(fontWeight: FontWeight.bold),)
-              , alignment: Alignment(.85, 0),
+              child: Text(
+                "W        L",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              alignment: Alignment(.85, 0),
               height: 20,
               color: Colors.grey,
             ),
-            SportLine(teamName: _teamName[0], position: 1, win: 12, loss: 4, logo: AssetImage('assets/school_logos/NorthTexas.png'),),
-            SportLine(teamName: _teamName[1], position: 2, win: 12, loss: 4,logo: AssetImage('assets/school_logos/LouisianaBulldogs.png'),),
-            SportLine(teamName: _teamName[2], position: 3, win: 12, loss: 4,logo: AssetImage('assets/school_logos/wku.png'),),
-            SportLine(teamName: _teamName[3], position: 4, win: 12, loss: 4,logo: AssetImage('assets/school_logos/uncc.png'),),
-            SportLine(teamName: _teamName[4], position: 5, win: 12, loss: 4,logo: AssetImage('assets/school_logos/Marshal.png'),),
-            SportLine(teamName: _teamName[5], position: 6, win: 12, loss: 4,logo: AssetImage('assets/school_logos/FIU.png'),),
-            SportLine(teamName: _teamName[6], position: 7, win: 12, loss: 4,logo: AssetImage('assets/school_logos/UAB.png'),),
-            SportLine(teamName: _teamName[7], position: 8, win: 12, loss: 4,logo: AssetImage('assets/school_logos/ODU.png'),),
-            SportLine(teamName: _teamName[8], position: 9, win: 12, loss: 4,logo: AssetImage('assets/school_logos/FloridaOwls.png'),),
-            SportLine(teamName: _teamName[9], position: 10, win: 12, loss: 4,logo: AssetImage('assets/school_logos/UTEP.png'),),
-            SportLine(teamName: _teamName[10], position: 11, win: 12, loss: 4,logo: AssetImage('assets/school_logos/UTSA.png'),),
-            SportLine(teamName: _teamName[11], position: 12, win: 12, loss: 4,logo: AssetImage('assets/school_logos/RiceOwls.png'),),
-            SportLine(teamName: _teamName[12], position: 13, win: 12, loss: 4,logo: AssetImage('assets/school_logos/SouthernMiss.png'),),
-            SportLine(teamName: _teamName[13], position: 14, win: 12, loss: 4,logo: AssetImage('assets/school_logos/MT.png'),),
+            SportLine(
+              s: _schools[0],
+              position: 1,
+            ),
+            SportLine(
+              s: _schools[1],
+              position: 2,
+            ),
+            SportLine(
+              s: _schools[2],
+              position: 3,
+            ),
+            SportLine(
+              s: _schools[3],
+              position: 4,
+            ),
+            SportLine(
+              s: _schools[4],
+              position: 5,
+            ),
+            SportLine(
+              s: _schools[5],
+              position: 6,
+            ),
+            SportLine(
+              s: _schools[6],
+              position: 7,
+            ),
+            SportLine(
+              s: _schools[7],
+              position: 8,
+            ),
+            SportLine(
+              s: _schools[8],
+              position: 9,
+            ),
+            SportLine(
+              s: _schools[9],
+              position: 10,
+            ),
+            SportLine(
+              s: _schools[10],
+              position: 11,
+            ),
+            SportLine(
+              s: _schools[11],
+              position: 12,
+            ),SportLine(
+              s: _schools[12],
+              position: 13,
+            ),SportLine(
+              s: _schools[13],
+              position: 14,
+            ),
           ],
         ),
       ),
@@ -59,59 +103,69 @@ class Standing extends StatelessWidget {
 class SportLine extends StatelessWidget {
   const SportLine({
     Key key,
-    @required this.teamName, this.position, this.win, this.loss, this.logo,
+    @required
+    this.position,
+    this.s
   }) : super(key: key);
 
+  final School s;
   final int position;
-  final String teamName;
-  final int win;
-  final int loss;
-  final AssetImage logo;
-
-
   @override
   Widget build(BuildContext context) {
-//    return Container(
-//      child:  Text("$position  " + teamName)
-//      , alignment: Alignment(-1, 0),
-//      height: 55,
-//      color: evenOdd(position),
-//    );
-    return Row(
-      children: <Widget>[
-        Container(
-          height: 55,
-          width: 20,
-          child: Center(
-              child: Text("$position", style: TextStyle(fontWeight: FontWeight.bold),)
-          ),
-        ),
-        Container(
-          width: 55,
-          child: Image(
-            image: logo,
-          ),
-        ),
-        Container(width: 5,),
-        Container(
-          width: 255,
-          child: Text(teamName),
-        ),
-        Container(
-          width: 35,
-            child:  Text("$win", style: TextStyle(fontWeight: FontWeight.bold),)
-        ),
-        Container(
-          width: 35,
-            child:  Text("   $loss", style: TextStyle(fontWeight: FontWeight.bold),)
+    int w = s.win;
+    int l = s.loss;
+    return Container(
+        color: evenOdd(position),
+        height: 60,
+        child: Row(
+          children: <Widget>[
+            Container(
+              height: 55,
+              width: 20,
+              //color: Colors.orange,
+              child: Center(
+                  child: Text(
+                "$position",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              )),
+            ),
+            Container(
+              //color: Colors.blue,
+              width: 55,
+              child: Image(
+                image: s.logo,
+              ),
+            ),
+            Container(
+              width: 5,
+              //color: Colors.red,
+            ),
+            Container(
+              //color: Colors.pinkAccent,
+              width: 255,
+              child: Text(s.name),
+            ),
+            Container(
+                //color: Colors.orange,
+                width: 35,
+                child: Text(
+                  "$w",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
+            Container(
+                //color: Colors.blue,
+                width: 35,
+                child: Text(
+                  "   $l",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ))
+          ],
         )
-      ],
     );
   }
 
   Color evenOdd(int i) {
-    Color c = i % 2 == 0 ? Colors.grey : Colors.white30;
+    Color c = i % 2 == 0 ? Colors.black12 : Colors.white30;
     return c;
   }
 }
-

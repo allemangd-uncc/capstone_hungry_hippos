@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class School {
   final String name;
-  final Icon logo;
+  final AssetImage logo;
   final int win;
   final int loss;
 
