@@ -50,6 +50,12 @@ class _HomeState extends State<Home> {
             ),
             ListTile(
               title: IconButton(
+                icon: Icon(Icons.voice_chat),
+                onPressed: () => Navigator.pushNamed(context, '/Twitter'),
+              ),
+            ),
+            ListTile(
+              title: IconButton(
                 icon: Icon(Icons.settings),
                 onPressed: () =>
                     Navigator.pushNamed(context, '/Favorites').then((e) {
