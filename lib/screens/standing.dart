@@ -142,7 +142,7 @@ class SportLine extends StatelessWidget {
             ),
             Container(
               //color: Colors.pinkAccent,
-              width: 255,
+              width: 220,
               child: Text(s.name),
             ),
             Container(

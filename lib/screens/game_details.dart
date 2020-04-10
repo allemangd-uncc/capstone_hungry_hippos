@@ -42,7 +42,7 @@ class Details extends StatelessWidget {
                     ),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
+                    padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 30.0),
                     child: Row(
                       children: <Widget>[
                         Padding(
@@ -173,7 +173,7 @@ class Details extends StatelessWidget {
                           color: Colors.black12,
                           child: Card(
                             child: SizedBox(
-                              width: 89,
+                              width: 50,
                               height: 30,
                               child: Center(
                                 child: Text('Chat',
