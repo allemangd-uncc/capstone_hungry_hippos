@@ -18,20 +18,20 @@ class TwitterFeedCreation {
     http.Response response = await http.get('https://api.twitter.com/oauth2/token',);
 }
 
-  Future<List<Tweet>> getPage({int size = 10}) async {
+  /*Future<List<Tweet>> getPage({int size = 10}) async {
     var url = '$twitterBase/tweets.json?q=from%3ACharlotteFTBL&result_type=mixed&count=$size';
     http.Response response = await http.get(url,
       headers: <String, String> {'authorization': apiKey,}
     );
     Iterable tweets = json.decode(response.body);
     return tweets.map((e) => Tweet.fromJson(e)).toList();
-  }
+  } */
 }
 
 
 class VerticalTwitterFeed extends StatelessWidget{
 
-  final TwitterFeedCreation twitterFeed;
+  final List<Tweet> twitterFeed;
 
   const VerticalTwitterFeed({
     Key key,
@@ -40,7 +40,20 @@ class VerticalTwitterFeed extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
+      child:  ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: twitterFeed.length,
+        itemBuilder: (ctx, idx){
+          return TwitterCard(
+            tweet: twitterFeed[idx],
+          );
+        },
+      ),
+    );
+
+   /* return Container(
       child: FutureBuilder(
         future: twitterFeed.getPage(),
         builder: (ctx, snapshot){
@@ -60,6 +73,6 @@ class VerticalTwitterFeed extends StatelessWidget{
           }
         },
       ),
-    );
+    ); */
   }
 }

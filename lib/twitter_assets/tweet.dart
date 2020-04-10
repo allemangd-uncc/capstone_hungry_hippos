@@ -8,14 +8,14 @@ class Tweet {
   final String url;
 
   Tweet(
-      this.id, {
+      this.id,
         this.text,
         this.userName,
         this.userImgUrl,
         this.url,
-      });
+      );
 
-  factory Tweet.fromJson(Map<String, dynamic> json) {
+  /*factory Tweet.fromJson(Map<String, dynamic> json) {
     return Tweet(
       json['id_str'],
       text: json['text'],
@@ -24,6 +24,11 @@ class Tweet {
       url: json['urls']['expanded_url'],
     );
   }
+  Commenting out till we figure out the API
+  */
+
+
+
 }
 
 class TwitterCard extends StatelessWidget{
@@ -38,14 +43,25 @@ class TwitterCard extends StatelessWidget{
     @override
     Widget build(BuildContext context) {
       return Card(
-        child: ListTile(
-          leading: SizedBox(
-            width: 75,
-            height: 75,
-            child: Image.network('${tweet.userImgUrl}'),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+          child: ListTile(
+            leading: SizedBox(
+              height: 125,
+              width: 75,
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: NetworkImage('${tweet.userImgUrl}'),
+                  ),
+                ),
+              ),
+            ),
+            title: Text('${tweet.userName}'),
+            subtitle: Text('${tweet.text}'),
           ),
-          title: Text('${tweet.userName}'),
-          subtitle: Text('${tweet.text}'),
         ),
       );
   }
