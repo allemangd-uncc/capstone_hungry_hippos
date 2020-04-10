@@ -17,7 +17,7 @@ class Sport extends StatelessWidget {
   bool genderSportSwitch = false; //determines if sport needs the gender switch
   final String imageMale = 'images/male.png';
   final String imageFemale = 'images/female.png';
-  bool genderSport = false; //determines which gender switch is set M - false / F - True
+  static bool genderSport = false; //determines which gender switch is set M - false / F - True
 
   static int sport_ID;
 
@@ -32,11 +32,11 @@ class Sport extends StatelessWidget {
           title: buildDropdownButton(selectedSport, setState),
           backgroundColor: _curSport.color,
 
-            //--Gender Switch--  **Important; Need to make condition to determine gender
+            //--Gender Switch--  Need to make condition to determine gender
             actions: <Widget>[
               if (genderSportSwitch == true)
                 Switch(
-                  value: false,
+                  value: genderSport,
                   onChanged: (value) {
                     setState(() {
                       if (value == false) {
@@ -46,7 +46,8 @@ class Sport extends StatelessWidget {
                         genderSport = true;
                       }
 
-                      //print(genderSport);
+                      print("value: " + value.toString());
+                      print("gender: " + genderSport.toString());
                     });
                   },
                   inactiveThumbColor: Colors.lightBlue,
@@ -55,9 +56,7 @@ class Sport extends StatelessWidget {
                   activeColor: Colors.pinkAccent,
                   activeThumbImage: Image.asset(imageFemale).image,
                 ),
-
             ]
-
         ),
         body: ListView(
           children: <Widget>[
@@ -125,20 +124,17 @@ class Sport extends StatelessWidget {
           setState(() {
             _curSport = value;
 
+            print("genderSport: " + genderSport.toString());
+
             //Will set the sport id / Display gender switch
             switch (_curSport.name) {   //prints are temp
               case 'FootBall':
-                //print(_curSport.name);
                 genderSportSwitch = false;
-                //print(genderSportSwitch);
-
                 sport_ID = 3;
                 break;
 
               case 'BasketBall':
-                //print(_curSport.name);
                 genderSportSwitch = true;
-                //print(genderSportSwitch);
 
                 if (genderSport == false) {
                   sport_ID = 5; //Male
@@ -149,9 +145,7 @@ class Sport extends StatelessWidget {
                 break;
 
               case 'Soccer':
-                //print(_curSport.name);
                 genderSportSwitch = true;
-                //print(genderSportSwitch);
 
                 if (genderSport == false) {
                   sport_ID = 9;    //Male
@@ -162,9 +156,7 @@ class Sport extends StatelessWidget {
                 break;
 
               case 'Baseball':
-                //print(_curSport.name);
                 genderSportSwitch = false;
-                //print(genderSportSwitch);
 
                 sport_ID = 1;
                 break;

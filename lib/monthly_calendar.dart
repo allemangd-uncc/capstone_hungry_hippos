@@ -11,7 +11,8 @@ class Calendar extends StatefulWidget {
   _Calendar createState() => _Calendar();
 }
 
-List<sport_schedule> _selectedEvents;
+//List<sport_schedule> _selectedEvents; //original that makes events work
+List _selectedEvents; //Removing the <sport_schedule> allows it to still work. Proceed with caution
 DateTime selectedDay;
 Map<DateTime, List<sport_schedule>> _events;
 
@@ -24,8 +25,6 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
 
   Future<List<sport_schedule>> getEvents() async {
     var url = '$sportUrl&sport_id=$sportID&name=&extra=%7B%7D';
-
-    //print(url); //temp
 
     http.Response response = await http.get(url);
     Iterable games = json.decode(response.body);
@@ -54,7 +53,6 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
         //print(eventInfo[i].date);
         mapGrab[sportEvent] = List.from(original)..addAll([eventInfo[i]]);
       }
-      //print([eventInfo[i].opponentTitle]); //temp
     }
     return mapGrab;
   }
@@ -90,7 +88,8 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  void _DaySelected(DateTime day, List<sport_schedule> events) {
+  //void _DaySelected(DateTime day, List<sport_schedule> events) { //original that makes events work
+  void _DaySelected(DateTime day, List events) { //Removing the <sport_schedule> allows it to still work. Proceed with caution
     setState(() {
       _selectedEvents = events;
       selectedDay = DateTime(day.year, day.month, day.day);
@@ -100,7 +99,6 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
   /*void _onVisibleDaysChanged(DateTime first, DateTime last, CalendarFormat format) {
     print('CALLBACK: _onVisibleDaysChanged');
   }
-
   void _onCalendarCreated(DateTime first, DateTime last, CalendarFormat format) {
     print('CALLBACK: _onCalendarCreated');
   }*/
@@ -144,12 +142,12 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
       ),
 
       daysOfWeekStyle: DaysOfWeekStyle(
-          weekendStyle: TextStyle(
-            color: Colors.black,
-          ),
-          weekdayStyle: TextStyle(
-            color: Colors.black,
-          ),
+        weekendStyle: TextStyle(
+          color: Colors.black,
+        ),
+        weekdayStyle: TextStyle(
+          color: Colors.black,
+        ),
       ),
 
       headerStyle: HeaderStyle(
@@ -182,22 +180,22 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
         todayDayBuilder: (context, date, _) {
 
           return Container(
-              margin: const EdgeInsets.all(4.0),
-              alignment: Alignment.center,
+            margin: const EdgeInsets.all(4.0),
+            alignment: Alignment.center,
 
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
-                  ),
-                  borderRadius: BorderRadius.circular(10.0)
-              ),
-
-              child: Text(
-                '${date.day}',
-                style: TextStyle(
-                    color: Colors.black,
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
                 ),
+                borderRadius: BorderRadius.circular(10.0)
+            ),
+
+            child: Text(
+              '${date.day}',
+              style: TextStyle(
+                color: Colors.black,
               ),
+            ),
           );
         },
 
@@ -231,7 +229,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
 
   //----- Creates event box display (mini box) -----
   Widget _buildEventsMarker(DateTime date, List events) {
-    children: _selectedEvents.map((event) => AnimatedContainer(
+    return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
 
       decoration: BoxDecoration(
@@ -246,10 +244,11 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
         //color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
         //color: Colors.grey,
 
-        color: _calController.isSelected(date) //if selected date
+        //if selected date && home game / else away game
+        color: _calController.isSelected(date)
             ? Colors.blue[400]
             : Color.fromRGBO(0, 112, 60, 1), //UNCC Green
-            //: Colors.grey,
+        //: Colors.grey,
       ),
 
       width: 16.0,
@@ -264,7 +263,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
           ),
         ),
       ),
-    ));
+    );
   }
 
   //----- Creates event display -----
@@ -284,32 +283,96 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
         margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
 
         child: ListTile(
-          leading: Icon(Icons.accessible), //opponent logo - Not done
-          title: Row(
-            children: <Widget>[
-              if (event.location.toString() == "Charlotte, NC" || event.location.toString() == "Charlotte, N.C.")
-                Text('vs. ') //home game
-              else
-                Text('at '), //away game
+          leading: Icon(Icons.image), //opponent logo - Not done (Placeholder)
+          title: Wrap(
 
-              Text(event.opponentTitle.toString()), //opponent name
+
+            children: <Widget>[
+              if (event.location_indicator.toString() == "H")
+                Text(
+                    'vs. ',
+                  style: TextStyle( //home game
+                    fontSize: 11.6,
+                  ),
+                )
+              else
+                Text(
+                    'at ',
+                  style: TextStyle( //away game
+                    fontSize: 11.6,
+                  ),
+                ),
+
+              Text(
+                  event.opponentTitle.toString(),
+                style: TextStyle(
+                  fontSize: 11.6,
+                ),
+              ) //opponent name
             ],
           ),
 
-          subtitle: Text(event.sportTitle.toString() + " - " + event.location.toString()), //Type of sport - Location
+          //Type of sport - Location
+          subtitle: Text(
+              event.sportTitle.toString() + " - " + event.location.toString(),
+            style: TextStyle(
+              fontSize: 10.3,
+            ),
+          ),
 
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
+          trailing: Wrap(
+            //mainAxisSize: MainAxisSize.min,
+
             children: <Widget>[
-              //Game Result (W/L/T) - Not done
-              /*if (event.status.toString() == "W")
-                _buildGameResultWin()
-              else if (event.status.toString() == "L")
-                _buildGameResultLose()
-              else if (event.status.toString() == "T")
-                _buildGameResultTie()
-              else
-                Text('TBD')*/
+              //---Score---
+              //Game hasn't occured
+              if (event.status.toString() == "null")
+                Text("TBD"),
+
+              //---Scores---
+              if (event.status.toString() == "W" || event.status.toString() == "L" || event.status.toString() == "T") //Finished games
+                Text(event.team_score.toString() + " - " + event.opponent_score.toString() + " ")
+
+              else if (event.status.toString() == "N" && event.team_score.toString() != "null" && event.opponent_score.toString() != "null") //Games that don't count
+                Text(event.team_score.toString() + " - " + event.opponent_score.toString() + " "),
+
+              //---Game Status---
+              if (event.status.toString() == "W") //Win
+                Text(
+                    (" " + event.status.toString() + " "),
+                    style: TextStyle(
+                      color: Colors.white,
+                      backgroundColor: Color.fromRGBO(0, 112, 60, 1),
+                    )
+                ),
+
+              if (event.status.toString() == "L" || event.status.toString() == "T") //Lose-Tie
+                Text(
+                    (" " + event.status.toString() + " "),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      backgroundColor: Colors.grey,
+                    )
+                ),
+
+              if (event.status.toString() == "N" && event.postscore.toString() != "Canceled") //N
+                Text(
+                    (" " + event.status.toString() + " "),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      backgroundColor: Colors.grey,
+                    )
+                )
+              else if (event.team_score.toString() == "null" && event.opponent_score.toString() == "null"
+                  && event.status.toString() == "N") //Game was canceled
+                Text(
+                    "Canceled",
+                    style: TextStyle(
+                      color: Colors.red,
+                    )
+                ),
 
             ],
           ),
@@ -317,74 +380,5 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
         ),
       )).toList(),
     );
-  }
-
-  //----- Format to Game Result (W)-----
-  Widget _buildGameResultWin() {
-    children: _selectedEvents.map((event) => Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.rectangle,
-        color: Color.fromRGBO(0, 112, 60, 1),
-      ),
-
-      width: 15.0,
-      height: 15.0,
-      alignment: Alignment.center,
-
-      child: Text(
-        event.status.toString(), //Game Result (W-L-T)
-        style: TextStyle().copyWith(
-          color: Colors.white,
-          fontSize: 13.0,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ));
-  }
-
-  //----- Format to Game Result (L)-----
-  Widget _buildGameResultLose() {
-    children: _selectedEvents.map((event) => Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.rectangle,
-        color: Colors.grey,
-      ),
-
-      width: 15.0,
-      height: 15.0,
-      alignment: Alignment.center,
-
-      child: Text(
-        event.status.toString(), //Game Result (W-L-T)
-        style: TextStyle().copyWith(
-          color: Colors.black,
-          fontSize: 13.0,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ));
-  }
-
-  //----- Format to Game Result (T)-----
-  Widget _buildGameResultTie() {
-    children: _selectedEvents.map((event) => Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.rectangle,
-        color: Colors.grey,
-      ),
-
-      width: 15.0,
-      height: 15.0,
-      alignment: Alignment.center,
-
-      child: Text(
-        event.status.toString(), //Game Result (W-L-T)
-        style: TextStyle().copyWith(
-          color: Colors.black,
-          fontSize: 13.0,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ));
   }
 }
