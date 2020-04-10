@@ -173,7 +173,7 @@ class Details extends StatelessWidget {
                           color: Colors.black12,
                           child: Card(
                             child: SizedBox(
-                              width: 90,
+                              width: 89,
                               height: 30,
                               child: Center(
                                 child: Text('Chat',
