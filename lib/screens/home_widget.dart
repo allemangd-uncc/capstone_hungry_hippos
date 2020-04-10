@@ -1,3 +1,5 @@
+import 'package:capstone_hungry_hippos/screens/favorites_reorder.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../news/feed.dart';
 
@@ -5,11 +7,20 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          _AppBar(),
-          SliverList(delegate: SliverChildListDelegate(_buildList())),
-        ],
+      body: FutureBuilder(
+        future: _buildList(),
+        builder: (ctx, snap) {
+          if (snap.hasData) {
+            return CustomScrollView(
+              slivers: <Widget>[
+                _AppBar(),
+                SliverList(delegate: SliverChildListDelegate(snap.data)),
+              ],
+            );
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
       ),
       drawer: Drawer(
         child: ListView(
@@ -35,7 +46,7 @@ class Home extends StatelessWidget {
             ListTile(
               title: IconButton(
                 icon: Icon(Icons.settings),
-                onPressed: ()=>Navigator.pushNamed(context, '/Favorites'),
+                onPressed: () => Navigator.pushNamed(context, '/Favorites'),
               ),
             )
           ],
@@ -56,15 +67,15 @@ class _AppBar extends StatelessWidget {
   }
 }
 
-List _buildList() {
+Future<List<HorizontalNewsFeed>> _buildList() async {
   final feed = Feed();
-  List<HorizontalNewsFeed> listItems = List();
-  listItems.add(HorizontalNewsFeed(newsFeed: feed, title: Text("Football")));
-  listItems.add(HorizontalNewsFeed(newsFeed: feed, title: Text("Soccer")));
-  listItems.add(HorizontalNewsFeed(newsFeed: feed, title: Text("Basketball")));
-  listItems.add(HorizontalNewsFeed(newsFeed: feed, title: Text("Volleyball")));
-  listItems.add(HorizontalNewsFeed(newsFeed: feed, title: Text("Baseball")));
-  listItems.add(HorizontalNewsFeed(newsFeed: feed, title: Text("Softball")));
-  listItems.add(HorizontalNewsFeed(newsFeed: feed, title: Text("Tennis")));
-  return listItems;
+  final mgr = Favorites();
+  final sports = await mgr.get_favorites();
+
+  return sports.map((sport) {
+    return HorizontalNewsFeed(
+      newsFeed: feed,
+      title: Text(sport),
+    );
+  }).toList();
 }
