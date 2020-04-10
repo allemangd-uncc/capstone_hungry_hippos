@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:capstone_hungry_hippos/screens/home_widget.dart';
 import 'package:capstone_hungry_hippos/screens/sport.dart';
 import 'package:capstone_hungry_hippos/screens/twitter_widget.dart';
+import 'package:capstone_hungry_hippos/screens/favorites_reorder.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
