@@ -47,7 +47,7 @@ class TwitterCard extends StatelessWidget{
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
           child: ListTile(
             leading: SizedBox(
-              height: 125,
+              height: 150,
               width: 75,
               child: Container(
                 decoration: BoxDecoration(
