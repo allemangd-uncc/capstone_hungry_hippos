@@ -76,6 +76,7 @@ class ArticleCard extends StatelessWidget {
       ],
     );
 
+
     return SizedBox(
       width: widthIn(context),
       child: Card(

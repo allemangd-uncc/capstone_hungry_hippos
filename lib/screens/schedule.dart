@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import '../monthly_calendar.dart';
 
 class Schedule extends StatelessWidget{
+
+  final calendar = Calendar();
+
   @override
   Widget build(BuildContext context) {
     return StatefulBuilder(
@@ -10,7 +14,9 @@ class Schedule extends StatelessWidget{
               title: Text("49ers"),
               backgroundColor: Colors.green,
             ),
-            body: Text("Schedule Goes Here"),
+            body: Container (
+              child: calendar,
+            ),
             drawer: Drawer(
               child: ListView(
                 children: <Widget>[
