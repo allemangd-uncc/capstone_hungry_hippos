@@ -13,7 +13,7 @@ class sport_schedule {
 
   // -- opponent json --
   final String opponentTitle; //title: Tennessee, Norfolk State
-  //final image - image: (do later)
+  final String image;
 
   // -- result json --
   final String status;        //status: W - T - L
@@ -32,7 +32,7 @@ class sport_schedule {
         this.gender,
 
         this.opponentTitle,
-        //this.image,
+        this.image,
 
         this.status,
         this.team_score,
@@ -52,7 +52,7 @@ class sport_schedule {
       gender: json['sport']['gender'],
 
       opponentTitle: json['opponent']['title'],
-      //image: json['opponent']['image'],
+      image: json['opponent']['image'],
 
       status: json['result']['status'],
 

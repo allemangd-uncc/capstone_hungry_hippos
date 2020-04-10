@@ -283,10 +283,11 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
         margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
 
         child: ListTile(
-          leading: Icon(Icons.image), //opponent logo - Not done (Placeholder)
+          leading: Image.network(
+            'https://charlotte49ers.com' + event.image.toString(),
+            width: 50.0,
+          ),
           title: Wrap(
-
-
             children: <Widget>[
               if (event.location_indicator.toString() == "H")
                 Text(
