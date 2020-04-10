@@ -3,7 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../news/feed.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +51,10 @@ class Home extends StatelessWidget {
             ListTile(
               title: IconButton(
                 icon: Icon(Icons.settings),
-                onPressed: () => Navigator.pushNamed(context, '/Favorites'),
+                onPressed: () =>
+                    Navigator.pushNamed(context, '/Favorites').then((e) {
+                  setState(() {});
+                }),
               ),
             )
           ],
