@@ -48,6 +48,18 @@ class _HomeState extends State<Home> {
                 onPressed: () => Navigator.pushNamed(context, '/Chat'),
               ),
             ),
+            ListTile( //added by Kaleb to test details page. Will update path / delete when we have game tiles implemented.
+              title: IconButton(
+                icon: Icon(Icons.book),
+                onPressed: () => Navigator.pushNamed(context, '/Details'),
+              ),
+            ),
+            ListTile(
+              title: IconButton(
+                icon: Icon(Icons.voice_chat),
+                onPressed: () => Navigator.pushNamed(context, '/Twitter'),
+              ),
+            ),
             ListTile(
               title: IconButton(
                 icon: Icon(Icons.settings),
