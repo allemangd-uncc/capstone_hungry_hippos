@@ -4,12 +4,15 @@ import 'package:capstone_hungry_hippos/screens/standing.dart';
 import 'package:flutter/material.dart';
 import 'package:capstone_hungry_hippos/screens/home_widget.dart';
 import 'package:capstone_hungry_hippos/screens/sport.dart';
+import 'package:capstone_hungry_hippos/screens/twitter_widget.dart';
+import 'package:capstone_hungry_hippos/screens/favorites_reorder.dart';
 
 class RouteGenerator {
-  static Route<dynamic> generateRoute(RouteSettings settings){
-    final args = settings.arguments; //This is how we pass arguments and can be used in case
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    final args = settings
+        .arguments; //This is how we pass arguments and can be used in case
 
-    switch (settings.name){
+    switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => Home());
       case '/Sport':
@@ -21,13 +24,17 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => Standing());
       case '/Chat':
         return MaterialPageRoute(builder: (_) => Chat());
+      case '/Favorites':
+        return MaterialPageRoute(builder: (_) => FavoritesManager());
+      case '/Twitter':
+        return MaterialPageRoute(builder: (_) => TwitterFeed());
       default:
         return _errorRoute();
     }
   }
 
   static Route _errorRoute() {
-    return MaterialPageRoute(builder: (_){
+    return MaterialPageRoute(builder: (_) {
       return Scaffold(
         appBar: AppBar(
           title: Text("Error Page"),
