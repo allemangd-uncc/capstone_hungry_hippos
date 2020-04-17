@@ -4,13 +4,14 @@ import '../news/feed.dart';
 class Sport extends StatelessWidget {
 
   static final List<Item> colorList = <Item>[
-    const Item('FootBall', Colors.green),
-    const Item("BasketBall", Colors.red),
+    const Item('Football', Colors.green),
+    const Item("Basketball", Colors.red),
     const Item("Soccer", Colors.pinkAccent),
     const Item('Baseball', Colors.orange),
+    const Item('Volleyball', Colors.blue),
+    const Item('Softball', Colors.yellow),
+    const Item('Tennis', Colors.yellowAccent),
   ];
-
-  Item _curSport = colorList[0];
 
   final feed = Feed(); // was var not final
 
@@ -18,12 +19,30 @@ class Sport extends StatelessWidget {
   final String imageMale = 'images/male.png';
   final String imageFemale = 'images/female.png';
   static bool genderSport = false; //determines which gender switch is set M - false / F - True
-
   static int sport_ID;
+
+  final String sport;
+  Sport(this.sport);
+
+  Item _curSport = colorList[0];
 
   @override
   Widget build(BuildContext context) {
+    Item _setDefault(){
+      Item _curSport;
+      for (Item i in colorList){
+        if (i.name == sport){
+          _curSport = i;
+          break;
+        }
+      }
+      return _curSport;
+    }
+    _curSport = _setDefault();
     Item selectedSport;
+    if (_curSport.name == "Soccer" || _curSport.name == "Basketball" || _curSport.name == "Tennis" ){
+      genderSportSwitch = true;
+    }
 
     return StatefulBuilder(
       builder: (context, StateSetter setState) => Scaffold(
@@ -34,7 +53,7 @@ class Sport extends StatelessWidget {
 
             //--Gender Switch--  Need to make condition to determine gender
             actions: <Widget>[
-              if (genderSportSwitch == true)
+              if (genderSportSwitch)
                 Switch(
                   value: genderSport,
                   onChanged: (value) {

@@ -18,7 +18,7 @@ class Feed {
 
 class HorizontalNewsFeed extends StatelessWidget {
   final Feed newsFeed;
-  final Widget title;
+  final Text title;
   final double numCards;
 
   const HorizontalNewsFeed({
@@ -31,9 +31,9 @@ class HorizontalNewsFeed extends StatelessWidget {
   double heightIn(BuildContext context) {
     return MediaQuery.of(context).size.height / numCards;
   }
-
   @override
   Widget build(BuildContext context) {
+    //print(title.data);
     return SizedBox(
       height: heightIn(context),
       child: Column(
@@ -43,8 +43,8 @@ class HorizontalNewsFeed extends StatelessWidget {
             title: title,
             trailing: IconButton(
               icon: Icon(Icons.navigate_next),
+              onPressed: () => Navigator.of(context).pushNamed('/Sport', arguments: title.data),
 
-              onPressed: () => Navigator.of(context).pushNamed('/Sport'),
 
               /*onPressed: () { //changed
                 Navigator.of(context).pushNamed('/Sport');

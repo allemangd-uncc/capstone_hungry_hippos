@@ -18,7 +18,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => Home());
       case '/Sport':
         //We can put logic and stuff here for checking if logged in
-        return MaterialPageRoute(builder: (_) => Sport());
+        return MaterialPageRoute(builder: (_) => Sport(args));
       case '/Schedule':
         return MaterialPageRoute(builder: (_) => Schedule());
       case '/Standing':
