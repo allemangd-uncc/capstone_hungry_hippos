@@ -4,13 +4,13 @@ import '../news/feed.dart';
 class Sport extends StatelessWidget {
 
   static final List<Item> colorList = <Item>[
-    const Item('Football', Colors.green),
-    const Item("Basketball", Colors.red),
-    const Item("Soccer", Colors.pinkAccent),
-    const Item('Baseball', Colors.orange),
-    const Item('Volleyball', Colors.blue),
-    const Item('Softball', Colors.yellow),
-    const Item('Tennis', Colors.yellowAccent),
+    const Item('Football', Colors.green,[3]),
+    const Item("Basketball", Colors.red,[5,13]),
+    const Item("Soccer", Colors.pinkAccent,[9,17]),
+    const Item('Baseball', Colors.orange,[1]),
+    const Item('Volleyball', Colors.blue,[0]),
+    const Item('Softball', Colors.yellow,[0]),
+    const Item('Tennis', Colors.yellowAccent,[0]),
   ];
 
   final feed = Feed(); // was var not final
@@ -20,7 +20,6 @@ class Sport extends StatelessWidget {
   final String imageFemale = 'images/female.png';
   static bool genderSport = false; //determines which gender switch is set M - false / F - True
   static int sport_ID;
-
   final String sport;
   Sport(this.sport);
 
@@ -39,11 +38,9 @@ class Sport extends StatelessWidget {
       return _curSport;
     }
     _curSport = _setDefault();
+    int sport_ID = _curSport.sportID[0];
     Item selectedSport;
-    if (_curSport.name == "Soccer" || _curSport.name == "Basketball" || _curSport.name == "Tennis" ){
-      genderSportSwitch = true;
-    }
-
+    _genderSwitcherCheck();
     return StatefulBuilder(
       builder: (context, StateSetter setState) => Scaffold(
         appBar: AppBar(
@@ -58,15 +55,10 @@ class Sport extends StatelessWidget {
                   value: genderSport,
                   onChanged: (value) {
                     setState(() {
-                      if (value == false) {
-                        genderSport = false;
-                      }
-                      else {
-                        genderSport = true;
-                      }
-
-                      print("value: " + value.toString());
-                      print("gender: " + genderSport.toString());
+                        genderSport = value;
+                        if (_curSport.sportID.length > 1){
+                          sport_ID = genderSport ? _curSport.sportID[1] : _curSport.sportID[0];
+                        }
                     });
                   },
                   inactiveThumbColor: Colors.lightBlue,
@@ -142,45 +134,7 @@ class Sport extends StatelessWidget {
         onChanged: (Item value) {
           setState(() {
             _curSport = value;
-
-            print("genderSport: " + genderSport.toString());
-
-            //Will set the sport id / Display gender switch
-            switch (_curSport.name) {   //prints are temp
-              case 'FootBall':
-                genderSportSwitch = false;
-                sport_ID = 3;
-                break;
-
-              case 'BasketBall':
-                genderSportSwitch = true;
-
-                if (genderSport == false) {
-                  sport_ID = 5; //Male
-                }
-                else {
-                  sport_ID = 13; //Female
-                }
-                break;
-
-              case 'Soccer':
-                genderSportSwitch = true;
-
-                if (genderSport == false) {
-                  sport_ID = 9;    //Male
-                }
-                else {
-                  sport_ID = 17;  //Female
-                }
-                break;
-
-              case 'Baseball':
-                genderSportSwitch = false;
-
-                sport_ID = 1;
-                break;
-            }
-            print(sport_ID);
+            _genderSwitcherCheck();
           });
         },
         items: colorList.map<DropdownMenuItem<Item>>((Item item) {
@@ -195,11 +149,25 @@ class Sport extends StatelessWidget {
       ),
     );
   }
+
+  void _genderSwitcherCheck() {
+    if (_curSport.name == "Soccer" || _curSport.name == "Basketball" || _curSport.name == "Tennis" ){
+      genderSportSwitch = true;
+      sport_ID = genderSport ? _curSport.sportID[1] : _curSport.sportID[0];
+    } else {
+      genderSportSwitch = false;
+      sport_ID = _curSport.sportID[0];
+    }
+    print(sport_ID);
+  }
+
+
 }
 
 class Item {
-  const Item(this.name, this.color);
+  const Item(this.name, this.color, this.sportID);
 
   final String name;
   final Color color;
+  final List<int> sportID;
 }
