@@ -38,7 +38,7 @@ class Sport extends StatelessWidget {
       return _curSport;
     }
     _curSport = _setDefault();
-    int sport_ID = _curSport.sportID[0];
+    sport_ID = _curSport.sportID[0];
     Item selectedSport;
     _genderSwitcherCheck();
     return StatefulBuilder(
@@ -56,9 +56,7 @@ class Sport extends StatelessWidget {
                   onChanged: (value) {
                     setState(() {
                         genderSport = value;
-                        if (_curSport.sportID.length > 1){
-                          sport_ID = genderSport ? _curSport.sportID[1] : _curSport.sportID[0];
-                        }
+                        _genderSwitcherCheck();
                     });
                   },
                   inactiveThumbColor: Colors.lightBlue,
@@ -101,13 +99,13 @@ class Sport extends StatelessWidget {
               ListTile(
                 title: IconButton(
                   icon: Icon(Icons.table_chart),
-                  onPressed: () => Navigator.pushNamed(context, '/Standing'),
+                  onPressed: () => Navigator.pushNamed(context, '/Standing', arguments: sport_ID),
                 ),
               ),
               ListTile(
                 title: IconButton(
                   icon: Icon(Icons.calendar_today),
-                  onPressed: () => Navigator.pushNamed(context, '/Schedule'),
+                  onPressed: () => Navigator.pushNamed(context, '/Schedule',arguments: sport_ID),
                 ),
               ),
             ],
@@ -135,6 +133,7 @@ class Sport extends StatelessWidget {
           setState(() {
             _curSport = value;
             _genderSwitcherCheck();
+            print(sport_ID);
           });
         },
         items: colorList.map<DropdownMenuItem<Item>>((Item item) {

@@ -7,8 +7,11 @@ import 'screens/sport.dart' as globals;
 import 'dart:convert';
 
 class Calendar extends StatefulWidget {
+  final int sportID;
+  Calendar(this.sportID);
+
   @override
-  _Calendar createState() => _Calendar();
+  _Calendar createState() => _Calendar(sportID);
 }
 
 //List<sport_schedule> _selectedEvents; //original that makes events work
@@ -17,11 +20,14 @@ DateTime selectedDay;
 Map<DateTime, List<sport_schedule>> _events;
 
 class _Calendar extends State<Calendar> with TickerProviderStateMixin {
+  int sportID;
+  _Calendar(this. sportID);
+
   AnimationController _animationController;
   CalendarController _calController;
 
-  int sportID = globals.Sport.sport_ID;
   static final sportUrl = 'https://charlotte49ers.com/services/adaptive_components.ashx?type=scoreboard&start=0&count=80';
+
 
   Future<List<sport_schedule>> getEvents() async {
     var url = '$sportUrl&sport_id=$sportID&name=&extra=%7B%7D';
