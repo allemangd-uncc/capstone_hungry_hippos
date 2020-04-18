@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:table_calendar/table_calendar.dart';
 
 import 'screens/sport_schedule.dart';
-import 'screens/sport.dart' as globals;
 import 'dart:convert';
 
 class Calendar extends StatefulWidget {
@@ -65,7 +64,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    final _selectedDay = DateTime.now();
+    //final _selectedDay = DateTime.now();
 
     //_selectedEvents = _events[_selectedDay] ?? [];
     _selectedEvents = [];
