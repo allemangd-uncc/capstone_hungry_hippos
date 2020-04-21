@@ -3,29 +3,29 @@ import 'package:flutter/material.dart';
 class Tweet {
   final int id;
   final String text;
-  final String userName;
-  final String userImgUrl;
-  final String url;
+  //final String userName;
+  //final String userImgUrl;
+  //final String url;
 
   Tweet(
-      this.id,
+      this.id, {
         this.text,
-        this.userName,
-        this.userImgUrl,
-        this.url,
+       // this.userName,
+       // this.userImgUrl,
+       // this.url,
+      }
       );
 
-  /*factory Tweet.fromJson(Map<String, dynamic> json) {
+  factory Tweet.fromJson(Map<String, dynamic> json) {
     return Tweet(
       json['id_str'],
-      text: json['text'],
-      userName: json['user']['name'],
-      userImgUrl: json['user']['profile_image_url_https'],
-      url: json['urls']['expanded_url'],
+      text: json['full_text'],
+      //userName: json['user']['name'],
+      //userImgUrl: json['user']['profile_image_url_https'],
+      //url: json['urls']['expanded_url'],
     );
   }
-  Commenting out till we figure out the API
-  */
+
 
 
 
@@ -46,7 +46,7 @@ class TwitterCard extends StatelessWidget{
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
           child: ListTile(
-            leading: SizedBox(
+            /* leading: SizedBox(
               height: 150,
               width: 75,
               child: Container(
@@ -58,9 +58,9 @@ class TwitterCard extends StatelessWidget{
                   ),
                 ),
               ),
-            ),
-            title: Text('${tweet.userName}'),
-            subtitle: Text('${tweet.text}'),
+            ), */
+            // title: Text('${tweet.userName}'),
+            title: Text('${tweet.text}'),
           ),
         ),
       );

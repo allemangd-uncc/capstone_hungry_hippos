@@ -3,44 +3,60 @@ import 'dart:io';
 import 'package:capstone_hungry_hippos/screens/twitter_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:twitter_api/twitter_api.dart';
 
 import 'dart:convert';
 
+
 import 'tweet.dart';
 
+
+final twitterBase = 'https://api.twitter.com/1.1/search';
+
+final apiKey = 'AFBfOqx8uXIUBZMxAFoQyO3zA';
+final apiSecret = '48Gp7nczz9SqExorwYuWpA6Nmviuox6Beq83kjH1XtYtunorym';
+final token = '910563313108574211-NNlQlPdbHWlNyFglwzrtD1dMpyDrNrF';
+final tokenSecret = 'aW4aJBQH2EPvoyc3gtR0qSKepccmuEtAj2sH7dzh2w8sN;';
+
+final _twitterOauth = new twitterApi(
+    consumerKey: apiKey,
+    consumerSecret: apiSecret,
+    token: token,
+    tokenSecret: tokenSecret,
+);
+
 class TwitterFeedCreation {
-  static final twitterBase = 'https://api.twitter.com/1.1/search';
 
-  static final apiKey = 'AFBfOqx8uXIUBZMxAFoQyO3zA';
-  static final apiSecret = '48Gp7nczz9SqExorwYuWpA6Nmviuox6Beq83kjH1XtYtunorym';
 
-  getToken() async {
-    http.Response response = await http.get('https://api.twitter.com/oauth2/token',);
-}
-
-  /*Future<List<Tweet>> getPage({int size = 10}) async {
-    var url = '$twitterBase/tweets.json?q=from%3ACharlotteFTBL&result_type=mixed&count=$size';
-    http.Response response = await http.get(url,
-      headers: <String, String> {'authorization': apiKey,}
+  Future<List<Tweet>> getPage() async {
+    var twitterRequest = _twitterOauth.getTwitterRequest(
+        "GET",
+        "/statuses/user_timeline.json",
+        options: {
+          "user_id": "19025957",
+          "screen_name": "TTCnotices",
+          "count": "20",
+          "trim_user": "true",
+          "tweet_mode": "extended",
+        }
     );
+    var response = await twitterRequest;
     Iterable tweets = json.decode(response.body);
     return tweets.map((e) => Tweet.fromJson(e)).toList();
-  } */
+  }
 }
 
 
 class VerticalTwitterFeed extends StatelessWidget{
 
-  final List<Tweet> twitterFeed;
+  final  twitterFeed = TwitterFeedCreation().getPage();
 
-  const VerticalTwitterFeed({
-    Key key,
-    @required this.twitterFeed,
-  }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
 
+    /*
     return Container(
       child:  ListView.builder(
         scrollDirection: Axis.vertical,
@@ -51,11 +67,11 @@ class VerticalTwitterFeed extends StatelessWidget{
           );
         },
       ),
-    );
+    ); */
 
-   /* return Container(
+   return Container(
       child: FutureBuilder(
-        future: twitterFeed.getPage(),
+        future: twitterFeed,
         builder: (ctx, snapshot){
           if(!snapshot.hasData){
             return Center(child: CircularProgressIndicator());
@@ -73,6 +89,8 @@ class VerticalTwitterFeed extends StatelessWidget{
           }
         },
       ),
-    ); */
+    );
   }
+
+
 }
