@@ -13,35 +13,35 @@ import 'tweet.dart';
 
 final twitterBase = 'https://api.twitter.com/1.1/search';
 
-final apiKey = 'AFBfOqx8uXIUBZMxAFoQyO3zA';
-final apiSecret = '48Gp7nczz9SqExorwYuWpA6Nmviuox6Beq83kjH1XtYtunorym';
-final token = '910563313108574211-NNlQlPdbHWlNyFglwzrtD1dMpyDrNrF';
-final tokenSecret = 'aW4aJBQH2EPvoyc3gtR0qSKepccmuEtAj2sH7dzh2w8sN;';
-
 final _twitterOauth = new twitterApi(
-    consumerKey: apiKey,
-    consumerSecret: apiSecret,
-    token: token,
-    tokenSecret: tokenSecret,
+    consumerKey: 'AFBfOqx8uXIUBZMxAFoQyO3zA',
+    consumerSecret: '48Gp7nczz9SqExorwYuWpA6Nmviuox6Beq83kjH1XtYtunorym',
+    token: '910563313108574211-NNlQlPdbHWlNyFglwzrtD1dMpyDrNrF',
+    tokenSecret: 'aW4aJBQH2EPvoyc3gtR0qSKepccmuEtAj2sH7dzh2w8sN;',
 );
+
+Future twitterRequest = _twitterOauth.getTwitterRequest(
+    "GET",
+    "/statuses/user_timeline.json",
+    options: {
+      "user_id": "19025957",
+      "screen_name": "TTCnotices",
+      "count": "20",
+      "trim_user": "true",
+      "tweet_mode": "extended",
+    }
+);
+
+
 
 class TwitterFeedCreation {
 
 
   Future<List<Tweet>> getPage() async {
-    var twitterRequest = _twitterOauth.getTwitterRequest(
-        "GET",
-        "/statuses/user_timeline.json",
-        options: {
-          "user_id": "19025957",
-          "screen_name": "TTCnotices",
-          "count": "20",
-          "trim_user": "true",
-          "tweet_mode": "extended",
-        }
-    );
+
     var response = await twitterRequest;
     Iterable tweets = json.decode(response.body);
+    print(tweets);
     return tweets.map((e) => Tweet.fromJson(e)).toList();
   }
 }
@@ -49,7 +49,7 @@ class TwitterFeedCreation {
 
 class VerticalTwitterFeed extends StatelessWidget{
 
-  final  twitterFeed = TwitterFeedCreation().getPage();
+  final  twitterFeed = TwitterFeedCreation();
 
 
 
@@ -71,7 +71,7 @@ class VerticalTwitterFeed extends StatelessWidget{
 
    return Container(
       child: FutureBuilder(
-        future: twitterFeed,
+        future: twitterFeed.getPage(),
         builder: (ctx, snapshot){
           if(!snapshot.hasData){
             return Center(child: CircularProgressIndicator());
