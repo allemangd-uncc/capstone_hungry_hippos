@@ -31,6 +31,8 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
   Future<List<sport_schedule>> getEvents() async {
     var url = '$sportUrl&sport_id=$sportID&name=&extra=%7B%7D';
 
+    print(url.toString());
+
     http.Response response = await http.get(url);
     Iterable games = json.decode(response.body);
 
@@ -290,7 +292,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
         child: ListTile(
           leading: Image.network(
             'https://charlotte49ers.com' + event.image.toString(),
-            width: 50.0,
+            width: 35.0,
           ),
           title: Wrap(
             children: <Widget>[
@@ -322,7 +324,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
           subtitle: Text(
               event.sportTitle.toString() + " - " + event.location.toString(),
             style: TextStyle(
-              fontSize: 10.3,
+              fontSize: 9.9, //10.3
             ),
           ),
 
