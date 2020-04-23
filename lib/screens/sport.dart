@@ -10,7 +10,7 @@ class Sport extends StatelessWidget {
     const Item('Baseball', Colors.orange,[1]),
     const Item('Volleyball', Colors.blue,[0]),
     const Item('Softball', Colors.yellow,[0]),
-    const Item('Tennis', Colors.yellowAccent,[0]),
+    const Item('Tennis', Colors.yellowAccent,[0,0]),
   ];
 
   final feed = Feed(); // was var not final
