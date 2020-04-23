@@ -261,7 +261,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
 
         //if selected date && home game / else away game
         color: _calController.isSelected(date)
-            ? Colors.blue[400]
+            ? Color.fromRGBO(179, 163, 105, 1)
             : _homeAwayColor(location, main), //UNCC Green
         //: Colors.grey,
       ),
