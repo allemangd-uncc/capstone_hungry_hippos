@@ -262,7 +262,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
 
       child: Center(
         child: Text(
-          '${events.length}',
+          '${date.day}',
           style: TextStyle().copyWith(
             color: Colors.white,
             fontSize: 12.0,
@@ -279,6 +279,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
     // Do whatever you need to do to check home/away
     // my guess is if the game says vs its home
     // if game says at its away
+
 
     Color c;
     if (homeAway){ // could also be if(game == "H") or something
