@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import '../monthly_calendar.dart';
-
+import '../screens/sport.dart' as globals;
 class Schedule extends StatelessWidget{
 
-  final calendar = Calendar();
+  final int sportID;
+  Schedule(this.sportID);
 
   @override
   Widget build(BuildContext context) {
+    var calendar = Calendar(sportID);
     return StatefulBuilder(
         builder: (context, StateSetter setState) => Scaffold(
             appBar: AppBar(

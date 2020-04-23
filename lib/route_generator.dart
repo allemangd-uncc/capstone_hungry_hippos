@@ -12,15 +12,15 @@ class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings
         .arguments; //This is how we pass arguments and can be used in case
-
+    print("args $args");
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => Home());
       case '/Sport':
         //We can put logic and stuff here for checking if logged in
-        return MaterialPageRoute(builder: (_) => Sport());
+        return MaterialPageRoute(builder: (_) => Sport(args));
       case '/Schedule':
-        return MaterialPageRoute(builder: (_) => Schedule());
+        return MaterialPageRoute(builder: (_) => Schedule(args));
       case '/Standing':
         return MaterialPageRoute(builder: (_) => Standing());
       case '/Chat':
