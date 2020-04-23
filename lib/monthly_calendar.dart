@@ -212,8 +212,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
           if (events.isNotEmpty) {
             miniBox.add(
               Positioned(
-                right: 1,
-                bottom: 1,
+                right: 0,top: 0, left: 0, bottom: 0,
                 child: _buildEventsMarker(date, events),
               ),
             );
@@ -254,7 +253,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
         //if selected date && home game / else away game
         color: _calController.isSelected(date)
             ? Colors.blue[400]
-            : Color.fromRGBO(0, 112, 60, 1), //UNCC Green
+            : _homeAwayColor(), //UNCC Green
         //: Colors.grey,
       ),
 
@@ -272,6 +271,24 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
       ),
     );
   }
+
+  bool homeAway = true;
+
+  Color _homeAwayColor(){
+    //TODO: Here should be the logic on if Home or Away return the colors
+    // Do whatever you need to do to check home/away
+    // my guess is if the game says vs its home
+    // if game says at its away
+
+    Color c;
+    if (homeAway){ // could also be if(game == "H") or something
+      c = Color.fromRGBO(0, 112, 60, 1);
+    } else {
+      c = Colors.grey;
+    }
+    return c;
+  }
+
 
   //----- Creates event display -----
   Widget _eventLister() {
