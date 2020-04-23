@@ -3,17 +3,17 @@ import '../monthly_calendar.dart';
 import '../screens/sport.dart' as globals;
 class Schedule extends StatelessWidget{
 
-  final int sportID;
-  Schedule(this.sportID);
+  final List sport;
+  Schedule(this.sport);
 
   @override
   Widget build(BuildContext context) {
-    var calendar = Calendar(sportID);
+    var calendar = Calendar(sport[0]);
     return StatefulBuilder(
         builder: (context, StateSetter setState) => Scaffold(
             appBar: AppBar(
               centerTitle: false,
-              title: Text("49ers"),
+              title: Text("${sport[1]}"),
               backgroundColor: Colors.green,
             ),
             body: Container (

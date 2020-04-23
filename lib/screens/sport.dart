@@ -105,7 +105,7 @@ class Sport extends StatelessWidget {
               ListTile(
                 title: IconButton(
                   icon: Icon(Icons.calendar_today),
-                  onPressed: () => Navigator.pushNamed(context, '/Schedule',arguments: sport_ID),
+                  onPressed: () => Navigator.pushNamed(context, '/Schedule',arguments: [sport_ID, _curSport.name],),
                 ),
               ),
             ],
