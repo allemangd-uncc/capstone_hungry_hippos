@@ -27,7 +27,6 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
 
   static final sportUrl = 'https://charlotte49ers.com/services/adaptive_components.ashx?type=scoreboard&start=0&count=80';
 
-
   Future<List<sport_schedule>> getEvents() async {
     var url = '$sportUrl&sport_id=$sportID&name=&extra=%7B%7D';
 
@@ -54,10 +53,8 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
       var original = mapGrab[sportEvent];
 
       if (original == null) {
-        //print("null");
         mapGrab[sportEvent] = [eventInfo[i]];
       } else {
-        //print(eventInfo[i].date);
         mapGrab[sportEvent] = List.from(original)..addAll([eventInfo[i]]);
       }
     }
@@ -240,30 +237,26 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
   }
 
   //----- Creates event box display (mini box) -----
-  Widget _buildEventsMarker(DateTime date, String location, bool main, events) {
-    String s;
-    if (main) {s = "${date.day}";} else {s = "${events.length}";}
+  Widget _buildEventsMarker(DateTime date, String gameType, bool main, events) {
+    String eventNum;
+    if (main) {eventNum = "${date.day}";} else {eventNum = "${events.length}";}
 
+    //return Container(
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
 
+      margin: const EdgeInsets.all(4.0),
+      alignment: Alignment.center,
+
       decoration: BoxDecoration(
-        shape: BoxShape.rectangle,
-
-        /*border: _calController.isSelected(date) //if selected date
-            ? Border.all(color: Colors.black, width: 1.5,)
-            : _calController.isToday(date) //if today's date
-            ? Border.all(color: Colors.black, width: 1.5,)
-            : Border.all(color: Colors.black, width: 0,),*/
-
-        //color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
-        //color: Colors.grey,
-
-        //if selected date && home game / else away game
-        color: _calController.isSelected(date)
-            ? Color.fromRGBO(179, 163, 105, 1)
-            : _homeAwayColor(location, main), //UNCC Green
-        //: Colors.grey,
+          /*border: Border.all(
+            color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
+            //color: Colors.black,
+          ),*/
+          color: _calController.isSelected(date)
+              ? Color.fromRGBO(179, 163, 105, 1) //UNCC Gold
+              : _gameTypeColor(gameType, main), //UNCC Green
+          borderRadius: BorderRadius.circular(10.0)
       ),
 
       width: 16.0,
@@ -271,7 +264,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
 
       child: Center(
         child: Text(
-          s,
+          eventNum,
           style: TextStyle().copyWith(
             color: Colors.white,
             fontSize: 12.0,
@@ -281,16 +274,11 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
     );
   }
 
-  Color _homeAwayColor(String location, bool main){
-    //TODO: Here should be the logic on if Home or Away return the colors
-    // Do whatever you need to do to check home/away
-    // my guess is if the game says vs its home
-    // if game says at its away
-    //print(i.location_indicator);
-
+  //Logic on if Home or Away return the colors
+  Color _gameTypeColor(String gameType, bool main){
     Color c;
-    if (location == "H"){ // could also be if(game == "H") or something
-      c = Color.fromRGBO(0, 112, 60, 1);
+    if (gameType == "H"){
+      c = Color.fromRGBO(0, 112, 60, 1); //UNCC Green
     } else {
       c = Colors.grey;
     }
@@ -299,7 +287,6 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
     }
     return c;
   }
-
 
   //----- Creates event display -----
   Widget _eventLister() {
