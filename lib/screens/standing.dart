@@ -32,67 +32,28 @@ class Standing extends StatelessWidget {
           children: <Widget>[
             Container(
               child: Text(
-                "W        L",
+                "W        L         ",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               alignment: Alignment(.85, 0),
               height: 20,
               color: Colors.grey,
             ),
-            SportLine(
-              s: _schools[0],
-              position: 1,
-            ),
-            SportLine(
-              s: _schools[1],
-              position: 2,
-            ),
-            SportLine(
-              s: _schools[2],
-              position: 3,
-            ),
-            SportLine(
-              s: _schools[3],
-              position: 4,
-            ),
-            SportLine(
-              s: _schools[4],
-              position: 5,
-            ),
-            SportLine(
-              s: _schools[5],
-              position: 6,
-            ),
-            SportLine(
-              s: _schools[6],
-              position: 7,
-            ),
-            SportLine(
-              s: _schools[7],
-              position: 8,
-            ),
-            SportLine(
-              s: _schools[8],
-              position: 9,
-            ),
-            SportLine(
-              s: _schools[9],
-              position: 10,
-            ),
-            SportLine(
-              s: _schools[10],
-              position: 11,
-            ),
-            SportLine(
-              s: _schools[11],
-              position: 12,
-            ),SportLine(
-              s: _schools[12],
-              position: 13,
-            ),SportLine(
-              s: _schools[13],
-              position: 14,
-            ),
+
+            SportLine(s: _schools[0], position: 1,),
+            SportLine(s: _schools[1], position: 2,),
+            SportLine(s: _schools[2], position: 3,),
+            SportLine(s: _schools[3], position: 4,),
+            SportLine(s: _schools[4], position: 5,),
+            SportLine(s: _schools[5], position: 6,),
+            SportLine(s: _schools[6], position: 7,),
+            SportLine(s: _schools[7], position: 8,),
+            SportLine(s: _schools[8], position: 9,),
+            SportLine(s: _schools[9], position: 10,),
+            SportLine(s: _schools[10], position: 11,),
+            SportLine(s: _schools[11], position: 12,),
+            SportLine(s: _schools[12], position: 13,),
+            SportLine(s: _schools[13], position: 14,),
           ],
         ),
       ),

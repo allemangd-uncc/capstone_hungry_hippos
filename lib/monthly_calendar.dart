@@ -20,7 +20,7 @@ Map<DateTime, List<sport_schedule>> _events;
 
 class _Calendar extends State<Calendar> with TickerProviderStateMixin {
   int sportID;
-  _Calendar(this. sportID);
+  _Calendar(this.sportID);
 
   AnimationController _animationController;
   CalendarController _calController;
