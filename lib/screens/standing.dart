@@ -24,6 +24,8 @@ class Standing extends StatelessWidget {
   final List sport;
   Standing(this.sport);
 
+  final teams = Team_Standings();
+
   @override
   Widget build(BuildContext context) {
     // *----- OLD CODE -------*
@@ -66,7 +68,7 @@ class Standing extends StatelessWidget {
     );*/
 
     // *----- Testing CODE -------*
-    var standings = Team_Standings(sport[0]);
+    //var standings = Team_Standings(sport[0]);
     return StatefulBuilder(
         builder: (context, StateSetter setState) => Scaffold(
             appBar: AppBar(
@@ -75,9 +77,15 @@ class Standing extends StatelessWidget {
               backgroundColor: Colors.green,
             ),
 
-            body: Container (
-              child: standings,
-            ),
+            /*body: Container (
+              //child: standings,
+            ),*/
+
+          body: ListView(
+            children: <Widget>[
+              HorizontalStandings(teamStandings: teams),
+            ],
+          ),
 
             /*body: SingleChildScrollView (
               child: Column(
