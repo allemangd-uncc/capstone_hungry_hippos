@@ -1,8 +1,10 @@
 import 'package:capstone_hungry_hippos/models/School.dart';
 import 'package:flutter/material.dart';
 
+import '../team_standings.dart';
+
 class Standing extends StatelessWidget {
-  final _schools = [
+  /*final _schools = [
     School("North Texas Mean Green",AssetImage('assets/school_logos/NorthTexas.png'), 14, 4),
     School("Louisiana Tech Bulldogs",AssetImage('assets/school_logos/LT.png'), 13, 5),
     School("Western Kentucky Hilltoppers",AssetImage('assets/school_logos/wku.png'), 13, 5),
@@ -17,11 +19,15 @@ class Standing extends StatelessWidget {
     School("Rice Owls",AssetImage('assets/school_logos/RiceOwls.png'), 7, 11),
     School("Southern Miss Golden Eagles",AssetImage('assets/school_logos/SouthernMiss.png'), 5, 13),
     School("Middle Tennessee Blue Raiders",AssetImage('assets/school_logos/MT.png'), 4, 14),
-  ];
+  ];*/
+
+  final List sport;
+  Standing(this.sport);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    // *----- OLD CODE -------*
+    /*return Scaffold(
       appBar: AppBar(
         centerTitle: false,
         title: Text("49ers"),
@@ -57,11 +63,65 @@ class Standing extends StatelessWidget {
           ],
         ),
       ),
+    );*/
+
+    // *----- Testing CODE -------*
+    var standings = Team_Standings(sport[0]);
+    return StatefulBuilder(
+        builder: (context, StateSetter setState) => Scaffold(
+            appBar: AppBar(
+              centerTitle: false,
+              title: Text("${sport[1]}" + " Standings"),
+              backgroundColor: Colors.green,
+            ),
+
+            body: Container (
+              child: standings,
+            ),
+
+            /*body: SingleChildScrollView (
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    child: standings,
+                    alignment: Alignment(.85, 0),
+                    height: 20,
+                    color: Colors.grey,
+                  ),
+                ],
+              ),
+            ),*/
+
+            drawer: Drawer(
+              child: ListView(
+                children: <Widget>[
+                  DrawerHeader(
+                    child: Text(
+                      'Drawer Header',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                    ),
+                  ),
+                  ListTile(
+                    title: IconButton(
+                      icon: Icon(Icons.home),
+                      onPressed: () => Navigator.pushNamed(context, '/'),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+        ),
     );
   }
 }
 
-class SportLine extends StatelessWidget {
+/*class SportLine extends StatelessWidget {
   const SportLine({
     Key key,
     @required
@@ -129,4 +189,4 @@ class SportLine extends StatelessWidget {
     Color c = i % 2 == 0 ? Colors.black12 : Colors.white30;
     return c;
   }
-}
+}*/

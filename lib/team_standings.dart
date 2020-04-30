@@ -4,9 +4,9 @@ import 'package:http/http.dart' as http;
 import 'screens/sport_standings_basketball.dart';
 import 'dart:convert';
 
-class Standings extends StatefulWidget {
+class Team_Standings extends StatefulWidget {
   final int sportID;
-  Standings(this.sportID);
+  Team_Standings(this.sportID);
 
   @override
   _Standings createState() => _Standings(sportID);
@@ -14,12 +14,12 @@ class Standings extends StatefulWidget {
 
 List _selectedTeams;
 
-class _Standings extends State<Standings> {
+class _Standings extends State<Team_Standings> {
   int sportID;
   String sportUrl;
   _Standings(this.sportID);
 
-  Future<List<sport_standings_basketball>> getEvents() async {
+  Future<List<sport_standings_basketball>> getTeams() async {
     print(sportID);
 
     switch(sportID.toString()) {
@@ -41,13 +41,60 @@ class _Standings extends State<Standings> {
     http.Response response = await http.get(sportUrl);
     Iterable games = json.decode(response.body);
 
-    return games.map<sport_standings_basketball>((json) => sport_standings_basketball.fromJson(json)).toList();
+    return games.map((e) => sport_standings_basketball.fromJson(e)).toList();
   }
+
+  @override
+  void initState() {
+    _selectedTeams = [];
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
         children: <Widget>[
+          _buildBasketballStandings(),
+          //Expanded(child: _eventLister()),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBasketballStandings() {
+    return Container(
+      margin: EdgeInsets.all(15),
+      child: Table(
+        border: TableBorder(
+          horizontalInside: BorderSide(
+            color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
+          ),
+          verticalInside: BorderSide(
+            color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
+          ),
+          top: BorderSide(
+            color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
+          ),
+          bottom: BorderSide(
+            color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
+          ),
+        ),
+        columnWidths: {0: FractionColumnWidth(.3), 1: FractionColumnWidth(.3), 2: FractionColumnWidth(.5)},
+        children: [
+          TableRow( children: [
+            Column(children:[Text('')]),
+            Column(children:[Text('Conference')]),
+            Column(children:[Text('Overall')]),
+          ]),
+          TableRow( children: [
+            Column(children:[Text('')]),
+            Column(children:[Text('W-L    GB    PCT')]),
+            Column(children:[Text('PCT    HOME    AWAY    STRK')]),
+          ]),
+
+          // ** Make loop based on number of teams **
 
         ],
       ),

@@ -99,7 +99,7 @@ class Sport extends StatelessWidget {
               ListTile(
                 title: IconButton(
                   icon: Icon(Icons.table_chart),
-                  onPressed: () => Navigator.pushNamed(context, '/Standing', arguments: sport_ID),
+                  onPressed: () => Navigator.pushNamed(context, '/Standing', arguments: [sport_ID, _curSport.name]),
                 ),
               ),
               ListTile(
@@ -158,8 +158,6 @@ class Sport extends StatelessWidget {
     }
     print(sport_ID);
   }
-
-
 }
 
 class Item {
