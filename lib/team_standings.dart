@@ -44,37 +44,57 @@ class HorizontalStandings extends StatelessWidget {
     return Center(
       child: Column(
         children: <Widget>[
-          //_buildBasketballStandings(),
-          Expanded(
-            child: FutureBuilder(
-              future: teamStandings.getTeams(),
-              builder: (ctx, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(child: CircularProgressIndicator());
-                } else {
-                  return ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (ctx, idx) {
-                      return DataTable(
-                        columns: [
-                          DataColumn(label: Text("")),
-                          DataColumn(label: Text("Conference")),
-                          DataColumn(label: Text("Overall")),
-                        ],
-                      );
-                    },
-                  );
-                }
-              },
-            ),
-          ),
+          if (globals.Sport.sport_ID.toString() == "5" || globals.Sport.sport_ID.toString() == "13") // M-W Basketball
+            Expanded(
+              child: FutureBuilder(
+                future: teamStandings.getTeams(),
+                builder: (ctx, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  } else {
+                    List<sport_standings_basketball> teams = snapshot.data;
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (ctx, idx) {
+                        return StandingsCard(
+                          team: teams[idx],
+                        );
+                      }
+                    );
+                  }
+                },
+              ),
+            )
+          /*else if (globals.Sport.sport_ID.toString() == "3") // Football
+            Expanded(
+              child: FutureBuilder(
+                future: teamStandings.getTeams(),
+                builder: (ctx, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  } else {
+                    List<sport_standings_football> teams = snapshot.data;
+                    return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (ctx, idx) {
+                          return StandingsCard(
+                            team: teams[idx],
+                          );
+                        }
+                    );
+                  }
+                },
+              ),
+            ),*/
         ],
       ),
     );
   }
 }
 
+//Delete later (not used)
 /*class Team_Standings extends StatefulWidget {
   final int sportID;
   Team_Standings(this.sportID);

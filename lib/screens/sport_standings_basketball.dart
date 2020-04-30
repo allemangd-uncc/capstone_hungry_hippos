@@ -77,3 +77,31 @@ class sport_standings_basketball {
     );
   }
 }
+
+class StandingsCard extends StatelessWidget {
+  const StandingsCard({
+    Key key,
+    @required this.team,
+  }) : super(key: key);
+
+  final sport_standings_basketball team;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Card(
+        child: ListTile(
+          leading: Image.network(
+            team.image,
+            width: 35.0,
+          ),
+          title: Text(
+            team.displayName,
+          ),
+          //decoration: decoration,
+          //child: body,
+        ),
+      ),
+    );
+  }
+}

@@ -1,64 +1,128 @@
 import 'package:flutter/material.dart';
 
-class sport_standings_football {
-  final int id;               //id for each game
-  final DateTime date;        //date: 2020-09-05T00:00:00
-  final String location_indicator; //location_indicator: H-Home / A-Away
-  final String location;      //location: Knoxville, Tenn., Charlotte, NC
-
-  // -- sport json --
-  final int idSport;          //id: Each sport different number
-  final String sportTitle;    //title: Football, Men's Soccer
-  final String gender;        //gender: M - F
-
-  // -- opponent json --
-  final String opponentTitle; //title: Tennessee, Norfolk State
+/*class sport_standings_football {
+  final int id;
+  final String displayName;
   final String image;
 
-  // -- result json --
-  final String status;        //status: W - T - L
-  final String team_score;       //team_score:
-  final String opponent_score;   //opponent_score:
-  final String postscore;
+  final String position;
+
+  // -- Conference stats --
+  final String conferenceRecord;
+  final String gamesBehind;
+  final String conferencePercentRecord;
+
+  // -- Overall stats --
+  final String overallRecord;
+  final String overallPercentRecord;
+  final String homeRecord;
+  final String awayRecord;
+  final String gameStreak;
+
+  // -- Polls stats --
+  final String apRecord;
+  final String usaRecord;
 
   sport_standings_football(
       this.id, {
-        this.date,
-        this.location_indicator,
-        this.location,
-
-        this.idSport,
-        this.sportTitle,
-        this.gender,
-
-        this.opponentTitle,
+        this.displayName,
         this.image,
 
-        this.status,
-        this.team_score,
-        this.opponent_score,
-        this.postscore,
+        this.position,
+
+        this.conferenceRecord,
+        this.gamesBehind,
+        this.conferencePercentRecord,
+
+        this.overallRecord,
+        this.overallPercentRecord,
+        this.homeRecord,
+        this.awayRecord,
+        this.gameStreak,
+
+        this.apRecord,
+        this.usaRecord,
       });
 
   factory sport_standings_football.fromJson(Map<String, dynamic> json) {
     return sport_standings_football(
       json['id'],
-      date: DateTime.parse(json['date']),
-      location_indicator: json['location_indicator'],
-      location: json['location'],
+      displayName: json['standings']['entries']['team']['displayName'],
+      image: json['standings']['entries']['team']['logos']['href'],
 
-      idSport: json['sport']['id'],
-      sportTitle: json['sport']['title'],
-      gender: json['sport']['gender'],
+      for (team in json['standings']['entries']) {
+        var stats = new Map<String, dynamic>();
+        for (stat in team['stats']) {
+          stats[stat['type']] = stat;
+        }
 
-      opponentTitle: json['opponent']['title'],
-      image: json['opponent']['image'],
+        var team_widget = basketball_widget(
+          position: stats['playoffseed']['displayValue'],
 
-      status: json['result']['status'],
+          conferenceRecord: stats['vsconf']['displayValue'],
+          gamesBehind: stats['vsconf_gamesbehind']['displayValue'],
+          conferencePercentRecord: stats['vsconf_winpercent']['displayValue'],
 
-      team_score: json['result']['team_score'],
-      opponent_score: json['result']['opponent_score'],
-      postscore: json['result']['postscore'],
+
+          overallRecord: stats['total']['displayValue'],
+          overallPercentRecord: stats['winpercent']['displayValue'],
+          homeRecord: stats['home']['displayValue'],
+          awayRecord: stats['road']['displayValue'],
+          gameStreak: stats['streak']['displayValue'],
+
+          //apRecord: json['standings']['entries']['stats']['displayValue'],
+          //usaRecord: json['standings']['entries']['stats']['displayValue'],
+        )
+      }
     );
   }
 }
+
+class StandingsCard extends StatelessWidget {
+  const StandingsCard({
+    Key key,
+    @required this.team,
+  }) : super(key: key);
+
+  final sport_standings_football team;
+
+  @override
+  Widget build(BuildContext context) {
+    var decoration = BoxDecoration(
+      image: DecorationImage(
+        image: NetworkImage(
+          team.image,
+        ),
+      ),
+    );
+
+    var body = Column(
+      verticalDirection: VerticalDirection.up,
+      children: <Widget>[
+        Container(
+          child: ListTile(
+            title: Text(
+              team.displayName,
+            ),
+          ),
+        ),
+      ],
+    );
+
+    return Expanded(
+      child: Card(
+        child: ListTile(
+          leading: Image.network(
+            team.image,
+            width: 35.0,
+          ),
+          title: Text(
+            team.displayName,
+          ),
+          //decoration: decoration,
+          //child: body,
+        ),
+      ),
+    );
+  }
+}*/
