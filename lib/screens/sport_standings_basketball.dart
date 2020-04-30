@@ -5,7 +5,7 @@ class sport_standings_basketball {
   final String displayName;
   final String image;
 
-  final String position;
+  /*final String position;
 
   // -- Conference stats --
   final String conferenceRecord;
@@ -17,7 +17,7 @@ class sport_standings_basketball {
   final String overallPercentRecord;
   final String homeRecord;
   final String awayRecord;
-  final String gameStreak;
+  final String gameStreak;*/
 
   // -- Polls stats --
   //final String apRecord;
@@ -28,7 +28,7 @@ class sport_standings_basketball {
         this.displayName,
         this.image,
 
-        this.position,
+        /*this.position,
 
         this.conferenceRecord,
         this.gamesBehind,
@@ -38,7 +38,7 @@ class sport_standings_basketball {
         this.overallPercentRecord,
         this.homeRecord,
         this.awayRecord,
-        this.gameStreak,
+        this.gameStreak,*/
 
         //this.apRecord,
         //this.usaRecord,
