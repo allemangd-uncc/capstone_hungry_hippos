@@ -20,11 +20,13 @@ class HorizontalNewsFeed extends StatelessWidget {
   final Feed newsFeed;
   final Text title;
   final double numCards;
+  final String sportFilter;
 
   const HorizontalNewsFeed({
     Key key,
     @required this.newsFeed,
     @required this.title,
+    @required this.sportFilter,
     this.numCards = 3.25,
   }) : super(key: key);
 
@@ -33,7 +35,8 @@ class HorizontalNewsFeed extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
-    //print(title.data);
+    var page = newsFeed.getPage(1, size: 100).then((page) => page.where((article) => article.sport.toLowerCase().contains(sportFilter.toLowerCase())).toList());
+
     return SizedBox(
       height: heightIn(context),
       child: Column(
@@ -55,7 +58,7 @@ class HorizontalNewsFeed extends StatelessWidget {
           ),
           Expanded(
             child: FutureBuilder(
-              future: newsFeed.getPage(1),
+              future: page,
               builder: (ctx, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());

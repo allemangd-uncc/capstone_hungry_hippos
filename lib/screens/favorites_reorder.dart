@@ -10,7 +10,6 @@ class Favorites {
     'Basketball',
     'Baseball',
     'Soccer',
-    'Tennis',
     'Volleyball'
   ];
 
