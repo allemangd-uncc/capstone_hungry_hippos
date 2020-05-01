@@ -63,12 +63,12 @@ class HorizontalGameCards extends StatelessWidget {
     var card = gameCard.getGames(sportID);
     var events = [];
       return SizedBox(
-        height: heightIn(context),//heightIn(context),
+        height: heightIn(context),
         child: FutureBuilder(
           future: card,
           // ignore: missing_return
           builder: (ctx, snapshot) {
-            print(snapshot);
+            //print(snapshot);
             if (!snapshot.hasData) {
               return Center(child: CircularProgressIndicator());
             } else {

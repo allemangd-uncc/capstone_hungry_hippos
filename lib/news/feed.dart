@@ -82,3 +82,43 @@ class HorizontalNewsFeed extends StatelessWidget {
     );
   }
 }
+
+
+class VerticalNewsFeed extends StatelessWidget {
+  final Feed newsFeed;
+  final String sportFilter;
+
+  const VerticalNewsFeed({
+    Key key,
+    @required this.newsFeed,
+    @required this.sportFilter,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var page = newsFeed.getPage(1, size: 100).then((page) => page.where((article) => article.sport.toLowerCase().contains(sportFilter.toLowerCase())).toList());
+    var size = MediaQuery.of(context).size;
+    return SizedBox(
+          height: size.height * (7/8),
+          child: FutureBuilder(
+              future: page,
+              builder: (ctx, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                } else {
+                  List<Article> articles = snapshot.data;
+                  return ListView.builder(
+                    //shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: articles.length,
+                    itemBuilder: (ctx, idx) {
+                      return ArticleCardVert(
+                        article: articles[idx],
+                      );
+                    },
+                  );
+                }
+              },
+    ));
+  }
+}

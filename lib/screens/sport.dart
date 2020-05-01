@@ -69,9 +69,10 @@ class Sport extends StatelessWidget {
             ]
         ),
         body: ListView(
+          physics: const NeverScrollableScrollPhysics(),
           children: <Widget>[
             HorizontalGameCards(gameCard: gameCard, sportID: sport_ID,),
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name), sportFilter: _curSport.name,),
+            VerticalNewsFeed(newsFeed: feed, sportFilter: _curSport.name),
           ],
         ),
         drawer: Drawer(
@@ -131,7 +132,7 @@ class Sport extends StatelessWidget {
           setState(() {
             _curSport = value;
             _genderSwitcherCheck();
-            print(sport_ID);
+            //print(sport_ID);
           });
         },
         items: colorList.map<DropdownMenuItem<Item>>((Item item) {
@@ -155,7 +156,7 @@ class Sport extends StatelessWidget {
       genderSportSwitch = false;
       sport_ID = _curSport.sportID[0];
     }
-    print(sport_ID);
+    //print(sport_ID);
   }
 }
 

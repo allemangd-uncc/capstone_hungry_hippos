@@ -148,7 +148,7 @@ class GameCard extends StatelessWidget {
                 fit: BoxFit.contain,
               child: Wrap(
                 children: <Widget>[
-                  if (gameCard.status == "null") // no game yet
+                  if (gameCard.status == null) // no game yet
                     Text(
                         '${_months[gameCard.date.month]} ${gameCard.date.day}'
                     )
@@ -165,10 +165,12 @@ class GameCard extends StatelessWidget {
                 fit: BoxFit.contain,
                 child: Wrap(
                   children: <Widget>[
-                    if (gameCard.status != "null") // no game yet
+                    if (gameCard.status != null) // no game yet
                       Text(
                           '${_months[gameCard.date.month]} ${gameCard.date.day}', textAlign: TextAlign.center,
-                      ),
+                      )
+                    else
+                      Text('${gameCard.date.hour}:${gameCard.date.minute} PM'),
                   ],
                 )
             ),
@@ -178,7 +180,7 @@ class GameCard extends StatelessWidget {
                     gameCard.location_indicator,
                     gameCard.image,
                     false, ctx)),
-            onTap: () => print('${gameCard.status}'),
+            onTap: () => print('${gameCard.date} ${gameCard.status}'),
           ),
         ),
       ],
