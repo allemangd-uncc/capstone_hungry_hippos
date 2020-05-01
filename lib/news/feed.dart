@@ -48,7 +48,6 @@ class HorizontalNewsFeed extends StatelessWidget {
               icon: Icon(Icons.navigate_next),
               onPressed: () => Navigator.of(context).pushNamed('/Sport', arguments: title.data),
 
-
               /*onPressed: () { //changed
                 Navigator.of(context).pushNamed('/Sport');
                 print(Navigator.of(context).pushNamed('/Sport'));
@@ -65,6 +64,7 @@ class HorizontalNewsFeed extends StatelessWidget {
                 } else {
                   List<Article> articles = snapshot.data;
                   return ListView.builder(
+                    //shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemCount: articles.length,
                     itemBuilder: (ctx, idx) {
