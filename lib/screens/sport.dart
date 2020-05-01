@@ -4,13 +4,13 @@ import '../models/game_cards.dart';
 
 class Sport extends StatelessWidget {
   static final List<Item> colorList = <Item>[
-    const Item('Football', Colors.green,[3]),
-    const Item("Basketball", Colors.green,[5,13]),
-    const Item("Soccer", Colors.green,[9,17]),
-    const Item('Baseball', Colors.green,[1]),
-    const Item('Softball', Colors.green,[12]),
-    const Item('Volleyball', Colors.green,[20]),
-    const Item('Tennis', Colors.green,[10,18]),
+    const Item('Football',[3]),
+    const Item("Basketball",[5,13]),
+    const Item("Soccer",[9,17]),
+    const Item('Baseball',[1]),
+    const Item('Softball',[12]),
+    const Item('Volleyball',[20]),
+    const Item('Tennis',[10,18]),
   ];
 
   final feed = Feed(); // was var not final
@@ -47,7 +47,7 @@ class Sport extends StatelessWidget {
         appBar: AppBar(
             centerTitle: false,
             title: buildDropdownButton(selectedSport, setState),
-            backgroundColor: _curSport.color,
+            backgroundColor: Colors.green,
 
             //--Gender Switch--  Need to make condition to determine gender
             actions: <Widget>[
@@ -161,9 +161,7 @@ class Sport extends StatelessWidget {
 }
 
 class Item {
-  const Item(this.name, this.color, this.sportID);
-
+  const Item(this.name, this.sportID);
   final String name;
-  final Color color;
   final List<int> sportID;
 }
