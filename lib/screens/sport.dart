@@ -1,53 +1,63 @@
 import 'package:flutter/material.dart';
 import '../news/feed.dart';
+import '../models/game_cards.dart';
 
 class Sport extends StatelessWidget {
-
   static final List<Item> colorList = <Item>[
-    const Item('FootBall', Colors.green),
-    const Item("BasketBall", Colors.red),
-    const Item("Soccer", Colors.pinkAccent),
-    const Item('Baseball', Colors.orange),
+    const Item('Football',[3]),
+    const Item("Basketball",[5,13]),
+    const Item("Soccer",[9,17]),
+    const Item('Baseball',[1]),
+    const Item('Softball',[12]),
+    const Item('Volleyball',[20]),
+    const Item('Tennis',[10,18]),
   ];
+
+  final feed = Feed(); // was var not final
+  final gameCard = GameCardFeed();
+
+  final String imageMale = 'images/male.png';
+  final String imageFemale = 'images/female.png';
+  static bool genderSportSwitch = false; //determines if sport needs the gender switch
+  static bool genderSport = false; //determines which gender switch is set M - false / F - True
+  static int sport_ID;
+  final String sport;
+  Sport(this.sport);
 
   Item _curSport = colorList[0];
 
-  final feed = Feed(); // was var not final
-
-  bool genderSportSwitch = false; //determines if sport needs the gender switch
-  final String imageMale = 'images/male.png';
-  final String imageFemale = 'images/female.png';
-  static bool genderSport = false; //determines which gender switch is set M - false / F - True
-
-  static int sport_ID;
-
   @override
   Widget build(BuildContext context) {
+    Item _setDefault(){
+      Item _curSport;
+      for (Item i in colorList){
+        if (i.name == sport){
+          _curSport = i;
+          break;
+        }
+      }
+      return _curSport;
+    }
+    _curSport = _setDefault();
+    sport_ID = _curSport.sportID[0];
     Item selectedSport;
-
+    _genderSwitcherCheck();
     return StatefulBuilder(
       builder: (context, StateSetter setState) => Scaffold(
         appBar: AppBar(
-          centerTitle: false,
-          title: buildDropdownButton(selectedSport, setState),
-          backgroundColor: _curSport.color,
+            centerTitle: false,
+            title: buildDropdownButton(selectedSport, setState),
+            backgroundColor: Colors.green,
 
             //--Gender Switch--  Need to make condition to determine gender
             actions: <Widget>[
-              if (genderSportSwitch == true)
+              if (genderSportSwitch)
                 Switch(
                   value: genderSport,
                   onChanged: (value) {
                     setState(() {
-                      if (value == false) {
-                        genderSport = false;
-                      }
-                      else {
-                        genderSport = true;
-                      }
-
-                      print("value: " + value.toString());
-                      print("gender: " + genderSport.toString());
+                      genderSport = value;
+                      _genderSwitcherCheck();
                     });
                   },
                   inactiveThumbColor: Colors.lightBlue,
@@ -59,11 +69,10 @@ class Sport extends StatelessWidget {
             ]
         ),
         body: ListView(
+          physics: const NeverScrollableScrollPhysics(),
           children: <Widget>[
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
+            HorizontalGameCards(gameCard: gameCard, sportID: sport_ID,),
+            VerticalNewsFeed(newsFeed: feed, sportFilter: _curSport.name),
           ],
         ),
         drawer: Drawer(
@@ -90,13 +99,13 @@ class Sport extends StatelessWidget {
               ListTile(
                 title: IconButton(
                   icon: Icon(Icons.table_chart),
-                  onPressed: () => Navigator.pushNamed(context, '/Standing'),
+                  onPressed: () => Navigator.pushNamed(context, '/Standing', arguments: [sport_ID, _curSport.name]),
                 ),
               ),
               ListTile(
                 title: IconButton(
                   icon: Icon(Icons.calendar_today),
-                  onPressed: () => Navigator.pushNamed(context, '/Schedule'),
+                  onPressed: () => Navigator.pushNamed(context, '/Schedule',arguments: [sport_ID, _curSport.name],),
                 ),
               ),
             ],
@@ -106,8 +115,7 @@ class Sport extends StatelessWidget {
     );
   }
 
-  DropdownButtonHideUnderline buildDropdownButton(
-      Item selectedSport, StateSetter setState) {
+  DropdownButtonHideUnderline buildDropdownButton(Item selectedSport, StateSetter setState) {
     return DropdownButtonHideUnderline(
       child: DropdownButton<Item>(
         value: selectedSport,
@@ -123,45 +131,8 @@ class Sport extends StatelessWidget {
         onChanged: (Item value) {
           setState(() {
             _curSport = value;
-
-            print("genderSport: " + genderSport.toString());
-
-            //Will set the sport id / Display gender switch
-            switch (_curSport.name) {   //prints are temp
-              case 'FootBall':
-                genderSportSwitch = false;
-                sport_ID = 3;
-                break;
-
-              case 'BasketBall':
-                genderSportSwitch = true;
-
-                if (genderSport == false) {
-                  sport_ID = 5; //Male
-                }
-                else {
-                  sport_ID = 13; //Female
-                }
-                break;
-
-              case 'Soccer':
-                genderSportSwitch = true;
-
-                if (genderSport == false) {
-                  sport_ID = 9;    //Male
-                }
-                else {
-                  sport_ID = 17;  //Female
-                }
-                break;
-
-              case 'Baseball':
-                genderSportSwitch = false;
-
-                sport_ID = 1;
-                break;
-            }
-            print(sport_ID);
+            _genderSwitcherCheck();
+            //print(sport_ID);
           });
         },
         items: colorList.map<DropdownMenuItem<Item>>((Item item) {
@@ -176,11 +147,21 @@ class Sport extends StatelessWidget {
       ),
     );
   }
+
+  void _genderSwitcherCheck() {
+    if (_curSport.name == "Soccer" || _curSport.name == "Basketball" || _curSport.name == "Tennis" ){
+      genderSportSwitch = true;
+      sport_ID = genderSport ? _curSport.sportID[1] : _curSport.sportID[0];
+    } else {
+      genderSportSwitch = false;
+      sport_ID = _curSport.sportID[0];
+    }
+    //print(sport_ID);
+  }
 }
 
 class Item {
-  const Item(this.name, this.color);
-
+  const Item(this.name, this.sportID);
   final String name;
-  final Color color;
+  final List<int> sportID;
 }

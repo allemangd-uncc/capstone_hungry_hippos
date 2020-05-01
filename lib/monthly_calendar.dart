@@ -3,12 +3,14 @@ import 'package:http/http.dart' as http;
 import 'package:table_calendar/table_calendar.dart';
 
 import 'screens/sport_schedule.dart';
-import 'screens/sport.dart' as globals;
 import 'dart:convert';
 
 class Calendar extends StatefulWidget {
+  final int sportID;
+  Calendar(this.sportID);
+
   @override
-  _Calendar createState() => _Calendar();
+  _Calendar createState() => _Calendar(sportID);
 }
 
 //List<sport_schedule> _selectedEvents; //original that makes events work
@@ -17,14 +19,18 @@ DateTime selectedDay;
 Map<DateTime, List<sport_schedule>> _events;
 
 class _Calendar extends State<Calendar> with TickerProviderStateMixin {
+  int sportID;
+  _Calendar(this.sportID);
+
   AnimationController _animationController;
   CalendarController _calController;
 
-  int sportID = globals.Sport.sport_ID;
   static final sportUrl = 'https://charlotte49ers.com/services/adaptive_components.ashx?type=scoreboard&start=0&count=80';
 
   Future<List<sport_schedule>> getEvents() async {
     var url = '$sportUrl&sport_id=$sportID&name=&extra=%7B%7D';
+
+    print(url.toString());
 
     http.Response response = await http.get(url);
     Iterable games = json.decode(response.body);
@@ -47,10 +53,8 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
       var original = mapGrab[sportEvent];
 
       if (original == null) {
-        //print("null");
         mapGrab[sportEvent] = [eventInfo[i]];
       } else {
-        //print(eventInfo[i].date);
         mapGrab[sportEvent] = List.from(original)..addAll([eventInfo[i]]);
       }
     }
@@ -59,7 +63,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    final _selectedDay = DateTime.now();
+    //final _selectedDay = DateTime.now();
 
     //_selectedEvents = _events[_selectedDay] ?? [];
     _selectedEvents = [];
@@ -201,14 +205,19 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
 
         markersBuilder: (context, date, events, holidays) {
           final miniBox = <Widget>[];
-
           if (events.isNotEmpty) {
             miniBox.add(
               Positioned(
-                right: 1,
-                bottom: 1,
-                child: _buildEventsMarker(date, events),
+                right: 0,top: 0, left: 0, bottom: 0,
+                child: _buildEventsMarker(date, events[0].location_indicator, true, events),
               ),
+            );
+            if (events.length > 1)
+            miniBox.add(
+              Positioned(
+                right: 1, bottom: 1,
+                child: _buildEventsMarker(date, events[0].location_indicator, false, events),
+              )
             );
           }
 
@@ -228,27 +237,26 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
   }
 
   //----- Creates event box display (mini box) -----
-  Widget _buildEventsMarker(DateTime date, List events) {
+  Widget _buildEventsMarker(DateTime date, String gameType, bool main, events) {
+    String eventNum;
+    if (main) {eventNum = "${date.day}";} else {eventNum = "${events.length}";}
+
+    //return Container(
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
 
+      margin: const EdgeInsets.all(4.0),
+      alignment: Alignment.center,
+
       decoration: BoxDecoration(
-        shape: BoxShape.rectangle,
-
-        /*border: _calController.isSelected(date) //if selected date
-            ? Border.all(color: Colors.black, width: 1.5,)
-            : _calController.isToday(date) //if today's date
-            ? Border.all(color: Colors.black, width: 1.5,)
-            : Border.all(color: Colors.black, width: 0,),*/
-
-        //color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
-        //color: Colors.grey,
-
-        //if selected date && home game / else away game
-        color: _calController.isSelected(date)
-            ? Colors.blue[400]
-            : Color.fromRGBO(0, 112, 60, 1), //UNCC Green
-        //: Colors.grey,
+          /*border: Border.all(
+            color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
+            //color: Colors.black,
+          ),*/
+          color: _calController.isSelected(date)
+              ? Color.fromRGBO(179, 163, 105, 1) //UNCC Gold
+              : _gameTypeColor(gameType, main), //UNCC Green
+          borderRadius: BorderRadius.circular(10.0)
       ),
 
       width: 16.0,
@@ -256,7 +264,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
 
       child: Center(
         child: Text(
-          '${events.length}',
+          eventNum,
           style: TextStyle().copyWith(
             color: Colors.white,
             fontSize: 12.0,
@@ -264,6 +272,20 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
         ),
       ),
     );
+  }
+
+  //Logic on if Home or Away return the colors
+  Color _gameTypeColor(String gameType, bool main){
+    Color c;
+    if (gameType == "H"){
+      c = Color.fromRGBO(0, 112, 60, 1); //UNCC Green
+    } else {
+      c = Colors.grey;
+    }
+    if (!main){
+      c = Colors.black45;//Color.fromRGBO(179, 163, 105, 1);
+    }
+    return c;
   }
 
   //----- Creates event display -----
@@ -285,7 +307,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
         child: ListTile(
           leading: Image.network(
             'https://charlotte49ers.com' + event.image.toString(),
-            width: 50.0,
+            width: 35.0,
           ),
           title: Wrap(
             children: <Widget>[
@@ -317,7 +339,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
           subtitle: Text(
               event.sportTitle.toString() + " - " + event.location.toString(),
             style: TextStyle(
-              fontSize: 10.3,
+              fontSize: 9.9, //10.3
             ),
           ),
 

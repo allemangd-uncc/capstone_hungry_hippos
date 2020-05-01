@@ -90,3 +90,59 @@ class ArticleCard extends StatelessWidget {
     );
   }
 }
+
+class ArticleCardVert extends StatelessWidget {
+  const ArticleCardVert({
+    Key key,
+    @required this.article,
+    this.numCards = 2.1,
+  }) : super(key: key);
+
+  final Article article;
+  final double numCards;
+
+  double heightIn(BuildContext context) {
+    return (MediaQuery.of(context).size.height * 7/8) / numCards;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var decoration = BoxDecoration(
+      image: DecorationImage(
+        image: NetworkImage(
+          article.thumbUrl,
+        ),
+        fit: BoxFit.cover,
+      ),
+    );
+
+    var body = Column(
+      verticalDirection: VerticalDirection.up,
+      children: <Widget>[
+        Container(
+          color: Colors.white,
+          child: ListTile(
+            title: Text(
+              article.mediumHeadline,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+            ),
+          ),
+        ),
+      ],
+    );
+
+
+    return SizedBox(
+      height: heightIn(context),
+      child: Card(
+        semanticContainer: true,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Container(
+          decoration: decoration,
+          child: body,
+        ),
+      ),
+    );
+  }
+}

@@ -18,22 +18,25 @@ class Feed {
 
 class HorizontalNewsFeed extends StatelessWidget {
   final Feed newsFeed;
-  final Widget title;
+  final Text title;
   final double numCards;
+  final String sportFilter;
 
   const HorizontalNewsFeed({
     Key key,
     @required this.newsFeed,
     @required this.title,
+    @required this.sportFilter,
     this.numCards = 3.25,
   }) : super(key: key);
 
   double heightIn(BuildContext context) {
     return MediaQuery.of(context).size.height / numCards;
   }
-
   @override
   Widget build(BuildContext context) {
+    var page = newsFeed.getPage(1, size: 100).then((page) => page.where((article) => article.sport.toLowerCase().contains(sportFilter.toLowerCase())).toList());
+
     return SizedBox(
       height: heightIn(context),
       child: Column(
@@ -43,8 +46,7 @@ class HorizontalNewsFeed extends StatelessWidget {
             title: title,
             trailing: IconButton(
               icon: Icon(Icons.navigate_next),
-
-              onPressed: () => Navigator.of(context).pushNamed('/Sport'),
+              onPressed: () => Navigator.of(context).pushNamed('/Sport', arguments: title.data),
 
               /*onPressed: () { //changed
                 Navigator.of(context).pushNamed('/Sport');
@@ -55,13 +57,14 @@ class HorizontalNewsFeed extends StatelessWidget {
           ),
           Expanded(
             child: FutureBuilder(
-              future: newsFeed.getPage(1),
+              future: page,
               builder: (ctx, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());
                 } else {
                   List<Article> articles = snapshot.data;
                   return ListView.builder(
+                    //shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemCount: articles.length,
                     itemBuilder: (ctx, idx) {
@@ -77,5 +80,45 @@ class HorizontalNewsFeed extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+
+class VerticalNewsFeed extends StatelessWidget {
+  final Feed newsFeed;
+  final String sportFilter;
+
+  const VerticalNewsFeed({
+    Key key,
+    @required this.newsFeed,
+    @required this.sportFilter,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var page = newsFeed.getPage(1, size: 100).then((page) => page.where((article) => article.sport.toLowerCase().contains(sportFilter.toLowerCase())).toList());
+    var size = MediaQuery.of(context).size;
+    return SizedBox(
+          height: size.height * (7/8),
+          child: FutureBuilder(
+              future: page,
+              builder: (ctx, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                } else {
+                  List<Article> articles = snapshot.data;
+                  return ListView.builder(
+                    //shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: articles.length,
+                    itemBuilder: (ctx, idx) {
+                      return ArticleCardVert(
+                        article: articles[idx],
+                      );
+                    },
+                  );
+                }
+              },
+    ));
   }
 }
