@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import '../news/feed.dart';
+import '../models/game_cards.dart';
 
 class Sport extends StatelessWidget {
   static final List<Item> colorList = <Item>[
-    const Item('Football', Colors.green,[3]),
-    const Item("Basketball", Colors.red,[5,13]),
-    const Item("Soccer", Colors.pinkAccent,[9,17]),
-    const Item('Baseball', Colors.orange,[1]),
-    const Item('Softball', Colors.yellow,[12]),
-    const Item('Volleyball', Colors.blue,[20]),
-    const Item('Tennis', Colors.yellowAccent,[10,18]),
+    const Item('Football',[3]),
+    const Item("Basketball",[5,13]),
+    const Item("Soccer",[9,17]),
+    const Item('Baseball',[1]),
+    const Item('Softball',[12]),
+    const Item('Volleyball',[20]),
+    const Item('Tennis',[10,18]),
   ];
 
   final feed = Feed(); // was var not final
+  final gameCard = GameCardFeed();
 
   final String imageMale = 'images/male.png';
   final String imageFemale = 'images/female.png';
@@ -43,9 +45,9 @@ class Sport extends StatelessWidget {
     return StatefulBuilder(
       builder: (context, StateSetter setState) => Scaffold(
         appBar: AppBar(
-          centerTitle: false,
-          title: buildDropdownButton(selectedSport, setState),
-          backgroundColor: _curSport.color,
+            centerTitle: false,
+            title: buildDropdownButton(selectedSport, setState),
+            backgroundColor: Colors.green,
 
             //--Gender Switch--  Need to make condition to determine gender
             actions: <Widget>[
@@ -54,8 +56,8 @@ class Sport extends StatelessWidget {
                   value: genderSport,
                   onChanged: (value) {
                     setState(() {
-                        genderSport = value;
-                        _genderSwitcherCheck();
+                      genderSport = value;
+                      _genderSwitcherCheck();
                     });
                   },
                   inactiveThumbColor: Colors.lightBlue,
@@ -67,8 +69,10 @@ class Sport extends StatelessWidget {
             ]
         ),
         body: ListView(
+          physics: const NeverScrollableScrollPhysics(),
           children: <Widget>[
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name), sportFilter: _curSport.name,),
+            HorizontalGameCards(gameCard: gameCard, sportID: sport_ID,),
+            VerticalNewsFeed(newsFeed: feed, sportFilter: _curSport.name),
           ],
         ),
         drawer: Drawer(
@@ -128,7 +132,7 @@ class Sport extends StatelessWidget {
           setState(() {
             _curSport = value;
             _genderSwitcherCheck();
-            print(sport_ID);
+            //print(sport_ID);
           });
         },
         items: colorList.map<DropdownMenuItem<Item>>((Item item) {
@@ -152,14 +156,12 @@ class Sport extends StatelessWidget {
       genderSportSwitch = false;
       sport_ID = _curSport.sportID[0];
     }
-    print(sport_ID);
+    //print(sport_ID);
   }
 }
 
 class Item {
-  const Item(this.name, this.color, this.sportID);
-
+  const Item(this.name, this.sportID);
   final String name;
-  final Color color;
   final List<int> sportID;
 }
