@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../news/feed.dart';
 
 class Sport extends StatelessWidget {
-
   static final List<Item> colorList = <Item>[
     const Item('Football', Colors.green,[3]),
     const Item("Basketball", Colors.red,[5,13]),
@@ -15,9 +14,9 @@ class Sport extends StatelessWidget {
 
   final feed = Feed(); // was var not final
 
-  bool genderSportSwitch = false; //determines if sport needs the gender switch
   final String imageMale = 'images/male.png';
   final String imageFemale = 'images/female.png';
+  static bool genderSportSwitch = false; //determines if sport needs the gender switch
   static bool genderSport = false; //determines which gender switch is set M - false / F - True
   static int sport_ID;
   final String sport;
@@ -69,9 +68,6 @@ class Sport extends StatelessWidget {
         ),
         body: ListView(
           children: <Widget>[
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
             HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
           ],
         ),
