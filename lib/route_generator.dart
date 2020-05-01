@@ -22,7 +22,7 @@ class RouteGenerator {
       case '/Schedule':
         return MaterialPageRoute(builder: (_) => Schedule(args));
       case '/Standing':
-        return MaterialPageRoute(builder: (_) => Standing());
+        return MaterialPageRoute(builder: (_) => Standing(args));
       case '/Chat':
         return MaterialPageRoute(builder: (_) => Chat());
       case '/Details':

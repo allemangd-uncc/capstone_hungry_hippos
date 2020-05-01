@@ -2,22 +2,21 @@ import 'package:flutter/material.dart';
 import '../news/feed.dart';
 
 class Sport extends StatelessWidget {
-
   static final List<Item> colorList = <Item>[
     const Item('Football', Colors.green,[3]),
     const Item("Basketball", Colors.red,[5,13]),
     const Item("Soccer", Colors.pinkAccent,[9,17]),
     const Item('Baseball', Colors.orange,[1]),
-    const Item('Volleyball', Colors.blue,[0]),
-    const Item('Softball', Colors.yellow,[0]),
-    const Item('Tennis', Colors.yellowAccent,[0,0]),
+    const Item('Softball', Colors.yellow,[12]),
+    const Item('Volleyball', Colors.blue,[20]),
+    const Item('Tennis', Colors.yellowAccent,[10,18]),
   ];
 
   final feed = Feed(); // was var not final
 
-  bool genderSportSwitch = false; //determines if sport needs the gender switch
   final String imageMale = 'images/male.png';
   final String imageFemale = 'images/female.png';
+  static bool genderSportSwitch = false; //determines if sport needs the gender switch
   static bool genderSport = false; //determines which gender switch is set M - false / F - True
   static int sport_ID;
   final String sport;
@@ -69,10 +68,7 @@ class Sport extends StatelessWidget {
         ),
         body: ListView(
           children: <Widget>[
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
+            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name), sportFilter: _curSport.name,),
           ],
         ),
         drawer: Drawer(
@@ -99,13 +95,13 @@ class Sport extends StatelessWidget {
               ListTile(
                 title: IconButton(
                   icon: Icon(Icons.table_chart),
-                  onPressed: () => Navigator.pushNamed(context, '/Standing', arguments: sport_ID),
+                  onPressed: () => Navigator.pushNamed(context, '/Standing', arguments: [sport_ID, _curSport.name]),
                 ),
               ),
               ListTile(
                 title: IconButton(
                   icon: Icon(Icons.calendar_today),
-                  onPressed: () => Navigator.pushNamed(context, '/Schedule',arguments: sport_ID),
+                  onPressed: () => Navigator.pushNamed(context, '/Schedule',arguments: [sport_ID, _curSport.name],),
                 ),
               ),
             ],
@@ -115,8 +111,7 @@ class Sport extends StatelessWidget {
     );
   }
 
-  DropdownButtonHideUnderline buildDropdownButton(
-      Item selectedSport, StateSetter setState) {
+  DropdownButtonHideUnderline buildDropdownButton(Item selectedSport, StateSetter setState) {
     return DropdownButtonHideUnderline(
       child: DropdownButton<Item>(
         value: selectedSport,
@@ -159,8 +154,6 @@ class Sport extends StatelessWidget {
     }
     print(sport_ID);
   }
-
-
 }
 
 class Item {
