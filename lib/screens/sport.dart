@@ -7,15 +7,9 @@ class Sport extends StatelessWidget {
     const Item("Basketball", Colors.red,[5,13]),
     const Item("Soccer", Colors.pinkAccent,[9,17]),
     const Item('Baseball', Colors.orange,[1]),
-<<<<<<< HEAD
     const Item('Softball', Colors.yellow,[12]),
     const Item('Volleyball', Colors.blue,[20]),
     const Item('Tennis', Colors.yellowAccent,[10,18]),
-=======
-    const Item('Volleyball', Colors.blue,[0]),
-    const Item('Softball', Colors.yellow,[0]),
-    const Item('Tennis', Colors.yellowAccent,[0,0]),
->>>>>>> filter-sport-articles
   ];
 
   final feed = Feed(); // was var not final
