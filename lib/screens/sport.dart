@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../news/feed.dart';
+import '../models/game_cards.dart';
 
 class Sport extends StatelessWidget {
   static final List<Item> colorList = <Item>[
@@ -13,6 +14,7 @@ class Sport extends StatelessWidget {
   ];
 
   final feed = Feed(); // was var not final
+  final gameCard = GameCardFeed();
 
   final String imageMale = 'images/male.png';
   final String imageFemale = 'images/female.png';
@@ -43,9 +45,9 @@ class Sport extends StatelessWidget {
     return StatefulBuilder(
       builder: (context, StateSetter setState) => Scaffold(
         appBar: AppBar(
-          centerTitle: false,
-          title: buildDropdownButton(selectedSport, setState),
-          backgroundColor: _curSport.color,
+            centerTitle: false,
+            title: buildDropdownButton(selectedSport, setState),
+            backgroundColor: _curSport.color,
 
             //--Gender Switch--  Need to make condition to determine gender
             actions: <Widget>[
@@ -54,8 +56,8 @@ class Sport extends StatelessWidget {
                   value: genderSport,
                   onChanged: (value) {
                     setState(() {
-                        genderSport = value;
-                        _genderSwitcherCheck();
+                      genderSport = value;
+                      _genderSwitcherCheck();
                     });
                   },
                   inactiveThumbColor: Colors.lightBlue,
@@ -68,6 +70,7 @@ class Sport extends StatelessWidget {
         ),
         body: ListView(
           children: <Widget>[
+            HorizontalGameCards(gameCard: gameCard, sportID: sport_ID,),
             HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name), sportFilter: _curSport.name,),
           ],
         ),

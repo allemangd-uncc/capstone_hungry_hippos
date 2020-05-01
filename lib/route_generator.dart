@@ -1,4 +1,3 @@
-import 'package:capstone_hungry_hippos/models/game_cards.dart';
 import 'package:capstone_hungry_hippos/screens/chat.dart';
 import 'package:capstone_hungry_hippos/screens/schedule.dart';
 import 'package:capstone_hungry_hippos/screens/standing.dart';
@@ -32,8 +31,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => FavoritesManager());
       case '/Twitter':
         return MaterialPageRoute(builder: (_) => TwitterFeed());
-      case '/gamecardtest':
-        return MaterialPageRoute(builder: (_) => GameCardTest(args));
       default:
         return _errorRoute();
     }

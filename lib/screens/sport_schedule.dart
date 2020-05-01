@@ -67,7 +67,7 @@ class GameCard extends StatelessWidget {
   const GameCard({
     Key key,
     @required this.gameCard,
-    this.numCards = 1.75,
+    this.numCards = 2.25,
   }) : super(key: key);
 
   final sport_schedule gameCard;
@@ -89,12 +89,22 @@ class GameCard extends StatelessWidget {
   Image _homeAwayImageOrder(String h, String opposingTeam, bool l, BuildContext ctx) {
     if ((h == "H") == l) {
       return (Image.network(
-          'https://fiusports.com/images/logos/UNC-Charlotte.png?width=80&height=80&mode=max'
+          'https://fiusports.com/images/logos/UNC-Charlotte.png?width=80&height=80&mode=max',
       ));
     } else {
       return (Image.network(
         'https://charlotte49ers.com' + opposingTeam,
       ));
+    }
+  }
+  
+  Color winLoss(String wl){
+    if (wl == "W") {
+      return Colors.green;
+    } else if (wl == "L") {
+      return Colors.red;
+    } else {
+      return Colors.grey;
     }
   }
 
@@ -116,12 +126,12 @@ class GameCard extends StatelessWidget {
     };
     var decoration = BoxDecoration(
       border: Border.all(
-        color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
-        width: .5,
+        color: winLoss(gameCard.status), //UNCC Green
+        width: 1.2,
       ),
-      borderRadius: BorderRadius.circular(12.0),
+      borderRadius: BorderRadius.circular(2),
     );
-
+    var logoWidth = 4.5;
     var body = Column(
       verticalDirection: VerticalDirection.up,
       children: <Widget>[
@@ -129,18 +139,19 @@ class GameCard extends StatelessWidget {
           color: Colors.white,
           child: ListTile(
             leading: SizedBox(
-                //width: widthIn(ctx)/3 - 5,
-                child: Container(decoration: decoration,child: _homeAwayImageOrder(
+                width: widthIn(ctx)/logoWidth,
+                child: _homeAwayImageOrder(
                 gameCard.location_indicator,
                 gameCard.image,
-                true, ctx))),
-            title: SizedBox(
-              //width: widthIn(ctx)/3 - 5,
-              child: Container(decoration: decoration,child: Wrap(
+                true, ctx)),
+            title: FittedBox(
+                fit: BoxFit.contain,
+              child: Wrap(
                 children: <Widget>[
                   if (gameCard.status == "null") // no game yet
                     Text(
-                        '${_months[gameCard.date.month]} ${gameCard.date.day}')
+                        '${_months[gameCard.date.month]} ${gameCard.date.day}'
+                    )
                   else
                     _pastGameScore(
                         gameCard.location_indicator,
@@ -148,15 +159,26 @@ class GameCard extends StatelessWidget {
                         gameCard.team_score,
                         gameCard.opponent_score,),
                   ],
-                ))
+                )
+            ),
+            subtitle: FittedBox(
+                fit: BoxFit.contain,
+                child: Wrap(
+                  children: <Widget>[
+                    if (gameCard.status != "null") // no game yet
+                      Text(
+                          '${_months[gameCard.date.month]} ${gameCard.date.day}', textAlign: TextAlign.center,
+                      ),
+                  ],
+                )
             ),
             trailing: SizedBox(
-                //width: widthIn(ctx)/3 - 5,
-                child: Container(decoration: decoration,child: _homeAwayImageOrder(
+                width: widthIn(ctx)/logoWidth,
+                child: _homeAwayImageOrder(
                     gameCard.location_indicator,
                     gameCard.image,
-                    false, ctx))),
-            onTap: () => print('${gameCard.date}'),
+                    false, ctx)),
+            onTap: () => print('${gameCard.status}'),
           ),
         ),
       ],
