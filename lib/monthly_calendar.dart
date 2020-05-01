@@ -115,8 +115,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
       child: Column(
         children: <Widget>[
           _buildCalendar(),
-          const SizedBox(height: 8.0),
-          Expanded(child: _eventLister()),
+          _eventLister(),
         ],
       ),
     );
@@ -272,119 +271,79 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
   }
 
   //----- Creates event display -----
+  Text _pastGameScore(
+      String homeAway, String winLoss, String uncc, String opponent) {
+    if (homeAway == "H" || homeAway == "T") {
+      return (Text('$uncc - $opponent'));
+    } else {
+      return (Text('$opponent - $uncc'));
+    }
+  }
+
+  Image _homeAwayImageOrder(String h, String opposingTeam, bool l) {
+    if ((h == "H") == l) {
+      return (Image(
+        image: AssetImage('assets/school_logos/uncc.png'),
+        width: 50,
+      ));
+    } else {
+      return (Image.network(
+        'https://charlotte49ers.com' + opposingTeam,
+        width: 50.0,
+      ));
+    }
+  }
+
   Widget _eventLister() {
-    return ListView(
-      children: _selectedEvents.map((event) => Container(
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
-            width: 0.8,
-          ),
-
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-
-        height: 70.0,
-        margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-
-        child: ListTile(
-          leading: Image.network(
-            'https://charlotte49ers.com' + event.image.toString(),
-            width: 50.0,
-          ),
-          title: Wrap(
-            children: <Widget>[
-              if (event.location_indicator.toString() == "H")
-                Text(
-                    'vs. ',
-                  style: TextStyle( //home game
-                    fontSize: 11.6,
-                  ),
-                )
-              else
-                Text(
-                    'at ',
-                  style: TextStyle( //away game
-                    fontSize: 11.6,
-                  ),
-                ),
-
-              Text(
-                  event.opponentTitle.toString(),
-                style: TextStyle(
-                  fontSize: 11.6,
-                ),
-              ) //opponent name
-            ],
-          ),
-
-          //Type of sport - Location
-          subtitle: Text(
-              event.sportTitle.toString() + " - " + event.location.toString(),
-            style: TextStyle(
-              fontSize: 10.3,
+    var _months = {1:'JAN', 2:'FEB', 3:'MAR', 4:'APR', 5:'MAY', 6:'JUN',
+      7:'JUL', 8:'AUG', 9:'SEP', 10:'OCT', 11:'NOV', 12:'DEC'};
+    return SizedBox(
+      height: 78,
+      child: Column(
+        children: _selectedEvents
+            .map((event) => Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
+              width: 0.8,
             ),
+            borderRadius: BorderRadius.circular(12.0),
           ),
+          height: 70.0,
+          margin:
+          const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+          child: ListTile(
+            leading: _homeAwayImageOrder(
+                event.location_indicator.toString(),
+                event.image.toString(), true),
+            title: Wrap(
+              children: <Widget>[
+                if (event.status.toString() == "null") // no game yet
+                  Text(
+                      '${_months[event.date.month]} ${event.date.day.toString()}')
+                else
+                  _pastGameScore(
+                      event.location_indicator.toString(),
+                      event.status.toString(),
+                      event.team_score.toString(),
+                      event.opponent_score.toString()),
+              ],
+            ),
 
-          trailing: Wrap(
-            //mainAxisSize: MainAxisSize.min,
+            //Type of sport - Location
+            subtitle: Wrap(children: <Widget>[
+              //Should be either live time or time game will be, nothing for past games
+            ]),
 
-            children: <Widget>[
-              //---Score---
-              //Game hasn't occured
-              if (event.status.toString() == "null")
-                Text("TBD"),
-
-              //---Scores---
-              if (event.status.toString() == "W" || event.status.toString() == "L" || event.status.toString() == "T") //Finished games
-                Text(event.team_score.toString() + " - " + event.opponent_score.toString() + " ")
-
-              else if (event.status.toString() == "N" && event.team_score.toString() != "null" && event.opponent_score.toString() != "null") //Games that don't count
-                Text(event.team_score.toString() + " - " + event.opponent_score.toString() + " "),
-
-              //---Game Status---
-              if (event.status.toString() == "W") //Win
-                Text(
-                    (" " + event.status.toString() + " "),
-                    style: TextStyle(
-                      color: Colors.white,
-                      backgroundColor: Color.fromRGBO(0, 112, 60, 1),
-                    )
-                ),
-
-              if (event.status.toString() == "L" || event.status.toString() == "T") //Lose-Tie
-                Text(
-                    (" " + event.status.toString() + " "),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      backgroundColor: Colors.grey,
-                    )
-                ),
-
-              if (event.status.toString() == "N" && event.postscore.toString() != "Canceled") //N
-                Text(
-                    (" " + event.status.toString() + " "),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      backgroundColor: Colors.grey,
-                    )
-                )
-              else if (event.team_score.toString() == "null" && event.opponent_score.toString() == "null"
-                  && event.status.toString() == "N") //Game was canceled
-                Text(
-                    "Canceled",
-                    style: TextStyle(
-                      color: Colors.red,
-                    )
-                ),
-
-            ],
+            trailing: _homeAwayImageOrder(
+                event.location_indicator.toString(),
+                event.image.toString(), false),
+            onTap: () =>
+                print('${event.date}'), //When event display is clicked
           ),
-          onTap: () => print('$event tapped!'), //When event display is clicked
-        ),
-      )).toList(),
+        ))
+            .toList(),
+      ),
     );
   }
 }
