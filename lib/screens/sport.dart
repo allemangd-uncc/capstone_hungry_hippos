@@ -69,10 +69,7 @@ class Sport extends StatelessWidget {
         ),
         body: ListView(
           children: <Widget>[
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
-            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name)),
+            HorizontalNewsFeed(newsFeed: feed, title: Text(_curSport.name), sportFilter: _curSport.name,),
           ],
         ),
         drawer: Drawer(
