@@ -96,6 +96,7 @@ Future<List<HorizontalNewsFeed>> _buildList() async {
     return HorizontalNewsFeed(
       newsFeed: feed,
       title: Text(sport),
+      sportFilter: sport,
     );
   }).toList();
 }
