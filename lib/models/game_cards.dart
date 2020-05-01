@@ -1,49 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:table_calendar/table_calendar.dart';
+
 import '../screens/sport_schedule.dart';
 import 'dart:convert';
 
-class GameCard extends StatefulWidget {
-  final int sportID;
-
-  GameCard(this.sportID);
-
-  @override
-  _SportsCard createState() => _SportsCard(sportID);
-}
-
-//List<sport_schedule> _selectedEvents; //original that makes events work
-List
-    _selectedEvents; //Removing the <sport_schedule> allows it to still work. Proceed with caution
-DateTime selectedDay;
-Map<DateTime, List<sport_schedule>> _events;
-
-class _SportsCard extends State<GameCard> with TickerProviderStateMixin {
-  int sportID;
-
-  _SportsCard(this.sportID);
-
-  AnimationController _animationController;
+class GameCardFeed{
 
   static final sportUrl =
       'https://charlotte49ers.com/services/adaptive_components.ashx?type=scoreboard&start=0&count=80';
-
-  Future<List<sport_schedule>> getEvents() async {
+  Future<List<sport_schedule>> getEvents(int sportID) async {
     var url = '$sportUrl&sport_id=$sportID&name=&extra=%7B%7D';
-
     http.Response response = await http.get(url);
     Iterable games = json.decode(response.body);
-
     return games
         .map<sport_schedule>((json) => sport_schedule.fromJson(json))
         .toList();
     //return games.map((e) => sport_schedule.fromJson(e)).toList();
   }
-
-  Future<Map<DateTime, List<sport_schedule>>> getGames() async {
+  Future<List<ScheduleObject>> getGames(int sportID) async {
     Map<DateTime, List<sport_schedule>> mapGrab = {};
 
-    List<sport_schedule> eventInfo = await getEvents();
+    List<sport_schedule> eventInfo = await getEvents(sportID);
 
     for (int i = 0; i < eventInfo.length; i++) {
       var sportEvent = DateTime(eventInfo[i].date.year, eventInfo[i].date.month,
@@ -55,127 +33,114 @@ class _SportsCard extends State<GameCard> with TickerProviderStateMixin {
         mapGrab[sportEvent] = [eventInfo[i]];
       } else {
         //print(eventInfo[i].date);
-        mapGrab[sportEvent] = List.from(original)..addAll([eventInfo[i]]);
+        mapGrab[sportEvent] = List.from(original)
+          ..addAll([eventInfo[i]]);
       }
     }
-    return mapGrab;
-  }
-
-  @override
-  void initState() {
-    //final _selectedDay = DateTime.now();
-
-    //_selectedEvents = _events[_selectedDay] ?? [];
-    _selectedEvents = [];
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 400),
-    );
-
-    _animationController.forward();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      getGames().then((val) => setState(() {
-            _events = val;
-          }));
-    });
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  //----- Builds event Lister -----
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-          child: Expanded(child: _eventLister()),
-      ),
-    );
-  }
-
-  //----- Creates event display -----
-
-  Text _pastGameScore(
-      String homeAway, String winLoss, String uncc, String opponent) {
-    if (homeAway == "H" || homeAway == "T") {
-      return (Text('$uncc - $opponent'));
-    } else {
-      return (Text('$opponent - $uncc'));
-    }
-  }
-
-  Image _homeAwayImageOrder(String h, String opposingTeam, bool l) {
-    if ((h == "H") == l) {
-      return (Image(
-        image: AssetImage('assets/school_logos/uncc.png'),
-        width: 50,
-      ));
-    } else {
-      return (Image.network(
-        'https://charlotte49ers.com' + opposingTeam,
-        width: 50.0,
-      ));
-    }
-  }
-
-  Widget _eventLister() {
-    var _months = {1:'JAN', 2:'FEB', 3:'MAR', 4:'APR', 5:'MAY', 6:'JUN',
-      7:'JUL', 8:'AUG', 9:'SEP', 10:'OCT', 11:'NOV', 12:'DEC'};
-    return SizedBox(
-      height: 62,
-      child: Column(
-        children: _selectedEvents
-            .map((event) => Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
-              width: 0.8,
-            ),
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          height: 70.0,
-          margin:
-          const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-          child: ListTile(
-            leading: _homeAwayImageOrder(
-                event.location_indicator.toString(),
-                event.image.toString(), true),
-            title: Wrap(
-              children: <Widget>[
-                if (event.status.toString() == "null") // no game yet
-                  Text(
-                      '${_months[event.date.month]} ${event.date.day.toString()}')
-                else
-                  _pastGameScore(
-                      event.location_indicator.toString(),
-                      event.status.toString(),
-                      event.team_score.toString(),
-                      event.opponent_score.toString()),
-              ],
-            ),
-
-            //Type of sport - Location
-            subtitle: Wrap(children: <Widget>[
-              //Should be either live time or time game will be, nothing for past games
-            ]),
-
-            trailing: _homeAwayImageOrder(
-                event.location_indicator.toString(),
-                event.image.toString(), false),
-            onTap: () =>
-                print('${event.date}'), //When event display is clicked
-          ),
-        ))
-            .toList(),
-      ),
-    );
+    List<ScheduleObject> list = [];
+    mapGrab.forEach((k, v) => list.add(ScheduleObject(k, v)));
+    return list;
   }
 }
 
+class HorizontalGameCards extends StatelessWidget {
+  final GameCardFeed gameCard;
+  final double numCards;
+  final int sportID;
 
+  const HorizontalGameCards({
+    Key key,
+    @required this.gameCard,
+    this.numCards = 8,
+    this.sportID,
+  }) : super(key: key);
+
+  double heightIn(BuildContext context) {
+    return MediaQuery.of(context).size.height / numCards;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var card = gameCard.getGames(sportID);
+    var events = [];
+      return SizedBox(
+        height: heightIn(context),//heightIn(context),
+        child: FutureBuilder(
+          future: card,
+          // ignore: missing_return
+          builder: (ctx, snapshot) {
+            print(snapshot);
+            if (!snapshot.hasData) {
+              return Center(child: CircularProgressIndicator());
+            } else {
+              events = snapshot.data;
+
+              return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: events.length,
+                itemBuilder: (context, index) {
+                  return GameCard(
+                    gameCard: events[index].sportSched[0],
+                  );
+                },
+              );
+            }
+          },
+        ),
+      );
+    }
+  }
+
+class ScheduleObject {
+  DateTime d;
+  List<sport_schedule> sportSched;
+  ScheduleObject(this.d, this.sportSched);
+}
+
+
+
+
+
+
+class GameCardTest extends StatelessWidget{
+  final int sportID;
+  GameCardTest(this.sportID);
+
+  @override
+  Widget build(BuildContext context) {
+    final feed = GameCardFeed();
+    return StatefulBuilder(
+        builder: (context, StateSetter setState) => Scaffold(
+            appBar: AppBar(
+              centerTitle: false,
+              title: Text("49ers"),
+              backgroundColor: Colors.green,
+            ),
+            body: HorizontalGameCards(gameCard: feed, sportID: sportID,),
+            drawer: Drawer(
+              child: ListView(
+                children: <Widget>[
+                  DrawerHeader(
+                    child: Text(
+                      'Drawer Header',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                    ),
+                  ),
+                  ListTile(
+                    title: IconButton(
+                      icon: Icon(Icons.home),
+                      onPressed: () => Navigator.pushNamed(context, '/'),
+                    ),
+                  ),
+                ],
+              ),
+            )
+        ));
+  }
+}
