@@ -5,12 +5,12 @@ import '../models/game_cards.dart';
 class Sport extends StatelessWidget {
   static final List<Item> colorList = <Item>[
     const Item('Football', Colors.green,[3]),
-    const Item("Basketball", Colors.red,[5,13]),
-    const Item("Soccer", Colors.pinkAccent,[9,17]),
-    const Item('Baseball', Colors.orange,[1]),
-    const Item('Softball', Colors.yellow,[12]),
-    const Item('Volleyball', Colors.blue,[20]),
-    const Item('Tennis', Colors.yellowAccent,[10,18]),
+    const Item("Basketball", Colors.green,[5,13]),
+    const Item("Soccer", Colors.green,[9,17]),
+    const Item('Baseball', Colors.green,[1]),
+    const Item('Softball', Colors.green,[12]),
+    const Item('Volleyball', Colors.green,[20]),
+    const Item('Tennis', Colors.green,[10,18]),
   ];
 
   final feed = Feed(); // was var not final
