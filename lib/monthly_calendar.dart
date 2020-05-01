@@ -13,8 +13,7 @@ class Calendar extends StatefulWidget {
   _Calendar createState() => _Calendar(sportID);
 }
 
-//List<sport_schedule> _selectedEvents; //original that makes events work
-List _selectedEvents; //Removing the <sport_schedule> allows it to still work. Proceed with caution
+List _selectedEvents;
 DateTime selectedDay;
 Map<DateTime, List<sport_schedule>> _events;
 
@@ -36,7 +35,6 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
     Iterable games = json.decode(response.body);
 
     return games.map<sport_schedule>((json) => sport_schedule.fromJson(json)).toList();
-    //return games.map((e) => sport_schedule.fromJson(e)).toList();
   }
 
   Future<Map<DateTime, List<sport_schedule>>> getGames() async {
@@ -63,9 +61,6 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    //final _selectedDay = DateTime.now();
-
-    //_selectedEvents = _events[_selectedDay] ?? [];
     _selectedEvents = [];
     _calController = CalendarController();
 
@@ -92,8 +87,7 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  //void _DaySelected(DateTime day, List<sport_schedule> events) { //original that makes events work
-  void _DaySelected(DateTime day, List events) { //Removing the <sport_schedule> allows it to still work. Proceed with caution
+  void _DaySelected(DateTime day, List events) {
     setState(() {
       _selectedEvents = events;
       selectedDay = DateTime(day.year, day.month, day.day);
@@ -128,7 +122,6 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
       calendarController: _calController,
       initialCalendarFormat: CalendarFormat.month,
       startingDayOfWeek: StartingDayOfWeek.sunday,
-      //availableGestures: AvailableGestures.all,
       events: _events,
 
       availableCalendarFormats: const {
@@ -240,8 +233,6 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
   Widget _buildEventsMarker(DateTime date, String gameType, bool main, events) {
     String eventNum;
     if (main) {eventNum = "${date.day}";} else {eventNum = "${events.length}";}
-
-    //return Container(
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
 
@@ -249,10 +240,6 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
       alignment: Alignment.center,
 
       decoration: BoxDecoration(
-          /*border: Border.all(
-            color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
-            //color: Colors.black,
-          ),*/
           color: _calController.isSelected(date)
               ? Color.fromRGBO(179, 163, 105, 1) //UNCC Gold
               : _gameTypeColor(gameType, main), //UNCC Green
@@ -344,8 +331,6 @@ class _Calendar extends State<Calendar> with TickerProviderStateMixin {
           ),
 
           trailing: Wrap(
-            //mainAxisSize: MainAxisSize.min,
-
             children: <Widget>[
               //---Score---
               //Game hasn't occured

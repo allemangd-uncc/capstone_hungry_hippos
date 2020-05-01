@@ -48,7 +48,7 @@ class Sport extends StatelessWidget {
           title: buildDropdownButton(selectedSport, setState),
           backgroundColor: _curSport.color,
 
-            //--Gender Switch--  Need to make condition to determine gender
+            //--Gender Switch--
             actions: <Widget>[
               if (genderSportSwitch)
                 Switch(

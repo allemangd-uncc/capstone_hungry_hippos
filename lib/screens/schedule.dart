@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../monthly_calendar.dart';
-import '../screens/sport.dart' as globals;
+
 class Schedule extends StatelessWidget{
 
   final List sport;
