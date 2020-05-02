@@ -149,7 +149,7 @@ class GameCard extends StatelessWidget {
   Widget buildCard(BuildContext ctx, double logoWidth, Map<int, String> _months) {
 
       return Container(
-        color: Colors.green,
+        color: Colors.black12,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           mainAxisSize: MainAxisSize.min,
@@ -161,19 +161,35 @@ class GameCard extends StatelessWidget {
                     true, ctx),
             ),
             Container(
-              child: Wrap(
-              children: <Widget>[
-                if (gameCard.status == null) // no game yet
-                  Text(
-                      '${_months[gameCard.date.month]} ${gameCard.date.day}'
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Wrap(
+                    children: <Widget>[
+                      if (gameCard.status == null) // no game yet
+                        Text(
+                            '${_months[gameCard.date.month]} ${gameCard.date.day}'
+                        )
+                      else
+                        _pastGameScore(
+                          gameCard.location_indicator,
+                          gameCard.status,
+                          gameCard.team_score,
+                          gameCard.opponent_score,),
+                    ],
+                  ),
+                  Wrap(
+                    children: <Widget>[
+                      if (gameCard.status != null) // no game yet
+                        Text(
+                            '${_months[gameCard.date.month]} ${gameCard.date.day}', textAlign: TextAlign.center,
+                        )
+                      else
+                        Text('${gameCard.date.hour}:${gameCard.date.minute} PM'),
+                    ],
                   )
-                else
-                  _pastGameScore(
-                      gameCard.location_indicator,
-                      gameCard.status,
-                      gameCard.team_score,
-                      gameCard.opponent_score,),
-                ],
+
+                ]
               )
             ),
             Expanded(
