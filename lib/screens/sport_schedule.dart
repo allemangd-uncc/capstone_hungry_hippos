@@ -180,12 +180,15 @@ class GameCard extends StatelessWidget {
                     gameCard.location_indicator,
                     gameCard.image,
                     false, ctx)),
-            onTap: () => print('${gameCard.date} ${gameCard.status}'),
+            onTap: () {
+              print(gameCard.idSport);
+
+              Navigator.pushNamed(ctx, '/Details', arguments: gameCard);
+            },
           ),
         ),
       ],
     );
-
 
     return SizedBox(
       width: widthIn(ctx),
