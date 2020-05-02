@@ -152,7 +152,7 @@ class GameCard extends StatelessWidget {
             color: Colors.black12,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.min,
+              //mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Expanded(
                     child: _homeAwayImageOrder(

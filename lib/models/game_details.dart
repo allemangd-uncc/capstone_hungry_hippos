@@ -14,13 +14,12 @@ class GameDetailsWidget extends StatelessWidget {
       appBar: AppBar(
         title: Text("VS. ${gameCard.opponentTitle}"),
       ),
-      body: ListView(
-        physics: const NeverScrollableScrollPhysics(),
+      body: Column(
         children: <Widget>[
           GameDetailsHeader(gameCard),
           EasyAccess(),
         ],
-      ),
+      )
     );
   }
 } //Move to Kalebs ^^^^
@@ -139,7 +138,7 @@ class EasyAccess extends StatelessWidget {
     return SizedBox(
       height: size.height / 15,
       child: Container(
-        color: Colors.black12,
+        //color: Colors.black12,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -155,30 +154,19 @@ class EasyAccess extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     label = (label == "Standings") ? "Standing" : label;
     print(label);
-    var decoration = BoxDecoration(
-      border: Border.all(
-        color: Color.fromRGBO(0, 112, 60, 1), //UNCC Green
-      ),
-      borderRadius: BorderRadius.circular(5)
-    );
-    return Container(
-      child: GestureDetector(
-        onTap: () => print("clicked"),
-        //Navigator.pushNamed(context, "/$label"),
-        child: Card(
-          child: SizedBox(
-            width: size.width / 2.5,
-            child: Container(
-                decoration: decoration,
-                child:Container(
-                color: Colors.black12,
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Text(label),
-                ))),
+    return InkWell(
+          splashColor: Colors.green,
+          child: Container(
+            width: size.width/2,
+            height: size.height / 15,
+            color: label == 'Play-by-Play' ? Colors.green : Colors.black12,
+            child: Center(
+              child: Text(label, style: TextStyle(fontSize: 16),),
+            ),
           ),
-        ),
-      ),
+          onTap: () => {
+            print("Tapped $label")
+          },
     );
   }
 }
