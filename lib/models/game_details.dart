@@ -34,10 +34,11 @@ class GameDetailsHeader extends StatelessWidget {
 
   Text _pastGameScore(
       String homeAway, String winLoss, String uncc, String opponent) {
+    double fontsize = 25;
     if (homeAway == "H" || homeAway == "T") {
-      return (Text('$uncc - $opponent'));
+      return (Text('$uncc - $opponent',style: TextStyle(fontSize: fontsize)));
     } else {
-      return (Text('$opponent - $uncc'));
+      return (Text('$opponent - $uncc',style: TextStyle(fontSize: fontsize)));
     }
   }
 
@@ -75,49 +76,57 @@ class GameDetailsHeader extends StatelessWidget {
       height: size.height / 7,
       child: Container(
           color: Colors.black26,
-          width: size.width,
-          child: Center(
-            child: ListTile(
-              leading: SizedBox(
-                  width: size.width / 3,
-                  child: _homeAwayImageOrder(gameCard.location_indicator,
-                      gameCard.image, true, context)),
-              title: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Wrap(
+          child:  Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Expanded(
+                child: _homeAwayImageOrder(
+                    gameCard.location_indicator,
+                    gameCard.image,
+                    true, context),
+              ),
+              Container(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      if (gameCard.status == null) // no game yet
-                        Text(
-                            '${_months[gameCard.date.month]} ${gameCard.date.day}')
-                      else
-                        _pastGameScore(
-                          gameCard.location_indicator,
-                          gameCard.status,
-                          gameCard.team_score,
-                          gameCard.opponent_score,
-                        ),
-                    ],
-                  )),
-              subtitle: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Wrap(
-                    children: <Widget>[
-                      if (gameCard.status != null) // no game yet
-                        Text(
-                          '${_months[gameCard.date.month]} ${gameCard.date.day}',
-                          textAlign: TextAlign.center,
-                        )
-                      else
-                        Text(
-                            '${gameCard.date.hour}:${gameCard.date.minute} PM'),
-                    ],
-                  )),
-              trailing: SizedBox(
-                  width: size.width / 3,
-                  child: _homeAwayImageOrder(gameCard.location_indicator,
-                      gameCard.image, false, context)),
-            ),
-          )),
+                      Wrap(
+                        children: <Widget>[
+                          if (gameCard.status == null) // no game yet
+                            Text(
+                                '${_months[gameCard.date.month]} ${gameCard.date.day}',
+                              style: TextStyle(fontSize: 25),
+                            )
+                          else
+                            _pastGameScore(
+                              gameCard.location_indicator,
+                              gameCard.status,
+                              gameCard.team_score,
+                              gameCard.opponent_score,),
+                        ],
+                      ),
+                      Wrap(
+                        children: <Widget>[
+                          if (gameCard.status != null) // no game yet
+                            Text(
+                              '${_months[gameCard.date.month]} ${gameCard.date.day}', textAlign: TextAlign.center,
+                            )
+                          else
+                            Text('${gameCard.date.hour}:${gameCard.date.minute} PM'),
+                        ],
+                      )
+                    ]
+                ),
+              ),
+              Expanded(
+                child: _homeAwayImageOrder(
+                    gameCard.location_indicator,
+                    gameCard.image,
+                    false, context),
+              )
+            ],
+          ),
+      )
     );
   }
 }
