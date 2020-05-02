@@ -132,7 +132,6 @@ class GameCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(2),
     );
     var logoWidth = 4.5;
-    var body = buildCard(ctx, logoWidth, _months);
     return SizedBox(
       width: widthIn(ctx),
       child: Card(
@@ -140,7 +139,7 @@ class GameCard extends StatelessWidget {
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Container(
           decoration: decoration,
-          child: body,
+          child: buildCard(ctx, logoWidth, _months),
         ),
       ),
     );
@@ -148,58 +147,60 @@ class GameCard extends StatelessWidget {
 
   Widget buildCard(BuildContext ctx, double logoWidth, Map<int, String> _months) {
 
-      return Container(
-        color: Colors.black12,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Expanded(
-                child: _homeAwayImageOrder(
-                    gameCard.location_indicator,
-                    gameCard.image,
-                    true, ctx),
-            ),
-            Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Wrap(
+      return GestureDetector(
+          child: Container(
+            color: Colors.black12,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Expanded(
+                    child: _homeAwayImageOrder(
+                        gameCard.location_indicator,
+                        gameCard.image,
+                        true, ctx),
+                ),
+                Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      if (gameCard.status == null) // no game yet
-                        Text(
-                            '${_months[gameCard.date.month]} ${gameCard.date.day}'
-                        )
-                      else
-                        _pastGameScore(
-                          gameCard.location_indicator,
-                          gameCard.status,
-                          gameCard.team_score,
-                          gameCard.opponent_score,),
-                    ],
+                      Wrap(
+                        children: <Widget>[
+                          if (gameCard.status == null) // no game yet
+                            Text(
+                                '${_months[gameCard.date.month]} ${gameCard.date.day}'
+                            )
+                          else
+                            _pastGameScore(
+                              gameCard.location_indicator,
+                              gameCard.status,
+                              gameCard.team_score,
+                              gameCard.opponent_score,),
+                        ],
+                      ),
+                      Wrap(
+                        children: <Widget>[
+                          if (gameCard.status != null) // no game yet
+                            Text(
+                                '${_months[gameCard.date.month]} ${gameCard.date.day}', textAlign: TextAlign.center,
+                            )
+                          else
+                            Text('${gameCard.date.hour}:${gameCard.date.minute} PM'),
+                        ],
+                      )
+                    ]
                   ),
-                  Wrap(
-                    children: <Widget>[
-                      if (gameCard.status != null) // no game yet
-                        Text(
-                            '${_months[gameCard.date.month]} ${gameCard.date.day}', textAlign: TextAlign.center,
-                        )
-                      else
-                        Text('${gameCard.date.hour}:${gameCard.date.minute} PM'),
-                    ],
-                  )
-
-                ]
-              )
+                ),
+                Expanded(
+                  child: _homeAwayImageOrder(
+                      gameCard.location_indicator,
+                      gameCard.image,
+                      false, ctx),
+                )
+              ],
             ),
-            Expanded(
-              child: _homeAwayImageOrder(
-                  gameCard.location_indicator,
-                  gameCard.image,
-                  false, ctx),
-            )
-          ],
-        ),
+          ),
+        onTap: () => Navigator.pushNamed(ctx, '/Details', arguments: gameCard),
       );
   }
 }
