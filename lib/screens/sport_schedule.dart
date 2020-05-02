@@ -97,7 +97,7 @@ class GameCard extends StatelessWidget {
       ));
     }
   }
-  
+
   Color winLoss(String wl){
     if (wl == "W") {
       return Colors.green;
@@ -132,64 +132,7 @@ class GameCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(2),
     );
     var logoWidth = 4.5;
-    var body = Column(
-      verticalDirection: VerticalDirection.up,
-      children: <Widget>[
-        Container(
-          color: Colors.white,
-          child: ListTile(
-            leading: SizedBox(
-                width: widthIn(ctx)/logoWidth,
-                child: _homeAwayImageOrder(
-                gameCard.location_indicator,
-                gameCard.image,
-                true, ctx)),
-            title: FittedBox(
-                fit: BoxFit.contain,
-              child: Wrap(
-                children: <Widget>[
-                  if (gameCard.status == null) // no game yet
-                    Text(
-                        '${_months[gameCard.date.month]} ${gameCard.date.day}'
-                    )
-                  else
-                    _pastGameScore(
-                        gameCard.location_indicator,
-                        gameCard.status,
-                        gameCard.team_score,
-                        gameCard.opponent_score,),
-                  ],
-                )
-            ),
-            subtitle: FittedBox(
-                fit: BoxFit.contain,
-                child: Wrap(
-                  children: <Widget>[
-                    if (gameCard.status != null) // no game yet
-                      Text(
-                          '${_months[gameCard.date.month]} ${gameCard.date.day}', textAlign: TextAlign.center,
-                      )
-                    else
-                      Text('${gameCard.date.hour}:${gameCard.date.minute} PM'),
-                  ],
-                )
-            ),
-            trailing: SizedBox(
-                width: widthIn(ctx)/logoWidth,
-                child: _homeAwayImageOrder(
-                    gameCard.location_indicator,
-                    gameCard.image,
-                    false, ctx)),
-            onTap: () {
-              print(gameCard.idSport);
-
-              Navigator.pushNamed(ctx, '/Details', arguments: gameCard);
-            },
-          ),
-        ),
-      ],
-    );
-
+    var body = buildCard(ctx, logoWidth, _months);
     return SizedBox(
       width: widthIn(ctx),
       child: Card(
@@ -201,5 +144,103 @@ class GameCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget buildCard(BuildContext ctx, double logoWidth, Map<int, String> _months) {
+
+      return Container(
+        color: Colors.green,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Expanded(
+                child: _homeAwayImageOrder(
+                    gameCard.location_indicator,
+                    gameCard.image,
+                    true, ctx),
+            ),
+            Container(
+              child: Wrap(
+              children: <Widget>[
+                if (gameCard.status == null) // no game yet
+                  Text(
+                      '${_months[gameCard.date.month]} ${gameCard.date.day}'
+                  )
+                else
+                  _pastGameScore(
+                      gameCard.location_indicator,
+                      gameCard.status,
+                      gameCard.team_score,
+                      gameCard.opponent_score,),
+                ],
+              )
+            ),
+            Expanded(
+              child: _homeAwayImageOrder(
+                  gameCard.location_indicator,
+                  gameCard.image,
+                  false, ctx),
+            )
+          ],
+        ),
+      );
+//    return Column(
+//    verticalDirection: VerticalDirection.up,
+//    children: <Widget>[
+//      Container(
+//        color: Colors.white,
+//        child: ListTile(
+//          leading: SizedBox(
+//              width: widthIn(ctx)/logoWidth,
+//              child: _homeAwayImageOrder(
+//              gameCard.location_indicator,
+//              gameCard.image,
+//              true, ctx)),
+//          title: FittedBox(
+//              fit: BoxFit.contain,
+//            child: Wrap(
+//              children: <Widget>[
+//                if (gameCard.status == null) // no game yet
+//                  Text(
+//                      '${_months[gameCard.date.month]} ${gameCard.date.day}'
+//                  )
+//                else
+//                  _pastGameScore(
+//                      gameCard.location_indicator,
+//                      gameCard.status,
+//                      gameCard.team_score,
+//                      gameCard.opponent_score,),
+//                ],
+//              )
+//          ),
+//          subtitle: FittedBox(
+//              fit: BoxFit.contain,
+//              child: Wrap(
+//                children: <Widget>[
+//                  if (gameCard.status != null) // no game yet
+//                    Text(
+//                        '${_months[gameCard.date.month]} ${gameCard.date.day}', textAlign: TextAlign.center,
+//                    )
+//                  else
+//                    Text('${gameCard.date.hour}:${gameCard.date.minute} PM'),
+//                ],
+//              )
+//          ),
+//          trailing: SizedBox(
+//              width: widthIn(ctx)/logoWidth,
+//              child: _homeAwayImageOrder(
+//                  gameCard.location_indicator,
+//                  gameCard.image,
+//                  false, ctx)),
+//          onTap: () {
+//            print(gameCard.idSport);
+//
+//            Navigator.pushNamed(ctx, '/Details', arguments: gameCard);
+//          },
+//        ),
+//      ),
+//    ],
+//  );
   }
 }
