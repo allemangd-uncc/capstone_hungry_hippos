@@ -8,7 +8,6 @@ import 'screens/sport.dart';
 import 'screens/twitter_widget.dart';
 import 'screens/favorites_reorder.dart';
 
-
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings
@@ -36,7 +35,6 @@ class RouteGenerator {
         return _errorRoute();
     }
   }
-
   static Route _errorRoute() {
     return MaterialPageRoute(builder: (_) {
       return Scaffold(
@@ -61,4 +59,5 @@ class RouteGenerator {
       );
     });
   }
+
 }
