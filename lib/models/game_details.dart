@@ -173,7 +173,7 @@ class EasyAccess extends StatelessWidget {
           onTap: () => {
             print("Tapped $label"),
             if(label == 'Chat'){
-              Navigator.pushNamed(context, '/Chat', arguments: gameCard.sportTitle)
+              Navigator.pushNamed(context, '/Chat', arguments: [gameCard.sportTitle, gameCard.idSport])
             }
           },
     );

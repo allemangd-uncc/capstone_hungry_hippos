@@ -105,7 +105,7 @@ class Sport extends StatelessWidget {
               ListTile(
                 title: IconButton(
                   icon: Icon(Icons.message),
-                  onPressed: () => Navigator.pushNamed(context, '/Chat',arguments: _curSport.name),
+                  onPressed: () => Navigator.pushNamed(context, '/Chat',arguments: [sport_ID, _curSport.name]),
                 ),
               )
             ],
