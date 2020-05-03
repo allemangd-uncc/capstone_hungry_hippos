@@ -18,7 +18,16 @@ class TwitterFeed extends StatelessWidget{
             body: Container(
               color: Colors.black12,
               child:
-              VerticalTwitterFeed(),
+              FutureBuilder(
+                future: _buildTwitter(),
+                builder: (ctx, snapshot){
+                  if(!snapshot.hasData){
+                    return Center(child: CircularProgressIndicator());
+                  }else{
+                    return snapshot.data;
+                  }
+                },
+              ),
             ),
             drawer: Drawer(
               child: ListView(
@@ -48,3 +57,7 @@ class TwitterFeed extends StatelessWidget{
   }
 }
 
+Future<VerticalTwitterFeed> _buildTwitter() async {
+  final feed = TwitterFeedCreation();
+  return VerticalTwitterFeed(twitterFeed: feed);
+}
