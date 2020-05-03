@@ -42,12 +42,6 @@ class _HomeState extends State<Home> {
                 color: Colors.green,
               ),
             ),
-            ListTile(
-              title: IconButton(
-                icon: Icon(Icons.message),
-                onPressed: () => Navigator.pushNamed(context, '/Chat'),
-              ),
-            ),
            ListTile(
               title: IconButton(
                 icon: Icon(Icons.voice_chat),
