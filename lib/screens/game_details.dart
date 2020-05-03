@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
 
 class Details extends StatelessWidget {
 
@@ -11,13 +10,8 @@ class Details extends StatelessWidget {
     const Item('Baseball', Colors.orange),
   ];
 
-  Item _curSport = colorList[0];
-
-
-
   @override
   Widget build(BuildContext context) {
-    Item selectedSport;
 
     return StatefulBuilder(
       builder: (context, StateSetter setState) => Scaffold(
@@ -264,7 +258,6 @@ class Play {
 }
 
 class GameUpdates extends StatelessWidget{
-  List<Play> myList = [];
   final test1 = new Play('1st and 10 at CLT 25', '(6:12 - 4th) Aidan Swanson kickoff for 65 yds for a touchback');
   final test2 = new Play('2nd & 10 at CLT 25', '(5:00 - 4th) Ishod Finger run for no gain to the Charl 25');
   final test3 = new Play('3rd & 10 at CLT 25', '(4:30 - 4th) CHARLOTTE Penalty, False Start (-5 Yards) to the Charl 20');
@@ -283,7 +276,7 @@ class GameUpdates extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
-    var myStream = Stream<int>.periodic(Duration(seconds:5), (x) => x).take(15);
+    List<Play> myList = [];
     myList.add(test1);
     myList.add(test2);
     myList.add(test3);
