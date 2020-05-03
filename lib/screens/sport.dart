@@ -102,6 +102,12 @@ class Sport extends StatelessWidget {
                   onPressed: () => Navigator.pushNamed(context, '/Schedule',arguments: [sport_ID, _curSport.name],),
                 ),
               ),
+              ListTile(
+                title: IconButton(
+                  icon: Icon(Icons.message),
+                  onPressed: () => Navigator.pushNamed(context, '/Chat',arguments: _curSport.name),
+                ),
+              )
             ],
           ),
         ),

@@ -17,7 +17,7 @@ class GameDetailsWidget extends StatelessWidget {
       body: Column(
         children: <Widget>[
           GameDetailsHeader(gameCard),
-          EasyAccess(),
+          EasyAccess(gameCard),
         ],
       )
     );
@@ -131,6 +131,12 @@ class GameDetailsHeader extends StatelessWidget {
 }
 
 class EasyAccess extends StatelessWidget {
+  final sport_schedule gameCard;
+
+  const EasyAccess(
+      this.gameCard,
+      );
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -165,7 +171,10 @@ class EasyAccess extends StatelessWidget {
             ),
           ),
           onTap: () => {
-            print("Tapped $label")
+            print("Tapped $label"),
+            if(label == 'Chat'){
+              Navigator.pushNamed(context, '/Chat', arguments: gameCard.sportTitle)
+            }
           },
     );
   }

@@ -25,7 +25,7 @@ class RouteGenerator {
       case '/Standing':
         return MaterialPageRoute(builder: (_) => Standing(args));
       case '/Chat':
-        return MaterialPageRoute(builder: (_) => Chat());
+        return MaterialPageRoute(builder: (_) => Chat(args));
       case '/Details':
         return MaterialPageRoute(builder: (_) => GameDetailsWidget(args));
       case '/Favorites':

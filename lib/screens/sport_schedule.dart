@@ -147,12 +147,12 @@ class GameCard extends StatelessWidget {
 
   Widget buildCard(BuildContext ctx, double logoWidth, Map<int, String> _months) {
 
-      return GestureDetector(
+      return InkWell(
+          splashColor: Colors.green,
           child: Container(
             color: Colors.black12,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Expanded(
                     child: _homeAwayImageOrder(
