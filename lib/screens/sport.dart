@@ -68,13 +68,7 @@ class Sport extends StatelessWidget {
                 ),
             ]
         ),
-        body: ListView(
-          physics: const NeverScrollableScrollPhysics(),
-          children: <Widget>[
-            HorizontalGameCards(gameCard: gameCard, sportID: sport_ID,),
-            VerticalNewsFeed(newsFeed: feed, sportFilter: _curSport.name),
-          ],
-        ),
+        body: bodyBuilder(),
         drawer: Drawer(
           child: ListView(
             children: <Widget>[
@@ -108,10 +102,28 @@ class Sport extends StatelessWidget {
                   onPressed: () => Navigator.pushNamed(context, '/Schedule',arguments: [sport_ID, _curSport.name],),
                 ),
               ),
+              ListTile(
+                title: IconButton(
+                  icon: Icon(Icons.message),
+                  onPressed: () => Navigator.pushNamed(context, '/Chat',arguments: [sport_ID, _curSport.name]),
+                ),
+              )
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget bodyBuilder() {
+    return Column(
+      children: <Widget>[
+        HorizontalGameCards(gameCard: gameCard, sportID: sport_ID,),
+        Expanded(
+          child: VerticalNewsFeed(newsFeed: feed, sportFilter: _curSport.name),
+        ),
+
+      ],
     );
   }
 

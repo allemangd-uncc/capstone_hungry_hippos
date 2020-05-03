@@ -1,12 +1,12 @@
-import 'package:capstone_hungry_hippos/screens/chat.dart';
-import 'package:capstone_hungry_hippos/screens/schedule.dart';
-import 'package:capstone_hungry_hippos/screens/standing.dart';
+import 'models/game_details.dart';
+import 'screens/chat.dart';
+import 'screens/schedule.dart';
+import 'screens/standing.dart';
 import 'package:flutter/material.dart';
-import 'package:capstone_hungry_hippos/screens/home_widget.dart';
-import 'package:capstone_hungry_hippos/screens/sport.dart';
-import 'package:capstone_hungry_hippos/screens/twitter_widget.dart';
-import 'package:capstone_hungry_hippos/screens/favorites_reorder.dart';
-import 'package:capstone_hungry_hippos/screens/game_details.dart';
+import 'screens/home_widget.dart';
+import 'screens/sport.dart';
+import 'screens/twitter_widget.dart';
+import 'screens/favorites_reorder.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -24,9 +24,9 @@ class RouteGenerator {
       case '/Standing':
         return MaterialPageRoute(builder: (_) => Standing(args));
       case '/Chat':
-        return MaterialPageRoute(builder: (_) => Chat());
+        return MaterialPageRoute(builder: (_) => Chat(args));
       case '/Details':
-        return MaterialPageRoute(builder: (_) => Details());
+        return MaterialPageRoute(builder: (_) => GameDetailsWidget(args));
       case '/Favorites':
         return MaterialPageRoute(builder: (_) => FavoritesManager());
       case '/Twitter':
@@ -35,7 +35,6 @@ class RouteGenerator {
         return _errorRoute();
     }
   }
-
   static Route _errorRoute() {
     return MaterialPageRoute(builder: (_) {
       return Scaffold(
@@ -60,4 +59,5 @@ class RouteGenerator {
       );
     });
   }
+
 }

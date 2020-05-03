@@ -128,26 +128,32 @@ class Details extends StatelessWidget {
                     child: Row(
                       children: <Widget>[
                         Container(
-                          child: Card(
-                            child: SizedBox(
-                              width: 90,
-                              height: 30,
-                              child: Center(
-                                child: Text('Standings',
-                                  style: TextStyle(fontSize: 16),
+                          child: GestureDetector(
+                            onTap: () => Navigator.pushNamed(context, '/Standing'),
+                            child: Card(
+                              child: SizedBox(
+                                width: 90,
+                                height: 30,
+                                child: Center(
+                                  child: Text('Standings',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
                         Container(
-                          child: Card(
-                            child: SizedBox(
-                              width: 90,
-                              height: 30,
-                              child: Center(
-                                child: Text('Schedule',
-                                  style: TextStyle(fontSize: 16),
+                          child: GestureDetector(
+                            onTap: () => Navigator.pushNamed(context, '/Schedule'),
+                            child: Card(
+                              child: SizedBox(
+                                width: 90,
+                                height: 30,
+                                child: Center(
+                                  child: Text('Schedule',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
                                 ),
                               ),
                             ),
@@ -171,13 +177,16 @@ class Details extends StatelessWidget {
                         ),
                         Container(
                           color: Colors.black12,
-                          child: Card(
-                            child: SizedBox(
-                              width: 50,
-                              height: 30,
-                              child: Center(
-                                child: Text('Chat',
-                                  style: TextStyle(fontSize: 16),
+                          child: GestureDetector(
+                            onTap: () => Navigator.pushNamed(context, '/Chat'),
+                            child: Card(
+                              child: SizedBox(
+                                width: 50,
+                                height: 30,
+                                child: Center(
+                                  child: Text('Chat',
+                                    style: TextStyle(fontSize: 16),
+                                  ),
                                 ),
                               ),
                             ),

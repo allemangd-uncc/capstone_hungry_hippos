@@ -97,7 +97,7 @@ class GameCard extends StatelessWidget {
       ));
     }
   }
-  
+
   Color winLoss(String wl){
     if (wl == "W") {
       return Colors.green;
@@ -132,61 +132,6 @@ class GameCard extends StatelessWidget {
       borderRadius: BorderRadius.circular(2),
     );
     var logoWidth = 4.5;
-    var body = Column(
-      verticalDirection: VerticalDirection.up,
-      children: <Widget>[
-        Container(
-          color: Colors.white,
-          child: ListTile(
-            leading: SizedBox(
-                width: widthIn(ctx)/logoWidth,
-                child: _homeAwayImageOrder(
-                gameCard.location_indicator,
-                gameCard.image,
-                true, ctx)),
-            title: FittedBox(
-                fit: BoxFit.contain,
-              child: Wrap(
-                children: <Widget>[
-                  if (gameCard.status == null) // no game yet
-                    Text(
-                        '${_months[gameCard.date.month]} ${gameCard.date.day}'
-                    )
-                  else
-                    _pastGameScore(
-                        gameCard.location_indicator,
-                        gameCard.status,
-                        gameCard.team_score,
-                        gameCard.opponent_score,),
-                  ],
-                )
-            ),
-            subtitle: FittedBox(
-                fit: BoxFit.contain,
-                child: Wrap(
-                  children: <Widget>[
-                    if (gameCard.status != null) // no game yet
-                      Text(
-                          '${_months[gameCard.date.month]} ${gameCard.date.day}', textAlign: TextAlign.center,
-                      )
-                    else
-                      Text('${gameCard.date.hour}:${gameCard.date.minute} PM'),
-                  ],
-                )
-            ),
-            trailing: SizedBox(
-                width: widthIn(ctx)/logoWidth,
-                child: _homeAwayImageOrder(
-                    gameCard.location_indicator,
-                    gameCard.image,
-                    false, ctx)),
-            onTap: () => print('${gameCard.date} ${gameCard.status}'),
-          ),
-        ),
-      ],
-    );
-
-
     return SizedBox(
       width: widthIn(ctx),
       child: Card(
@@ -194,9 +139,68 @@ class GameCard extends StatelessWidget {
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Container(
           decoration: decoration,
-          child: body,
+          child: buildCard(ctx, logoWidth, _months),
         ),
       ),
     );
+  }
+
+  Widget buildCard(BuildContext ctx, double logoWidth, Map<int, String> _months) {
+
+      return InkWell(
+          splashColor: Colors.green,
+          child: Container(
+            color: Colors.black12,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Expanded(
+                    child: _homeAwayImageOrder(
+                        gameCard.location_indicator,
+                        gameCard.image,
+                        true, ctx),
+                ),
+                Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Wrap(
+                        children: <Widget>[
+                          if (gameCard.status == null) // no game yet
+                            Text(
+                                '${_months[gameCard.date.month]} ${gameCard.date.day}'
+                            )
+                          else
+                            _pastGameScore(
+                              gameCard.location_indicator,
+                              gameCard.status,
+                              gameCard.team_score,
+                              gameCard.opponent_score,),
+                        ],
+                      ),
+                      Wrap(
+                        children: <Widget>[
+                          if (gameCard.status != null) // no game yet
+                            Text(
+                                '${_months[gameCard.date.month]} ${gameCard.date.day}', textAlign: TextAlign.center,
+                            )
+                          else
+                            Text('${gameCard.date.hour}:${gameCard.date.minute} PM'),
+                        ],
+                      )
+                    ]
+                  ),
+                ),
+                Expanded(
+                  child: _homeAwayImageOrder(
+                      gameCard.location_indicator,
+                      gameCard.image,
+                      false, ctx),
+                )
+              ],
+            ),
+          ),
+        onTap: () => Navigator.pushNamed(ctx, '/Details', arguments: gameCard),
+      );
   }
 }
